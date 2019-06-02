@@ -8,6 +8,7 @@
 
 import React, { Component } from "react";
 import { Button, Platform, StyleSheet, Text, View } from "react-native";
+import ProductRow from "./components/ProductRow";
 
 const instructions = Platform.select({
   ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
@@ -17,8 +18,9 @@ const instructions = Platform.select({
 });
 
 type Props = {};
-export default class App extends Component<Props> {
-  this.state = {
+type States = { counter: number };
+export default class App extends Component<Props, States> {
+  state = {
     counter: 0
   };
 
@@ -31,6 +33,8 @@ export default class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
+        <ProductRow />
+        <ProductRow />
         <Text style={styles.welcome}>Welcome to React Native!</Text>
         <Text style={styles.instructions}>To get started, edit App.js</Text>
         <Text style={styles.instructions}>{instructions}</Text>
@@ -45,9 +49,9 @@ export default class App extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: "stretch",
     justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#1E90FF"
+    backgroundColor: "#FFF"
   },
   welcome: {
     fontSize: 20,
