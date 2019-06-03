@@ -9,6 +9,7 @@
 import React, { Component } from "react";
 import { Button, Platform, StyleSheet, Text, View } from "react-native";
 import Comment from "./components/Comment";
+import CommentInput from "./components/CommentInput";
 import ProductRow from "./components/ProductRow";
 
 const instructions = Platform.select({
@@ -19,30 +20,14 @@ const instructions = Platform.select({
 });
 
 type Props = {};
-type States = { counter: number };
+type States = {};
 export default class App extends Component<Props, States> {
-  state = {
-    counter: 0
-  };
-
-  addOne() {
-    this.setState(prevState => ({
-      counter: prevState.counter + 1
-    }));
-  }
-
   render() {
     return (
       <View style={styles.container}>
         <Comment />
-        <Comment />
+        <CommentInput />
         <ProductRow />
-        <ProductRow />
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-        <Text style={styles.instructions}>{this.state.counter}</Text>
-        <Button title="Increment" onPress={() => this.addOne()} />
       </View>
     );
   }

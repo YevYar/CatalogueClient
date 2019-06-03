@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
    ******************/
   brief: {
     color: "black",
-    fontSize: 15
+    fontSize: 16
   },
   image: {
     flex: 1

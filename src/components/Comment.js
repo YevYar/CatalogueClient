@@ -41,19 +41,12 @@ const styles = StyleSheet.create({
     padding: 5
   },
   text: {
-    //borderColor: "green",
-    //borderWidth: 2,
-
     color: "black",
-    //flexDirection: "column",
     fontSize: 16,
     marginTop: 7,
     textAlign: "justify"
   },
   title: {
-    //borderColor: "red",
-    //borderWidth: 2,
-
     alignItems: "flex-start",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -72,7 +65,7 @@ const styles = StyleSheet.create({
   time: {
     color: "black",
     flex: 1,
-    fontSize: 14,
+    fontSize: 15,
     fontStyle: "italic",
     textAlign: "right"
   }
