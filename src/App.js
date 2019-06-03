@@ -8,6 +8,7 @@
 
 import React, { Component } from "react";
 import { Button, Platform, StyleSheet, Text, View } from "react-native";
+import Comment from "./components/Comment";
 import ProductRow from "./components/ProductRow";
 
 const instructions = Platform.select({
@@ -33,6 +34,8 @@ export default class App extends Component<Props, States> {
   render() {
     return (
       <View style={styles.container}>
+        <Comment />
+        <Comment />
         <ProductRow />
         <ProductRow />
         <Text style={styles.welcome}>Welcome to React Native!</Text>

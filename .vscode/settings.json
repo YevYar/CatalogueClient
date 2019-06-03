@@ -57,5 +57,14 @@
     "styles",
     "text",
     "welcome"
-  ]
+  ],
+  "commentBox.styles": {
+    "defaultStyle": {
+      "capitalize": false,
+      "ignoreInnerIndentation": false,
+      "ignoreOuterIndentation": false,
+      "removeEmptyLines": false,
+      "textAlignment": "left"
+    }
+  }
 }

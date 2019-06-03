@@ -15,8 +15,8 @@ import {
   View
 } from "react-native";
 import Image from "react-native-image-progress";
-import ProgressCircleSnail from "react-native-progress/CircleSnail";
 import { PLACEHOLDER } from "../images/images";
+import ProgressCircleSnail from "react-native-progress/CircleSnail";
 
 type Props = {};
 type States = { loadError: boolean };
@@ -48,7 +48,6 @@ export default class ProductRow extends Component<Props, States> {
 
     return (
       <TouchableHighlight
-        //style={styles.container}
         underlayColor="rgba(30, 144, 255, 0.1)"
         onPress={() => Alert.alert("WoW")}
       >
@@ -59,6 +58,7 @@ export default class ProductRow extends Component<Props, States> {
             <Text style={styles.brief}>
               This is a device which I do not know how to use.
             </Text>
+            <Text />
           </View>
         </View>
       </TouchableHighlight>
@@ -67,19 +67,18 @@ export default class ProductRow extends Component<Props, States> {
 }
 
 const styles = StyleSheet.create({
-  /**
-   * container styles
-   */
+  /********************
+   * container styles *
+   ********************/
   container: {
     alignItems: "stretch",
-    //backgroundColor: "#DDDDDD",
     borderBottomColor: "black",
     borderBottomWidth: 1,
     borderTopColor: "black",
     borderTopWidth: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 4,
+    //marginBottom: 4,
     minHeight: 140,
     padding: 5
   },
@@ -98,16 +97,15 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
 
-  /*
-   * element styles
-   */
+  /******************
+   * element styles *
+   ******************/
   brief: {
-    color: "black"
-    //fontSize: 14,
+    color: "black",
+    fontSize: 15
   },
   image: {
     flex: 1
-    //minHeight: 120
   },
   name: {
     color: "black",
