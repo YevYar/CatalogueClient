@@ -7,6 +7,7 @@
 
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+
 import { Rating } from "react-native-ratings";
 
 export default function Comment(props) {
@@ -16,7 +17,7 @@ export default function Comment(props) {
         <Text style={styles.name}>Name</Text>
         <Text style={styles.time}>2015-10-08T13:58:57 .656Z</Text>
       </View>
-      <Rating imageSize={20} readonly startingValue={2} />
+      <Rating fractions={0} imageSize={20} readonly startingValue={3} />
       <Text style={styles.text}>
         This is a device which I do not know how to use.
       </Text>
@@ -37,6 +38,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
     marginBottom: 4,
+    marginTop: 4,
     minHeight: 80,
     padding: 5
   },
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
   name: {
     color: "#1E90FF",
     flex: 1,
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: "bold"
   },
   time: {

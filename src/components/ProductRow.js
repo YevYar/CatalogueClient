@@ -14,6 +14,7 @@ import {
   TouchableHighlight,
   View
 } from "react-native";
+
 import Image from "react-native-image-progress";
 import { PLACEHOLDER } from "../images/images";
 import ProgressCircleSnail from "react-native-progress/CircleSnail";
