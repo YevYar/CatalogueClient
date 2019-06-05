@@ -15,13 +15,21 @@ import {
   View
 } from "react-native";
 
-import Comment from "../components/Comment";
 import { ADD_COMMENT } from "../images/images";
+import Comment from "../components/Comment";
+import CommentInput from "../components/CommentInput";
+import Modal from "react-native-modal";
 
 type Props = {};
-type States = {};
+type States = { isCommentInputVisible: boolean };
 export default class CommentsPage extends Component<Props, States> {
-  state = {};
+  state = {
+    isCommentInputVisible: false
+  };
+
+  changeModalVisibility(value) {
+    this.setState({ isCommentInputVisible: value });
+  }
 
   render() {
     return (
@@ -104,11 +112,16 @@ export default class CommentsPage extends Component<Props, States> {
           style={styles.list}
         />
         <TouchableHighlight
-          onPress={() => Alert.alert("WoW")}
+          onPress={() => this.changeModalVisibility(true)}
           style={styles.addButtonBlock}
         >
           <Image source={ADD_COMMENT} style={styles.addButton} />
         </TouchableHighlight>
+        <Modal isVisible={this.state.isCommentInputVisible}>
+          <CommentInput
+            onClosePress={() => this.changeModalVisibility(false)}
+          />
+        </Modal>
       </View>
     );
   }

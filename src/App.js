@@ -21,8 +21,7 @@ export default class App extends Component<Props, States> {
   render() {
     return (
       // <View style={styles.container}>
-      //   <Comment />
-      //   <CommentInput />
+      //   <ProductRow />
       //   <ProductRow />
       // </View>
       //<AboutProductPage />

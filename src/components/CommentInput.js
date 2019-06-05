@@ -6,7 +6,7 @@
  */
 
 import React, { Component } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, TouchableHighlight, View } from "react-native";
 
 import { AirbnbRating } from "react-native-ratings";
 import { AutoGrowingTextInput } from "react-native-autogrow-textinput";
@@ -15,10 +15,16 @@ import { _2STARS } from "../images/images";
 import { _3STARS } from "../images/images";
 import { _4STARS } from "../images/images";
 import { _5STARS } from "../images/images";
+import { CLOSE } from "../images/images";
 
-type Props = {};
+type Props = { onClosePress: Function };
 type States = { rating: number };
 export default class CommentInput extends Component<Props, States> {
+  constructor(props) {
+    super(props);
+    //this.onClosePress = props.onClosePress.bind(this);
+  }
+
   state = {
     rating: 5
   };
@@ -49,15 +55,21 @@ export default class CommentInput extends Component<Props, States> {
 
     return (
       <View style={styles.container}>
+        <TouchableHighlight
+          style={styles.closeIconBlock}
+          onPress={() => this.props.onClosePress()}
+        >
+          <Image source={CLOSE} style={styles.closeIcon} />
+        </TouchableHighlight>
         <Image source={imgSrc} />
         <AirbnbRating
           defaultRating={5}
           onFinishRating={value => this.changeRating(value)}
-          size={30}
+          size={32}
         />
         <AutoGrowingTextInput
           enableScrollToCaret
-          maxHeight={150}
+          maxHeight={135}
           minHeight={45}
           placeholder={"Your comment"}
           style={styles.input}
@@ -73,27 +85,37 @@ const styles = StyleSheet.create({
    ********************/
   container: {
     alignItems: "center",
-    backgroundColor: "rgba(30, 144, 255, 0.04)",
-    borderTopColor: "black",
-    borderTopWidth: 1,
+    backgroundColor: "rgba(110, 170, 200, 0.7)",
+    borderColor: "gold",
+    borderRadius: 20,
+    borderWidth: 3,
     flexDirection: "column",
     justifyContent: "space-between",
     minHeight: 140,
     paddingTop: 7
   },
+  closeIconBlock: {
+    position: "absolute",
+    right: 10,
+    top: 5
+  },
 
   /******************
    * element styles *
    ******************/
+  closeIcon: {
+    height: 25,
+    width: 25
+  },
   input: {
     alignSelf: "stretch",
     backgroundColor: "white",
     borderBottomWidth: 0,
-    borderColor: "#1E90FF",
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
+    borderColor: "gold",
+    borderRadius: 15,
     borderWidth: 2,
     fontSize: 16,
+    marginTop: 5,
     padding: 10
   }
 });
