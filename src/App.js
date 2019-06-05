@@ -9,6 +9,7 @@
 import React, { Component } from "react";
 import { Button, Platform, StyleSheet, Text, View } from "react-native";
 
+import CommentsPage from "./containers/CommentsPage";
 import AboutProductPage from "./containers/AboutProductPage";
 //import Comment from "./components/Comment";
 //import CommentInput from "./components/CommentInput";
@@ -24,7 +25,8 @@ export default class App extends Component<Props, States> {
       //   <CommentInput />
       //   <ProductRow />
       // </View>
-      <AboutProductPage />
+      //<AboutProductPage />
+      <CommentsPage />
     );
   }
 }

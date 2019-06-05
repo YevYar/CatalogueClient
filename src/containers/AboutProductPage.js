@@ -80,8 +80,6 @@ export default class AboutProductPage extends Component<Props, States> {
         style={{
           alignSelf: "center",
           height: this.state.height,
-          //maxHeight: dHeight / 2,
-          //maxWidth: dWidth - 20,
           width: this.state.width
         }}
         threshold={0}
@@ -102,6 +100,7 @@ export default class AboutProductPage extends Component<Props, States> {
             style={styles.rating}
           />
           <Text style={styles.description}>About</Text>
+          <View style={styles.endLine} />
           <TouchableHighlight
             onPress={() => Alert.alert("WoW")}
             style={styles.commentsButton}
@@ -119,13 +118,6 @@ const styles = StyleSheet.create({
   /********************
    * container styles *
    ********************/
-  container: {
-    alignItems: "stretch",
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    paddingTop: 10
-  },
   page: {
     backgroundColor: "white",
     flex: 1
@@ -140,25 +132,30 @@ const styles = StyleSheet.create({
     borderColor: "#1E90FF",
     borderWidth: 1,
     margin: 10,
-    marginTop: 5,
-    padding: 10
+    marginTop: 15,
+    padding: 8
   },
   commentsButtonText: {
     color: "white",
-    fontSize: 19,
+    fontSize: 18,
     fontWeight: "bold",
     textAlign: "center"
   },
   description: {
-    borderBottomColor: "#1E90FF",
-    borderBottomWidth: 1,
     color: "black",
     fontSize: 17,
-    margin: 10,
+    marginBottom: 0,
     marginLeft: 15,
     marginRight: 15,
+    marginTop: 10,
     paddingBottom: 10,
     textAlign: "justify"
+  },
+  endLine: {
+    borderBottomColor: "#1E90FF",
+    borderBottomWidth: 1,
+    marginLeft: 10,
+    marginRight: 10
   },
   name: {
     alignSelf: "stretch",

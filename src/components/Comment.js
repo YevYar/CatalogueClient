@@ -14,13 +14,16 @@ export default function Comment(props) {
   return (
     <View style={styles.container}>
       <View style={styles.title}>
-        <Text style={styles.name}>Name</Text>
-        <Text style={styles.time}>2015-10-08T13:58:57 .656Z</Text>
+        <Text style={styles.name}>{props.name}</Text>
+        <Text style={styles.time}>{props.dateTime}</Text>
       </View>
-      <Rating fractions={0} imageSize={20} readonly startingValue={3} />
-      <Text style={styles.text}>
-        This is a device which I do not know how to use.
-      </Text>
+      <Rating
+        fractions={0}
+        imageSize={20}
+        readonly
+        startingValue={props.rating}
+      />
+      <Text style={styles.text}>{props.text}</Text>
     </View>
   );
 }
