@@ -49,8 +49,8 @@ export default class ProductRow extends Component<Props, States> {
 
     return (
       <TouchableHighlight
-        underlayColor="rgba(30, 144, 255, 0.1)"
         onPress={() => Alert.alert("WoW")}
+        underlayColor="rgba(30, 144, 255, 0.1)"
       >
         <View style={styles.container}>
           <View style={styles.imageBlock}>{img}</View>

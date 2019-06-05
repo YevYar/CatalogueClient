@@ -13,6 +13,7 @@ import CommentsPage from "./containers/CommentsPage";
 import AboutProductPage from "./containers/AboutProductPage";
 //import Comment from "./components/Comment";
 //import CommentInput from "./components/CommentInput";
+import Login from "./components/Login";
 //import ProductRow from "./components/ProductRow";
 
 type Props = {};
@@ -25,7 +26,8 @@ export default class App extends Component<Props, States> {
       //   <ProductRow />
       // </View>
       //<AboutProductPage />
-      <CommentsPage />
+      //<CommentsPage />
+      <Login />
     );
   }
 }

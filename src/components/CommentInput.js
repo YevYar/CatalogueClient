@@ -22,7 +22,6 @@ type States = { rating: number };
 export default class CommentInput extends Component<Props, States> {
   constructor(props) {
     super(props);
-    //this.onClosePress = props.onClosePress.bind(this);
   }
 
   state = {
@@ -56,8 +55,9 @@ export default class CommentInput extends Component<Props, States> {
     return (
       <View style={styles.container}>
         <TouchableHighlight
-          style={styles.closeIconBlock}
           onPress={() => this.props.onClosePress()}
+          style={styles.closeIconBlock}
+          underlayColor="transparent"
         >
           <Image source={CLOSE} style={styles.closeIcon} />
         </TouchableHighlight>
@@ -83,6 +83,11 @@ const styles = StyleSheet.create({
   /********************
    * container styles *
    ********************/
+  closeIconBlock: {
+    position: "absolute",
+    right: 10,
+    top: 5
+  },
   container: {
     alignItems: "center",
     backgroundColor: "rgba(110, 170, 200, 0.7)",
@@ -93,11 +98,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     minHeight: 140,
     paddingTop: 7
-  },
-  closeIconBlock: {
-    position: "absolute",
-    right: 10,
-    top: 5
   },
 
   /******************

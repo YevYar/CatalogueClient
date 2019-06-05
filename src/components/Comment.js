@@ -11,11 +11,25 @@ import { StyleSheet, Text, View } from "react-native";
 import { Rating } from "react-native-ratings";
 
 export default function Comment(props) {
+  let date = new Date(props.dateTime);
+  let options = {
+    era: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    weekday: "long",
+    timezone: "UTC",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric"
+  };
+  date = date.toLocaleString("en-UK", options);
+
   return (
     <View style={styles.container}>
       <View style={styles.title}>
         <Text style={styles.name}>{props.name}</Text>
-        <Text style={styles.time}>{props.dateTime}</Text>
+        <Text style={styles.time}>{date}</Text>
       </View>
       <Rating
         fractions={0}
@@ -34,13 +48,14 @@ const styles = StyleSheet.create({
    ********************/
   container: {
     alignItems: "flex-start",
-    borderBottomColor: "black",
-    borderBottomWidth: 1,
-    borderTopColor: "black",
-    borderTopWidth: 1,
+    borderColor: "black",
+    borderRadius: 10,
+    borderWidth: 1,
     flexDirection: "column",
     justifyContent: "space-between",
     marginBottom: 4,
+    marginLeft: 8,
+    marginRight: 8,
     marginTop: 4,
     minHeight: 80,
     padding: 5
