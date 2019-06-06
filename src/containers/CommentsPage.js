@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
     borderRadius: 49,
     borderWidth: 5,
     bottom: 30,
+    elevation: 8,
     right: 20,
     position: "absolute"
   },
@@ -143,7 +144,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   page: {
-    backgroundColor: "white",
+    backgroundColor: "rgba(30, 144, 255, 0.08)",
     flex: 1
   },
 

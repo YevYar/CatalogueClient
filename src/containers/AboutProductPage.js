@@ -102,7 +102,7 @@ export default class AboutProductPage extends Component<Props, States> {
           <Text style={styles.description}>About</Text>
           <View style={styles.endLine} />
           <TouchableHighlight
-            onPress={() => Alert.alert("WoW")}
+            onPress={() => this.props.navigation.navigate("Comments")}
             style={styles.commentsButton}
             underlayColor="#1E90FF"
           >
@@ -130,7 +130,9 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     backgroundColor: "#F1C408",
     borderColor: "#1E90FF",
+    borderRadius: 10,
     borderWidth: 1,
+    elevation: 4,
     margin: 10,
     marginTop: 15,
     padding: 8
@@ -164,9 +166,7 @@ const styles = StyleSheet.create({
     color: "#1E90FF",
     fontSize: 21,
     fontWeight: "bold",
-    marginBottom: 10,
-    marginLeft: 10,
-    marginRight: 10,
+    margin: 10,
     paddingBottom: 10,
     textAlign: "left"
   },

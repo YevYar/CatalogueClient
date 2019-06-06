@@ -48,15 +48,17 @@ const styles = StyleSheet.create({
    ********************/
   container: {
     alignItems: "flex-start",
+    backgroundColor: "white",
     borderColor: "black",
     borderRadius: 10,
     borderWidth: 1,
+    elevation: 4,
     flexDirection: "column",
     justifyContent: "space-between",
-    marginBottom: 4,
+    marginBottom: 3,
     marginLeft: 8,
     marginRight: 8,
-    marginTop: 4,
+    marginTop: 7,
     minHeight: 80,
     padding: 5
   },

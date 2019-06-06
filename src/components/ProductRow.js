@@ -35,9 +35,7 @@ export default class ProductRow extends Component<Props, States> {
       <SImage source={PLACEHOLDER} style={styles.placeholderImg} />
     ) : (
       <Image
-        source={{
-          uri: "http://smktesting.herokuapp.com/static/img1.png"
-        }}
+        source={{ uri: this.props.image }}
         indicator={ProgressCircleSnail}
         indicatorProps={{ color: "rgba(30, 144, 255, 1)" }}
         onError={() => this.changeToDefaultImg()}
@@ -48,21 +46,21 @@ export default class ProductRow extends Component<Props, States> {
     );
 
     return (
-      <TouchableHighlight
-        onPress={() => Alert.alert("WoW")}
-        underlayColor="rgba(30, 144, 255, 0.1)"
-      >
-        <View style={styles.container}>
-          <View style={styles.imageBlock}>{img}</View>
-          <View style={styles.descriptionBlock}>
-            <Text style={styles.name}>Just device</Text>
-            <Text style={styles.brief}>
-              This is a device which I do not know how to use.
-            </Text>
-            <Text />
+      <View style={styles.wrapper}>
+        <TouchableHighlight
+          onPress={() => this.props.onPress()}
+          underlayColor="rgba(30, 144, 255, 0.1)"
+        >
+          <View style={styles.container}>
+            <View style={styles.imageBlock}>{img}</View>
+            <View style={styles.descriptionBlock}>
+              <Text style={styles.name}>{this.props.title}</Text>
+              <Text style={styles.brief}>{this.props.text}</Text>
+              <Text />
+            </View>
           </View>
-        </View>
-      </TouchableHighlight>
+        </TouchableHighlight>
+      </View>
     );
   }
 }
@@ -73,13 +71,13 @@ const styles = StyleSheet.create({
    ********************/
   container: {
     alignItems: "stretch",
-    borderBottomColor: "black",
-    borderBottomWidth: 1,
-    borderTopColor: "black",
-    borderTopWidth: 1,
+    backgroundColor: "white",
+    borderColor: "black",
+    borderRadius: 10,
+    borderWidth: 1,
+    elevation: 4,
     flexDirection: "row",
     justifyContent: "space-between",
-    //marginBottom: 4,
     minHeight: 140,
     padding: 5
   },
@@ -96,6 +94,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "center"
+  },
+  wrapper: {
+    marginBottom: 5,
+    marginLeft: 6,
+    marginRight: 6,
+    marginTop: 5
   },
 
   /******************
