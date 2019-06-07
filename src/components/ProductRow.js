@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     marginLeft: 6,
     marginRight: 6,
-    marginTop: 5
+    marginTop: 7
   },
 
   /******************

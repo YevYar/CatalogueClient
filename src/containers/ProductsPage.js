@@ -7,17 +7,24 @@
 
 import React, { Component } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
+import { connect } from "react-redux";
 
 import ProductRow from "../components/ProductRow";
+import { fetchProducts } from "../actionCreators/AsyncActions";
 
-type Props = {};
+type Props = { fetchProducts: Function };
 type States = {};
-export default class CommentsPage extends Component<Props, States> {
+class CommentsPage extends Component<Props, States> {
+  componentDidMount() {
+    this.props.fetchProducts();
+  }
+
   render() {
+    const { products } = this.props;
     return (
       <View style={styles.page}>
         <FlatList
-          data={[
+          /*data={[
             {
               image: "http://smktesting.herokuapp.com/static/img1.png",
               id: 1,
@@ -50,11 +57,12 @@ export default class CommentsPage extends Component<Props, States> {
               text: "This is a device which I do not know how to use.",
               title: "Product5"
             }
-          ]}
+          ]}*/
+          data={products}
           keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
             <ProductRow
-              image={item.image}
+              image={item.img}
               onPress={() => this.props.navigation.navigate("About")}
               text={item.text}
               title={item.title}
@@ -79,3 +87,18 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
+
+const mapStateToProps = state => {
+  return {
+    products: state.products
+  };
+};
+
+const mapDispatchToProps = {
+  fetchProducts
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CommentsPage);

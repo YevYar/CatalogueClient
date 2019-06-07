@@ -1,29 +1,27 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
+ * Catalogue client
+ * https://github.com/EugeneYarem/CatalogueClient
  *
  * @format
  * @flow
  */
 
 import React, { Component } from "react";
-import { Alert, Button, Platform, StyleSheet, Text, View } from "react-native";
+import { createAppContainer, createStackNavigator } from "react-navigation";
+import { applyMiddleware, createStore } from "redux";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
 
 import AboutProductPage from "./containers/AboutProductPage";
 import AccountButton from "./components/AccountButton";
 import CommentsPage from "./containers/CommentsPage";
 import Login from "./components/Login";
 import ProductsPage from "./containers/ProductsPage";
-import {
-  createAppContainer,
-  createStackNavigator,
-  NavigationActions
-} from "react-navigation";
+import { fetchProducts } from "./actionCreators/AsyncActions";
+import reducer from "./reducers/reducer";
 
-//import Comment from "./components/Comment";
-//import CommentInput from "./components/CommentInput";
-//import Login from "./components/Login";
-//import ProductRow from "./components/ProductRow";
+const store = createStore(reducer, applyMiddleware(thunk));
+store.dispatch(fetchProducts());
 
 const MainNavigator = createStackNavigator(
   {
@@ -56,8 +54,23 @@ const MainNavigator = createStackNavigator(
   }
 );
 
-//const App = createAppContainer(MainNavigator);
-export default createAppContainer(MainNavigator);
+const Navigation = createAppContainer(MainNavigator);
+//export default createAppContainer(MainNavigator);
+//export default function App() {
+//  return <Provider store={store}>{app}</Provider>;
+//}
+
+type Props = {};
+type States = {};
+export default class App extends Component<Props, States> {
+  render() {
+    return (
+      <Provider store={store}>
+        <Navigation />
+      </Provider>
+    );
+  }
+}
 
 //type Props = {};
 //type States = {};
