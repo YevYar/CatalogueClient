@@ -13,11 +13,10 @@ import { Rating } from "react-native-ratings";
 export default function Comment(props) {
   let date = new Date(props.dateTime);
   let options = {
-    era: "long",
     year: "numeric",
-    month: "long",
+    month: "short",
     day: "numeric",
-    weekday: "long",
+    weekday: "short",
     timezone: "UTC",
     hour: "numeric",
     minute: "numeric",
@@ -87,7 +86,7 @@ const styles = StyleSheet.create({
   time: {
     color: "black",
     flex: 1,
-    fontSize: 15,
+    fontSize: 13.5,
     fontStyle: "italic",
     textAlign: "right"
   }

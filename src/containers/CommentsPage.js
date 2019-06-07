@@ -14,15 +14,17 @@ import {
   TouchableHighlight,
   View
 } from "react-native";
+import Modal from "react-native-modal";
+import { connect } from "react-redux";
 
 import { ADD_COMMENT } from "../images/images";
 import Comment from "../components/Comment";
 import CommentInput from "../components/CommentInput";
-import Modal from "react-native-modal";
+import { fetchProductComments } from "../actionCreators/AsyncActions";
 
-type Props = {};
+type Props = { productId: number };
 type States = { isCommentInputVisible: boolean };
-export default class CommentsPage extends Component<Props, States> {
+class CommentsPage extends Component<Props, States> {
   state = {
     isCommentInputVisible: false
   };
@@ -32,12 +34,13 @@ export default class CommentsPage extends Component<Props, States> {
   }
 
   render() {
+    const { comments } = this.props;
     return (
       <View style={styles.page}>
         <FlatList
-          data={[
+          /*data={[
             {
-              dateTime: "2013-12-19T07:51:16.557Z",
+              dateTime: "2013-12-19T17:51:16.557Z",
               id: 1,
               name: "Name1",
               rating: 4,
@@ -99,13 +102,14 @@ export default class CommentsPage extends Component<Props, States> {
               rating: 4,
               text: "good"
             }
-          ]}
+          ]}*/
+          data={comments}
           keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
             <Comment
-              dateTime={item.dateTime}
-              name={item.name}
-              rating={item.rating}
+              dateTime={item.created_at}
+              name={item.created_by.username}
+              rating={item.rate}
               text={item.text}
             />
           )}
@@ -156,3 +160,20 @@ const styles = StyleSheet.create({
     width: 75
   }
 });
+
+const mapStateToProps = state => {
+  let data = state.comments[`product_${state.selectedProduct}`];
+  return {
+    comments: data,
+    productId: state.selectedProduct
+  };
+};
+
+const mapDispatchToProps = {
+  fetchProductComments
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CommentsPage);

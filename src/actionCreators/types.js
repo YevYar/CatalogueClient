@@ -8,6 +8,7 @@
 export const LOGIN = "LOGIN_FAIL";
 export const FETCH_PRODUCT_COMMENTS = "FETCH_PRODUCT_COMMENTS";
 export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
+export const OPEN_PRODUCT_INFO = "OPEN_PRODUCT_INFO";
 export const POST_COMMENT = "POST_COMMENT";
 export const REGISTER = "REGISTER";
 

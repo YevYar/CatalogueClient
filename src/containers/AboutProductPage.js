@@ -16,15 +16,17 @@ import {
   TouchableHighlight,
   View
 } from "react-native";
-
 import Image from "react-native-image-progress";
-import { PLACEHOLDER_BIG } from "../images/images";
 import ProgressCircleSnail from "react-native-progress/CircleSnail";
 import { Rating } from "react-native-ratings";
+import { connect } from "react-redux";
 
-type Props = {};
+import { PLACEHOLDER_BIG } from "../images/images";
+import { fetchProductComments } from "../actionCreators/AsyncActions";
+
+type Props = { fetchProductComments: Function, id: number };
 type States = { height: number, loadError: boolean, width: number };
-export default class AboutProductPage extends Component<Props, States> {
+class AboutProductPage extends Component<Props, States> {
   state = {
     height: 100,
     loadError: false,
@@ -42,9 +44,7 @@ export default class AboutProductPage extends Component<Props, States> {
     accessibleWidth -= 20;
 
     Image.getSize(
-      //"https://cdn.pixabay.com/photo/2016/08/03/06/22/space-1565986_960_720.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/e/ec/Very_Large_Array_dish_scale.jpg",
-      //"http://smktesting.herokuapp.com/static/img1.png",
+      this.props.product.img,
       (width, height) => {
         let proportions = width / height;
         if (width > accessibleWidth) {
@@ -62,16 +62,13 @@ export default class AboutProductPage extends Component<Props, States> {
   }
 
   render() {
+    const { product } = this.props;
+
     let img = this.state.loadError ? (
       <SImage source={PLACEHOLDER_BIG} style={styles.placeholderImg} />
     ) : (
       <Image
-        source={{
-          uri:
-            //"https://cdn.pixabay.com/photo/2016/08/03/06/22/space-1565986_960_720.jpg"
-            "https://upload.wikimedia.org/wikipedia/commons/e/ec/Very_Large_Array_dish_scale.jpg"
-          //"http://smktesting.herokuapp.com/static/img1.png"
-        }}
+        source={{ uri: product.img }}
         indicator={ProgressCircleSnail}
         indicatorProps={{ color: "rgba(30, 144, 255, 1)" }}
         onError={() => this.changeToDefaultImg()}
@@ -89,7 +86,7 @@ export default class AboutProductPage extends Component<Props, States> {
     return (
       <ScrollView style={styles.page}>
         <View>
-          <Text style={styles.name}>Name</Text>
+          <Text style={styles.name}>{product.title}</Text>
           {img}
           <Rating
             fractions={2}
@@ -99,10 +96,13 @@ export default class AboutProductPage extends Component<Props, States> {
             startingValue={5}
             style={styles.rating}
           />
-          <Text style={styles.description}>About</Text>
+          <Text style={styles.description}>{product.text}</Text>
           <View style={styles.endLine} />
           <TouchableHighlight
-            onPress={() => this.props.navigation.navigate("Comments")}
+            onPress={() => {
+              this.props.fetchProductComments(this.props.id);
+              this.props.navigation.navigate("Comments");
+            }}
             style={styles.commentsButton}
             underlayColor="#1E90FF"
           >
@@ -179,3 +179,18 @@ const styles = StyleSheet.create({
     marginTop: 10
   }
 });
+
+const mapStateToProps = state => {
+  let data = state.products.find(x => x.id === state.selectedProduct);
+  return {
+    id: state.selectedProduct,
+    product: data
+  };
+};
+
+const mapDispatchToProps = { fetchProductComments };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AboutProductPage);

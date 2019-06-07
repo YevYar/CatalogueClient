@@ -55,10 +55,6 @@ const MainNavigator = createStackNavigator(
 );
 
 const Navigation = createAppContainer(MainNavigator);
-//export default createAppContainer(MainNavigator);
-//export default function App() {
-//  return <Provider store={store}>{app}</Provider>;
-//}
 
 type Props = {};
 type States = {};
@@ -71,29 +67,3 @@ export default class App extends Component<Props, States> {
     );
   }
 }
-
-//type Props = {};
-//type States = {};
-/*export default class App extends Component<Props, States> {
-  render() {
-    return (
-      // <View style={styles.container}>
-      //   <ProductRow />
-      //   <ProductRow />
-      // </View>
-      //<AboutProductPage />
-      //<CommentsPage />
-      //<Login />
-    );
-  }
-}*/
-
-/* spell-checker: disable */
-/*const styles = StyleSheet.create({
-  container: {
-    alignItems: "stretch",
-    backgroundColor: "#FFF",
-    flex: 1,
-    justifyContent: "center"
-  }
-});*/
