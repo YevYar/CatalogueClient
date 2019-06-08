@@ -64,7 +64,7 @@ class AboutProductPage extends Component<Props, States> {
   render() {
     const { product } = this.props;
 
-    let img = this.state.loadError ? (
+    const img = this.state.loadError ? (
       <SImage source={PLACEHOLDER_BIG} style={styles.placeholderImg} />
     ) : (
       <Image
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  let data = state.products.find(x => x.id === state.selectedProduct);
+  const data = state.products.find(x => x.id === state.selectedProduct);
   return {
     id: state.selectedProduct,
     product: data

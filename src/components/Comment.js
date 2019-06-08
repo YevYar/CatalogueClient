@@ -12,7 +12,7 @@ import { Rating } from "react-native-ratings";
 
 export default function Comment(props) {
   let date = new Date(props.dateTime);
-  let options = {
+  const options = {
     year: "numeric",
     month: "short",
     day: "numeric",

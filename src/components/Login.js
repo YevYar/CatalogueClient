@@ -1,84 +1,43 @@
 /**
- * This component presents the login form.
+ * This component presents the login page.
  *
  * @format
  * @flow
  */
 
 import React, { Component } from "react";
-import {
-  Alert,
-  Image,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableHighlight,
-  View
-} from "react-native";
+import { Alert, StyleSheet, Text, TouchableHighlight } from "react-native";
 
-import { EMAIL } from "../images/images";
-import { PASSWORD } from "../images/images";
+import LRForm from "./LRForm";
 
-export default class Login extends Component {
+type Props = {};
+type States = {
+  password: string,
+  username: string
+};
+export default class Login extends Component<Props, States> {
   constructor(props) {
     super(props);
-    state = {
-      email: "",
-      password: ""
+    this.state = {
+      password: "",
+      username: ""
     };
   }
 
-  onClickListener = viewId => {
-    Alert.alert("Alert", "Button pressed " + viewId);
-  };
-
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.inputContainer}>
-          <Image source={EMAIL} style={styles.inputIcon} />
-          <TextInput
-            keyboardType="email-address"
-            onChangeText={email => this.setState({ email })}
-            placeholder="Email"
-            style={styles.inputs}
-            underlineColorAndroid="transparent"
-          />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Image source={PASSWORD} style={styles.inputIcon} />
-          <TextInput
-            onChangeText={password => this.setState({ password })}
-            placeholder="Password"
-            secureTextEntry={true}
-            style={styles.inputs}
-            underlineColorAndroid="transparent"
-          />
-        </View>
-
+      <LRForm
+        onSubmit={() => Alert.alert("Submit")}
+        submitButtonText={"Sign in"}
+      >
         <TouchableHighlight
-          onPress={() => this.onClickListener("login")}
-          style={[styles.buttonContainer, styles.loginButton]}
-          underlayColor="#F1C408"
-        >
-          <Text style={styles.loginText}>Login</Text>
-        </TouchableHighlight>
-
-        <TouchableHighlight
-          onPress={() => this.onClickListener("restore_password")}
+          onPress={() => this.props.navigation.navigate("Registration")}
           style={[styles.buttonContainer, styles.buttonContainerWithoutDecor]}
+          underlayColor="transparent"
         >
-          <Text>Forgot your password?</Text>
+          <Text style={styles.additionalButtonText}>Sign up</Text>
         </TouchableHighlight>
-
-        <TouchableHighlight
-          onPress={() => this.onClickListener("register")}
-          style={[styles.buttonContainer, styles.buttonContainerWithoutDecor]}
-        >
-          <Text>Registration</Text>
-        </TouchableHighlight>
-      </View>
+      </LRForm>
     );
   }
 }
@@ -89,6 +48,7 @@ const styles = StyleSheet.create({
    ********************/
   buttonContainer: {
     alignItems: "center",
+    backgroundColor: "#00b5ec",
     borderRadius: 10,
     flexDirection: "row",
     height: 45,
@@ -97,8 +57,8 @@ const styles = StyleSheet.create({
     width: 250
   },
   buttonContainerWithoutDecor: {
-    height: 30,
-    marginBottom: 10
+    backgroundColor: "transparent",
+    height: 30
   },
   container: {
     alignItems: "center",
@@ -121,6 +81,13 @@ const styles = StyleSheet.create({
   /******************
    * element styles *
    ******************/
+  additionalButtonText: {
+    fontSize: 17
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 20
+  },
   inputIcon: {
     height: 30,
     justifyContent: "center",
@@ -133,12 +100,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     height: 45,
     marginLeft: 16
-  },
-  loginButton: {
-    backgroundColor: "#00b5ec"
-  },
-  loginText: {
-    color: "white",
-    fontSize: 20
   }
 });

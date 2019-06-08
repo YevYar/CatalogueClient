@@ -6,18 +6,25 @@
  */
 
 import {
-  LOGIN,
-  FETCH_PRODUCT_COMMENTS,
-  FETCH_PRODUCTS,
+  LOGIN_SUCCESS,
+  FETCH_PRODUCT_COMMENTS_SUCCESS,
+  FETCH_PRODUCTS_SUCCESS,
   OPEN_PRODUCT_INFO,
-  POST_COMMENT,
-  REGISTER
+  POST_COMMENT_SUCCESS,
+  REGISTER_SUCCESS
 } from "../actionCreators/types";
 
 const imgUrl = "http://smktesting.herokuapp.com/static/";
 
 export default function reducer(
-  state = { comments: {}, products: [], selectedProduct: -1 },
+  state = {
+    comments: {},
+    isLogged: false,
+    products: [],
+    selectedProduct: -1,
+    token: "",
+    username: ""
+  },
   action
 ) {
   //console.log(state);
@@ -25,9 +32,10 @@ export default function reducer(
   let data;
 
   switch (action.type) {
-    case LOGIN:
+    case LOGIN_SUCCESS:
       return state;
-    case FETCH_PRODUCT_COMMENTS:
+
+    case FETCH_PRODUCT_COMMENTS_SUCCESS:
       data = action.comments;
       data = data.sort((a, b) => {
         let aD = new Date(a.created_at),
@@ -38,7 +46,7 @@ export default function reducer(
       comments[`product_${action.id}`] = data;
       return { ...state, comments: comments };
 
-    case FETCH_PRODUCTS:
+    case FETCH_PRODUCTS_SUCCESS:
       data = action.products;
       data.forEach(element => {
         element.img = imgUrl + element.img;
@@ -47,10 +55,13 @@ export default function reducer(
 
     case OPEN_PRODUCT_INFO:
       return { ...state, selectedProduct: action.id };
-    case POST_COMMENT:
+
+    case POST_COMMENT_SUCCESS:
       return state;
-    case REGISTER:
-      return state;
+
+    case REGISTER_SUCCESS:
+      return { ...state, isLogged: true, token: action.answer.token };
+
     default:
       return state;
   }

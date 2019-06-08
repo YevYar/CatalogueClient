@@ -6,7 +6,7 @@
  */
 
 import React, { Component } from "react";
-import { Alert, FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { connect } from "react-redux";
 
 import ProductRow from "../components/ProductRow";

@@ -8,26 +8,19 @@
 import { Alert } from "react-native";
 
 import {
-  LOGIN,
-  FETCH_PRODUCT_COMMENTS,
-  FETCH_PRODUCTS,
-  OPEN_PRODUCT_INFO,
-  POST_COMMENT,
-  REGISTER
-} from "./types";
-
-/*import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   FETCH_PRODUCT_COMMENTS_FAIL,
   FETCH_PRODUCT_COMMENTS_SUCCESS,
   FETCH_PRODUCTS_FAIL,
   FETCH_PRODUCTS_SUCCESS,
+  OPEN_PRODUCT_INFO,
   POST_COMMENT_FAIL,
   POST_COMMENT_SUCCESS,
   REGISTER_FAIL,
   REGISTER_SUCCESS
-} from "./types";*/
+} from "./types";
+import NavigationService from "../NavigationService";
 
 export function loginFail() {}
 
@@ -37,11 +30,12 @@ export function fetchProductCommentsFail() {
   Alert.alert(
     "Something has gone wrong. We can't get a list of product comments from the server."
   );
+  return { type: FETCH_PRODUCT_COMMENTS_FAIL };
 }
 
 export function fetchProductCommentsSuccess(id, comments) {
   return {
-    type: FETCH_PRODUCT_COMMENTS,
+    type: FETCH_PRODUCT_COMMENTS_SUCCESS,
     id: id,
     comments
   };
@@ -51,11 +45,12 @@ export function fetchProductsFail() {
   Alert.alert(
     "Something has gone wrong. We can't get the product list from the server."
   );
+  return { type: FETCH_PRODUCTS_FAIL };
 }
 
 export function fetchProductsSuccess(products) {
   return {
-    type: FETCH_PRODUCTS,
+    type: FETCH_PRODUCTS_SUCCESS,
     products
   };
 }
@@ -71,6 +66,21 @@ export function postCommentFail() {}
 
 export function postCommentSuccess() {}
 
-export function registerFail() {}
+export function registerFail() {
+  Alert.alert("Something has gone wrong. We can't register you.");
+  return { type: REGISTER_FAIL };
+}
 
-export function registerSuccess() {}
+export function registerSuccess(answer) {
+  if (answer.success === true) {
+    NavigationService.navigate("Home");
+    console.log("token:" + answer.token);
+    return {
+      type: REGISTER_SUCCESS,
+      answer
+    };
+  } else {
+    Alert.alert("User with this username has already existed.");
+    return { type: REGISTER_FAIL };
+  }
+}

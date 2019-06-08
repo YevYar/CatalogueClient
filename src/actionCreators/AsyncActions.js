@@ -33,9 +33,9 @@ export function fetchProductComments(id) {
         dispatch(fetchProductCommentsSuccess(id, response.data));
       })
       .catch(error => {
-        console.log("fetchProductComments" + error);
+        console.log("fetchProductComments: " + error);
         fetchProductCommentsFail();
-        throw error;
+        //throw error;
       });
   };
 }
@@ -51,11 +51,25 @@ export function fetchProducts() {
       .catch(error => {
         console.log("fetchProducts: " + error);
         fetchProductsFail();
-        throw error;
+        //throw error;
       });
   };
 }
 
 export function postComment() {}
 
-export function register() {}
+export function register(username, password) {
+  return dispatch => {
+    return axios
+      .post(`${apiUrl}/register/`, { username: username, password: password })
+      .then(response => {
+        console.log("register");
+        dispatch(registerSuccess(response.data));
+      })
+      .catch(error => {
+        console.log("register: " + error);
+        registerFail();
+        //throw error;
+      });
+  };
+}
