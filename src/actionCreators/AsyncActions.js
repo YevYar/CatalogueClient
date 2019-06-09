@@ -6,6 +6,7 @@
  */
 
 import axios from "axios";
+import RNSecureKeyStore from "react-native-secure-key-store";
 
 import {
   loginFail,
@@ -17,7 +18,9 @@ import {
   postCommentFail,
   postCommentSuccess,
   registerFail,
-  registerSuccess
+  registerSuccess,
+  restoreSessionFail,
+  restoreSessionSuccess
 } from "./SyncActions";
 
 import store from "../store";
@@ -132,5 +135,35 @@ export function register(username, password) {
         registerFail();
         //throw error;
       });
+  };
+}
+
+export function restoreSession() {
+  return dispatch => {
+    return RNSecureKeyStore.get("Token").then(
+      res => {
+        console.log("get token res: ");
+        console.log(res);
+        const token = res;
+
+        return RNSecureKeyStore.get("Username").then(
+          res => {
+            console.log("get username res: ");
+            console.log(res);
+            dispatch(restoreSessionSuccess(token, res));
+          },
+          err => {
+            console.log("get username err: ");
+            console.log(err);
+            restoreSessionFail();
+          }
+        );
+      },
+      err => {
+        console.log("get token err: ");
+        console.log(err);
+        restoreSessionFail();
+      }
+    );
   };
 }

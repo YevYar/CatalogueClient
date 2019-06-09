@@ -19,7 +19,7 @@ import NavigationService from "./NavigationService";
 import ProductsPage from "./containers/ProductsPage";
 import Registration from "./components/Registration";
 import { fetchProducts } from "./actionCreators/AsyncActions";
-import { restoreSession } from "./actionCreators/SyncActions";
+import { restoreSession } from "./actionCreators/AsyncActions";
 import store from "./store";
 
 store.dispatch(restoreSession());

@@ -13,7 +13,8 @@ import {
   FETCH_PRODUCTS_SUCCESS,
   OPEN_PRODUCT_INFO,
   POST_COMMENT_SUCCESS,
-  REGISTER_SUCCESS
+  REGISTER_SUCCESS,
+  RESTORE_SESSION_SUCCESS
 } from "../actionCreators/types";
 
 const imgUrl = "http://smktesting.herokuapp.com/static/";
@@ -106,7 +107,7 @@ export default function reducer(
         username: action.username
       };
 
-    case RESTORE_SESSION:
+    case RESTORE_SESSION_SUCCESS:
       console.log("token: " + action.token);
       console.log("username: " + action.username);
       return {

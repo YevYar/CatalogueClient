@@ -5,7 +5,7 @@
  * @flow
  */
 
-import * as SecureStore from "expo-secure-store";
+import RNSecureKeyStore, { ACCESSIBLE } from "react-native-secure-key-store";
 import { Alert } from "react-native";
 
 import {
@@ -21,7 +21,9 @@ import {
   POST_COMMENT_FAIL,
   POST_COMMENT_SUCCESS,
   REGISTER_FAIL,
-  REGISTER_SUCCESS
+  REGISTER_SUCCESS,
+  RESTORE_SESSION_FAIL,
+  RESTORE_SESSION_SUCCESS
 } from "./types";
 import NavigationService from "../NavigationService";
 
@@ -69,8 +71,15 @@ export function loginSuccess(answer, username) {
 
     const token = answer.token;
 
-    SecureStore.setItemAsync("myToken", token);
-    SecureStore.setItemAsync("myUsername", username);
+    // SecureStore.setItemAsync("myToken", token);
+    // SecureStore.setItemAsync("myUsername", username);
+    RNSecureKeyStore.set("Token", token, {
+      accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY
+    }).then(res => console.log(res), err => console.log(err));
+
+    RNSecureKeyStore.set("Username", username, {
+      accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY
+    }).then(res => console.log(res), err => console.log(err));
 
     return {
       type: LOGIN_SUCCESS,
@@ -84,8 +93,16 @@ export function loginSuccess(answer, username) {
 }
 
 export function logout() {
-  SecureStore.deleteItemAsync("myToken");
-  SecureStore.deleteItemAsync("myUsername");
+  // SecureStore.deleteItemAsync("myToken");
+  // SecureStore.deleteItemAsync("myUsername");
+  RNSecureKeyStore.remove("Token").then(
+    res => console.log(res),
+    err => console.log(err)
+  );
+  RNSecureKeyStore.remove("Username").then(
+    res => console.log(res),
+    err => console.log(err)
+  );
   return { type: LOGOUT };
 }
 
@@ -127,8 +144,15 @@ export function registerSuccess(answer, username) {
 
     const token = answer.token;
 
-    SecureStore.setItemAsync("myToken", token);
-    SecureStore.setItemAsync("myUsername", username);
+    // SecureStore.setItemAsync("myToken", token);
+    // SecureStore.setItemAsync("myUsername", username);
+    RNSecureKeyStore.set("Token", token, {
+      accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY
+    }).then(res => console.log(res), err => console.log(err));
+
+    RNSecureKeyStore.set("Username", username, {
+      accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY
+    }).then(res => console.log(res), err => console.log(err));
 
     return {
       type: REGISTER_SUCCESS,
@@ -141,8 +165,14 @@ export function registerSuccess(answer, username) {
   }
 }
 
-export function restoreSession() {
-  const token = SecureStore.getItemAsync("myToken");
-  const username = SecureStore.getItemAsync("myUsername");
-  return { type: LOGIN_FAIL, token, username };
+export function restoreSessionFail() {
+  return { type: RESTORE_SESSION_FAIL };
+}
+
+export function restoreSessionSuccess(token, username) {
+  if (token.length !== 0 && username.length !== 0) {
+    console.log("restoreSessionSuccess token: " + token);
+    console.log("restoreSessionSuccess username: " + username);
+    return { type: RESTORE_SESSION_SUCCESS, token, username };
+  } else return restoreSessionFail();
 }
