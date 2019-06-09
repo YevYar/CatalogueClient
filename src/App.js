@@ -8,6 +8,7 @@
 
 import React, { Component } from "react";
 import { createAppContainer, createStackNavigator } from "react-navigation";
+import { MenuProvider } from "react-native-popup-menu";
 import { Provider } from "react-redux";
 
 import AboutProductPage from "./containers/AboutProductPage";
@@ -68,11 +69,13 @@ export default class App extends Component<Props, States> {
   render() {
     return (
       <Provider store={store}>
-        <Navigation
-          ref={navigatorRef => {
-            NavigationService.setTopLevelNavigator(navigatorRef);
-          }}
-        />
+        <MenuProvider>
+          <Navigation
+            ref={navigatorRef => {
+              NavigationService.setTopLevelNavigator(navigatorRef);
+            }}
+          />
+        </MenuProvider>
       </Provider>
     );
   }

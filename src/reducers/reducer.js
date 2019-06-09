@@ -8,6 +8,7 @@
 import {
   CHANGE_COMMENT_INPUT_VISIBILITY,
   LOGIN_SUCCESS,
+  LOGOUT,
   FETCH_PRODUCT_COMMENTS_SUCCESS,
   FETCH_PRODUCTS_SUCCESS,
   OPEN_PRODUCT_INFO,
@@ -50,6 +51,14 @@ export default function reducer(
         isLogged: true,
         token: action.token,
         username: action.username
+      };
+
+    case LOGOUT:
+      return {
+        ...state,
+        isLogged: false,
+        token: "",
+        username: ""
       };
 
     case FETCH_PRODUCT_COMMENTS_SUCCESS:

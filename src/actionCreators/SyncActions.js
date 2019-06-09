@@ -11,6 +11,7 @@ import {
   CHANGE_COMMENT_INPUT_VISIBILITY,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
+  LOGOUT,
   FETCH_PRODUCT_COMMENTS_FAIL,
   FETCH_PRODUCT_COMMENTS_SUCCESS,
   FETCH_PRODUCTS_FAIL,
@@ -48,6 +49,10 @@ export function loginSuccess(answer, username) {
     Alert.alert("Invalid entered data.");
     return { type: LOGIN_FAIL };
   }
+}
+
+export function logout() {
+  return { type: LOGOUT };
 }
 
 export function fetchProductCommentsFail() {
