@@ -19,8 +19,10 @@ import NavigationService from "./NavigationService";
 import ProductsPage from "./containers/ProductsPage";
 import Registration from "./components/Registration";
 import { fetchProducts } from "./actionCreators/AsyncActions";
+import { restoreSession } from "./actionCreators/SyncActions";
 import store from "./store";
 
+store.dispatch(restoreSession());
 store.dispatch(fetchProducts());
 
 const MainNavigator = createStackNavigator(

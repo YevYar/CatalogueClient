@@ -5,6 +5,7 @@
  * @flow
  */
 
+import * as SecureStore from "expo-secure-store";
 import { Alert } from "react-native";
 
 import {
@@ -26,33 +27,6 @@ import NavigationService from "../NavigationService";
 
 export function changeCommentInputVisibility(isVisible) {
   return { type: CHANGE_COMMENT_INPUT_VISIBILITY, isVisible };
-}
-
-export function loginFail() {
-  Alert.alert("Something has gone wrong. We can't login.");
-  return { type: LOGIN_FAIL };
-}
-
-export function loginSuccess(answer, username) {
-  console.log(answer);
-  if (answer.success === true) {
-    //NavigationService.navigate("Home");
-    NavigationService.goBack();
-
-    const token = answer.token;
-    return {
-      type: LOGIN_SUCCESS,
-      token,
-      username
-    };
-  } else {
-    Alert.alert("Invalid entered data.");
-    return { type: LOGIN_FAIL };
-  }
-}
-
-export function logout() {
-  return { type: LOGOUT };
 }
 
 export function fetchProductCommentsFail() {
@@ -80,6 +54,39 @@ export function fetchProductsSuccess(products) {
     type: FETCH_PRODUCTS_SUCCESS,
     products
   };
+}
+
+export function loginFail() {
+  Alert.alert("Something has gone wrong. We can't login.");
+  return { type: LOGIN_FAIL };
+}
+
+export function loginSuccess(answer, username) {
+  console.log(answer);
+  if (answer.success === true) {
+    //NavigationService.navigate("Home");
+    NavigationService.goBack();
+
+    const token = answer.token;
+
+    SecureStore.setItemAsync("myToken", token);
+    SecureStore.setItemAsync("myUsername", username);
+
+    return {
+      type: LOGIN_SUCCESS,
+      token,
+      username
+    };
+  } else {
+    Alert.alert("Invalid entered data.");
+    return { type: LOGIN_FAIL };
+  }
+}
+
+export function logout() {
+  SecureStore.deleteItemAsync("myToken");
+  SecureStore.deleteItemAsync("myUsername");
+  return { type: LOGOUT };
 }
 
 export function openProductInfo(id) {
@@ -119,6 +126,10 @@ export function registerSuccess(answer, username) {
     NavigationService.goBack();
 
     const token = answer.token;
+
+    SecureStore.setItemAsync("myToken", token);
+    SecureStore.setItemAsync("myUsername", username);
+
     return {
       type: REGISTER_SUCCESS,
       token,
@@ -128,4 +139,10 @@ export function registerSuccess(answer, username) {
     Alert.alert("User with this username has already existed.");
     return { type: REGISTER_FAIL };
   }
+}
+
+export function restoreSession() {
+  const token = SecureStore.getItemAsync("myToken");
+  const username = SecureStore.getItemAsync("myUsername");
+  return { type: LOGIN_FAIL, token, username };
 }

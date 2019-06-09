@@ -106,6 +106,16 @@ export default function reducer(
         username: action.username
       };
 
+    case RESTORE_SESSION:
+      console.log("token: " + action.token);
+      console.log("username: " + action.username);
+      return {
+        ...state,
+        isLogged: true,
+        token: action.token,
+        username: action.username
+      };
+
     default:
       return state;
   }
