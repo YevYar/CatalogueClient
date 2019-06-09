@@ -30,66 +30,26 @@ class Registration extends Component<Props, States> {
 
   render() {
     return (
-      /*<KeyboardAvoidingView behavior="height" enabled style={styles.container}>
-        <View style={styles.inputContainer}>
-          <Image source={USERNAME} style={styles.inputIcon} />
-          <TextInput
-            onChangeText={username => this.setState({ username })}
-            placeholder="Username"
-            style={styles.inputs}
-            underlineColorAndroid="transparent"
-          />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Image source={PASSWORD} style={styles.inputIcon} />
-          <TextInput
-            onChangeText={password => this.setState({ password })}
-            placeholder="Password"
-            secureTextEntry={true}
-            style={styles.inputs}
-            underlineColorAndroid="transparent"
-          />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Image source={PASSWORD} style={styles.inputIcon} />
-          <TextInput
-            onChangeText={passwordConfirmed =>
-              this.setState({ passwordConfirmed })
-            }
-            placeholder="Confirm password"
-            secureTextEntry={true}
-            style={styles.inputs}
-            underlineColorAndroid="transparent"
-          />
-        </View>
-
-        <TouchableHighlight
-          onPress={() => this.onClickListener("login")}
-          style={[styles.buttonContainer]}
-          underlayColor="#F1C408"
-        >
-          <Text style={styles.buttonText}>Sign up</Text>
-        </TouchableHighlight>
-
-        <TouchableHighlight
-          onPress={() => this.props.navigation.navigate("Login")}
-          style={[styles.buttonContainer, styles.buttonContainerWithoutDecor]}
-          underlayColor="transparent"
-        >
-          <Text style={styles.additionalButtonText}>Sign in</Text>
-        </TouchableHighlight>
-      </KeyboardAvoidingView>*/
-
       <LRForm
         confirmPassword={true}
-        errorPasswordText={"Password must be more than 4 symbols"}
-        errorUsernameText={"Username must be more than 2 symbols"}
+        errorPasswordText={
+          "Password must be more than 3 symbols and less than 16 and can contain only latin letters and digits"
+        }
+        errorUsernameText={
+          "Username must be more than 2 symbols and less than 13 and can contain only latin letters and digits"
+        }
         onSubmit={this.props.register}
-        passwordValidation={str => (str.length > 4 ? true : false)}
+        passwordValidation={str => {
+          //str.length > 4 && str.length < 16 ? true : false
+          const regExp = RegExp("^([1-zA-Z0-1]{4,15})$");
+          return regExp.test(str);
+        }}
         submitButtonText={"Sign up"}
-        usernameValidation={str => (str.length > 2 ? true : false)}
+        usernameValidation={str => {
+          //str.length > 2 && str.length < 14 ? true : false
+          const regExp = RegExp("^([1-zA-Z0-1]{3,12})$");
+          return regExp.test(str);
+        }}
       >
         <TouchableHighlight
           onPress={() => this.props.navigation.navigate("Login")}

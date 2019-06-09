@@ -8,9 +8,7 @@
 
 import React, { Component } from "react";
 import { createAppContainer, createStackNavigator } from "react-navigation";
-import { applyMiddleware, createStore } from "redux";
 import { Provider } from "react-redux";
-import thunk from "redux-thunk";
 
 import AboutProductPage from "./containers/AboutProductPage";
 import AccountButton from "./components/AccountButton";
@@ -20,9 +18,8 @@ import NavigationService from "./NavigationService";
 import ProductsPage from "./containers/ProductsPage";
 import Registration from "./components/Registration";
 import { fetchProducts } from "./actionCreators/AsyncActions";
-import reducer from "./reducers/reducer";
+import store from "./store";
 
-const store = createStore(reducer, applyMiddleware(thunk));
 store.dispatch(fetchProducts());
 
 const MainNavigator = createStackNavigator(

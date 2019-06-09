@@ -16,17 +16,27 @@ import { _3STARS } from "../images/images";
 import { _4STARS } from "../images/images";
 import { _5STARS } from "../images/images";
 import { CLOSE } from "../images/images";
+import { SEND } from "../images/images";
 
-type Props = { onClosePress: Function };
-type States = { rating: number };
+type Props = { onClosePress: Function, onSend: Function };
+type States = { comment: string, rating: number };
 export default class CommentInput extends Component<Props, States> {
-  constructor(props) {
-    super(props);
+  static defaultProps = {
+    onClosePress: () => {},
+    onSend: () => {}
+  };
+
+  constructor(props, defaultProps) {
+    super(props, defaultProps);
+    this.state = {
+      comment: "",
+      rating: 5
+    };
   }
 
-  state = {
-    rating: 5
-  };
+  changeComment(str) {
+    this.setState({ comment: str });
+  }
 
   changeRating(value) {
     this.setState({ rating: value });
@@ -61,19 +71,33 @@ export default class CommentInput extends Component<Props, States> {
         >
           <Image source={CLOSE} style={styles.closeIcon} />
         </TouchableHighlight>
+
         <Image source={imgSrc} />
+
         <AirbnbRating
           defaultRating={5}
           onFinishRating={value => this.changeRating(value)}
           size={32}
         />
-        <AutoGrowingTextInput
-          enableScrollToCaret
-          maxHeight={135}
-          minHeight={45}
-          placeholder={"Your comment"}
-          style={styles.input}
-        />
+
+        <View style={styles.inputBlock}>
+          <AutoGrowingTextInput
+            enableScrollToCaret
+            maxHeight={135}
+            minHeight={45}
+            onChangeText={str => this.changeComment(str)}
+            placeholder={"Your comment"}
+            style={styles.input}
+          />
+          <TouchableHighlight
+            onPress={() =>
+              this.props.onSend(this.state.comment, this.state.rating)
+            }
+            underlayColor="transparent"
+          >
+            <Image source={SEND} style={styles.inputSend} />
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
@@ -99,6 +123,19 @@ const styles = StyleSheet.create({
     minHeight: 140,
     paddingTop: 7
   },
+  inputBlock: {
+    alignItems: "center",
+    backgroundColor: "white",
+    borderBottomWidth: 0,
+    borderColor: "gold",
+    borderRadius: 15,
+    borderWidth: 2,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 5,
+    padding: 2,
+    paddingLeft: 0
+  },
 
   /******************
    * element styles *
@@ -110,12 +147,16 @@ const styles = StyleSheet.create({
   input: {
     alignSelf: "stretch",
     backgroundColor: "white",
-    borderBottomWidth: 0,
-    borderColor: "gold",
+    borderBottomRightRadius: 0,
     borderRadius: 15,
-    borderWidth: 2,
+    borderTopRightRadius: 0,
+    flex: 1,
     fontSize: 16,
-    marginTop: 5,
+    marginRight: 5,
     padding: 10
+  },
+  inputSend: {
+    height: 52,
+    width: 52
   }
 });

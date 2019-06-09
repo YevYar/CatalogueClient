@@ -8,6 +8,7 @@
 import { Alert } from "react-native";
 
 import {
+  CHANGE_COMMENT_INPUT_VISIBILITY,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   FETCH_PRODUCT_COMMENTS_FAIL,
@@ -22,13 +23,36 @@ import {
 } from "./types";
 import NavigationService from "../NavigationService";
 
-export function loginFail() {}
+export function changeCommentInputVisibility(isVisible) {
+  return { type: CHANGE_COMMENT_INPUT_VISIBILITY, isVisible };
+}
 
-export function loginSuccess() {}
+export function loginFail() {
+  Alert.alert("Something has gone wrong. We can't login.");
+  return { type: LOGIN_FAIL };
+}
+
+export function loginSuccess(answer, username) {
+  console.log(answer);
+  if (answer.success === true) {
+    //NavigationService.navigate("Home");
+    NavigationService.goBack();
+
+    const token = answer.token;
+    return {
+      type: LOGIN_SUCCESS,
+      token,
+      username
+    };
+  } else {
+    Alert.alert("Invalid entered data.");
+    return { type: LOGIN_FAIL };
+  }
+}
 
 export function fetchProductCommentsFail() {
   Alert.alert(
-    "Something has gone wrong. We can't get a list of product comments from the server."
+    "Something has gone wrong. We can't get a list of product comments."
   );
   return { type: FETCH_PRODUCT_COMMENTS_FAIL };
 }
@@ -42,9 +66,7 @@ export function fetchProductCommentsSuccess(id, comments) {
 }
 
 export function fetchProductsFail() {
-  Alert.alert(
-    "Something has gone wrong. We can't get the product list from the server."
-  );
+  Alert.alert("Something has gone wrong. We can't get the product list.");
   return { type: FETCH_PRODUCTS_FAIL };
 }
 
@@ -62,22 +84,40 @@ export function openProductInfo(id) {
   };
 }
 
-export function postCommentFail() {}
+export function postCommentFail() {
+  Alert.alert("Something has gone wrong. We can't post your comment.");
+  return { type: POST_COMMENT_FAIL };
+}
 
-export function postCommentSuccess() {}
+export function postCommentSuccess(answer, comment, rating /*answer*/) {
+  //let date = new Date();
+  if (answer.success === true) {
+    let newComment = {
+      created_at: new Date().toString(),
+      created_by: {},
+      rate: rating,
+      text: comment
+    };
+    return { type: POST_COMMENT_SUCCESS, newComment };
+  } else return postCommentFail();
+}
 
 export function registerFail() {
   Alert.alert("Something has gone wrong. We can't register you.");
   return { type: REGISTER_FAIL };
 }
 
-export function registerSuccess(answer) {
+export function registerSuccess(answer, username) {
   if (answer.success === true) {
-    NavigationService.navigate("Home");
-    console.log("token:" + answer.token);
+    //NavigationService.navigate("Home");
+    NavigationService.goBack();
+    NavigationService.goBack();
+
+    const token = answer.token;
     return {
       type: REGISTER_SUCCESS,
-      answer
+      token,
+      username
     };
   } else {
     Alert.alert("User with this username has already existed.");

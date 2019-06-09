@@ -20,14 +20,45 @@ import {
   registerSuccess
 } from "./SyncActions";
 
+import store from "../store";
+
 const apiUrl = "http://smktesting.herokuapp.com/api";
+let headers = {
+  headers: {
+    Authorization: ""
+  }
+};
 
-export function login() {}
+function updateHeaders() {
+  const state = store.getState();
+  const token = state.token;
 
-export function fetchProductComments(id) {
+  if (token === "") {
+    headers.headers.Authorization = "";
+  } else headers.headers.Authorization = `Token ${token}`;
+}
+
+export function login(username, password) {
   return dispatch => {
     return axios
-      .get(`${apiUrl}/reviews/${id}`)
+      .post(`${apiUrl}/login/`, { username: username, password: password })
+      .then(response => {
+        console.log("login");
+        dispatch(loginSuccess(response.data, username));
+      })
+      .catch(error => {
+        console.log("login: " + error);
+        loginFail();
+        //throw error;
+      });
+  };
+}
+
+export function fetchProductComments(id) {
+  updateHeaders();
+  return dispatch => {
+    return axios
+      .get(`${apiUrl}/reviews/${id}`, headers)
       .then(response => {
         console.log("fetchProductComments");
         dispatch(fetchProductCommentsSuccess(id, response.data));
@@ -41,9 +72,10 @@ export function fetchProductComments(id) {
 }
 
 export function fetchProducts() {
+  updateHeaders();
   return dispatch => {
     return axios
-      .get(`${apiUrl}/products/`)
+      .get(`${apiUrl}/products/`, headers)
       .then(response => {
         console.log("fetchProducts");
         dispatch(fetchProductsSuccess(response.data));
@@ -56,7 +88,36 @@ export function fetchProducts() {
   };
 }
 
-export function postComment() {}
+export function postComment(comment, productId, rating) {
+  // const state = store.getState();
+  // const token = state.token;
+  // setToken(token);
+  //headers.Authorization = token;
+  /*let header = {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  };
+  headers.headers.Authorization = token;*/
+  updateHeaders();
+  return dispatch => {
+    return axios
+      .post(
+        `${apiUrl}/reviews/${productId}`,
+        { rate: rating, text: comment },
+        headers
+      )
+      .then(response => {
+        console.log("postComment");
+        dispatch(postCommentSuccess(response.data, comment, rating));
+      })
+      .catch(error => {
+        console.log("postComment: " + error);
+        postCommentFail();
+        //throw error;
+      });
+  };
+}
 
 export function register(username, password) {
   return dispatch => {
@@ -64,7 +125,7 @@ export function register(username, password) {
       .post(`${apiUrl}/register/`, { username: username, password: password })
       .then(response => {
         console.log("register");
-        dispatch(registerSuccess(response.data));
+        dispatch(registerSuccess(response.data, username));
       })
       .catch(error => {
         console.log("register: " + error);

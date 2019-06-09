@@ -17,4 +17,5 @@ export const CLOSE = require("./close.png");
 export const PASSWORD = require("./password.png");
 export const PLACEHOLDER = require("./placeholder.png");
 export const PLACEHOLDER_BIG = require("./placeholderBig.png");
+export const SEND = require("./send.png");
 export const USERNAME = require("./username.png");

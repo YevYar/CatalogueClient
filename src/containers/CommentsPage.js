@@ -7,6 +7,7 @@
 
 import React, { Component } from "react";
 import {
+  Alert,
   FlatList,
   Image,
   StyleSheet,
@@ -19,9 +20,17 @@ import { connect } from "react-redux";
 import { ADD_COMMENT } from "../images/images";
 import Comment from "../components/Comment";
 import CommentInput from "../components/CommentInput";
+import { changeCommentInputVisibility } from "../actionCreators/SyncActions";
 import { fetchProductComments } from "../actionCreators/AsyncActions";
+import { postComment } from "../actionCreators/AsyncActions";
 
-type Props = { productId: number };
+type Props = {
+  changeCommentInputVisibility: Function,
+  isCommentInputVisible: boolean,
+  isLogged: boolean,
+  postComment: Function,
+  productId: number
+};
 type States = { isCommentInputVisible: boolean };
 class CommentsPage extends Component<Props, States> {
   state = {
@@ -50,14 +59,32 @@ class CommentsPage extends Component<Props, States> {
           style={styles.list}
         />
         <TouchableHighlight
-          onPress={() => this.changeModalVisibility(true)}
+          onPress={() => {
+            if (this.props.isLogged) {
+              this.changeModalVisibility(true);
+              this.props.changeCommentInputVisibility(true);
+            } else Alert.alert("Only logged in users can add comments.");
+          }}
           style={styles.addButtonBlock}
         >
           <Image source={ADD_COMMENT} style={styles.addButton} />
         </TouchableHighlight>
-        <Modal isVisible={this.state.isCommentInputVisible}>
+        <Modal
+          isVisible={
+            this.props.isCommentInputVisible ===
+            this.state.isCommentInputVisible
+              ? this.props.isCommentInputVisible
+              : false
+          }
+        >
           <CommentInput
-            onClosePress={() => this.changeModalVisibility(false)}
+            onClosePress={() => {
+              this.changeModalVisibility(false);
+              this.props.changeCommentInputVisibility(false);
+            }}
+            onSend={(comment, rating) =>
+              this.props.postComment(comment, this.props.productId, rating)
+            }
           />
         </Modal>
       </View>
@@ -99,12 +126,16 @@ const mapStateToProps = state => {
   const data = state.comments[`product_${state.selectedProduct}`];
   return {
     comments: data,
+    isCommentInputVisible: state.isCommentInputVisible,
+    isLogged: state.isLogged,
     productId: state.selectedProduct
   };
 };
 
 const mapDispatchToProps = {
-  fetchProductComments
+  changeCommentInputVisibility,
+  fetchProductComments,
+  postComment
 };
 
 export default connect(

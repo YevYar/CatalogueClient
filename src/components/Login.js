@@ -7,15 +7,17 @@
 
 import React, { Component } from "react";
 import { Alert, StyleSheet, Text, TouchableHighlight } from "react-native";
+import { connect } from "react-redux";
 
+import { login } from "../actionCreators/AsyncActions";
 import LRForm from "./LRForm";
 
-type Props = {};
+type Props = { login: Function };
 type States = {
   password: string,
   username: string
 };
-export default class Login extends Component<Props, States> {
+class Login extends Component<Props, States> {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,10 +28,7 @@ export default class Login extends Component<Props, States> {
 
   render() {
     return (
-      <LRForm
-        onSubmit={() => Alert.alert("Submit")}
-        submitButtonText={"Sign in"}
-      >
+      <LRForm onSubmit={this.props.login} submitButtonText={"Sign in"}>
         <TouchableHighlight
           onPress={() => this.props.navigation.navigate("Registration")}
           style={[styles.buttonContainer, styles.buttonContainerWithoutDecor]}
@@ -102,3 +101,14 @@ const styles = StyleSheet.create({
     marginLeft: 16
   }
 });
+
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = { login };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

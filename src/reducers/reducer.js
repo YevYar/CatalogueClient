@@ -6,6 +6,7 @@
  */
 
 import {
+  CHANGE_COMMENT_INPUT_VISIBILITY,
   LOGIN_SUCCESS,
   FETCH_PRODUCT_COMMENTS_SUCCESS,
   FETCH_PRODUCTS_SUCCESS,
@@ -19,9 +20,11 @@ const imgUrl = "http://smktesting.herokuapp.com/static/";
 export default function reducer(
   state = {
     comments: {},
+    isCommentInputVisible: false,
     isLogged: false,
     products: [],
     selectedProduct: -1,
+    tempCommentId: -1,
     token: "",
     username: ""
   },
@@ -30,10 +33,24 @@ export default function reducer(
   //console.log(state);
   let comments;
   let data;
+  let newComment;
+  let pComments;
 
   switch (action.type) {
+    case CHANGE_COMMENT_INPUT_VISIBILITY:
+      return {
+        ...state,
+        isCommentInputVisible: action.isVisible
+      };
+
     case LOGIN_SUCCESS:
-      return state;
+      console.log("token: " + action.token);
+      return {
+        ...state,
+        isLogged: true,
+        token: action.token,
+        username: action.username
+      };
 
     case FETCH_PRODUCT_COMMENTS_SUCCESS:
       data = action.comments;
@@ -44,7 +61,7 @@ export default function reducer(
       });
       comments = state.comments;
       comments[`product_${action.id}`] = data;
-      return { ...state, comments: comments };
+      return { ...state, tempCommentId: -1, comments: comments };
 
     case FETCH_PRODUCTS_SUCCESS:
       data = action.products;
@@ -57,10 +74,28 @@ export default function reducer(
       return { ...state, selectedProduct: action.id };
 
     case POST_COMMENT_SUCCESS:
-      return state;
+      newComment = action.newComment;
+      newComment.created_by.username = state.username;
+      newComment.id = state.tempCommentId--;
+      newComment.product = state.selectedProduct;
+      console.log(newComment);
+
+      comments = state.comments;
+      pComments = comments[`product_${state.selectedProduct}`];
+      pComments = [newComment, ...pComments];
+      comments[`product_${state.selectedProduct}`] = pComments;
+
+      console.log({ ...state, comments: comments });
+      return { ...state, comments: comments, isCommentInputVisible: false };
 
     case REGISTER_SUCCESS:
-      return { ...state, isLogged: true, token: action.answer.token };
+      console.log("token: " + action.token);
+      return {
+        ...state,
+        isLogged: true,
+        token: action.token,
+        username: action.username
+      };
 
     default:
       return state;

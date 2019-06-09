@@ -59,17 +59,19 @@ export default class LRForm extends Component<Props, States> {
   }
 
   confirmPasswordValidation(cPass = this.state.cPassword) {
-    if (cPass.length === 0 || this.state.password !== cPass) {
-      this.setState({ cPasswordError: true });
-      return false;
-    } else {
-      this.setState({ cPasswordError: false });
-      return true;
-    }
+    if (this.props.confirmPassword) {
+      if (cPass.length === 0 || this.state.password !== cPass) {
+        this.setState({ cPasswordError: true });
+        return false;
+      } else {
+        this.setState({ cPasswordError: false });
+        return true;
+      }
+    } else return true;
   }
 
   passwordValidation(password = this.state.password) {
-    if (this.props.confirmPassword && this.state.cPassword.length > 0)
+    if (this.state.cPassword.length > 0)
       this.confirmPasswordValidation(password);
     if (password.length === 0 || !this.props.passwordValidation(password)) {
       this.setState({ passwordError: true });
@@ -142,7 +144,7 @@ export default class LRForm extends Component<Props, States> {
             underlineColorAndroid="transparent"
           />
         </View>
-        {usernameError}
+        <View style={styles.errorTextWrapper}>{usernameError}</View>
 
         <View style={styles.inputContainer}>
           <Image source={PASSWORD} style={styles.inputIcon} />
@@ -158,10 +160,10 @@ export default class LRForm extends Component<Props, States> {
             underlineColorAndroid="transparent"
           />
         </View>
-        {passwordError}
+        <View style={styles.errorTextWrapper}>{passwordError}</View>
 
         {confirmPassword}
-        {cPasswordError}
+        <View style={styles.errorTextWrapper}>{cPasswordError}</View>
 
         <TouchableHighlight
           onPress={() => {
@@ -216,6 +218,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center"
   },
+  errorTextWrapper: {
+    flexDirection: "row",
+    paddingLeft: 3,
+    paddingRight: 3
+  },
   inputContainer: {
     alignItems: "center",
     backgroundColor: "#FFFFFF",
@@ -240,10 +247,12 @@ const styles = StyleSheet.create({
   },
   error: {
     color: "red",
-    fontSize: 16,
-    height: 20,
+    flexWrap: "wrap",
+    fontSize: 15,
     marginBottom: 12,
-    marginTop: -28
+    marginTop: -28,
+    minHeight: 20,
+    textAlign: "center"
   },
   inputIcon: {
     height: 30,

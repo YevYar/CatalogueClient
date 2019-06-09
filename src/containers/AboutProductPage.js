@@ -18,7 +18,6 @@ import {
 } from "react-native";
 import Image from "react-native-image-progress";
 import ProgressCircleSnail from "react-native-progress/CircleSnail";
-import { Rating } from "react-native-ratings";
 import { connect } from "react-redux";
 
 import { PLACEHOLDER_BIG } from "../images/images";
@@ -88,14 +87,6 @@ class AboutProductPage extends Component<Props, States> {
         <View>
           <Text style={styles.name}>{product.title}</Text>
           {img}
-          <Rating
-            fractions={2}
-            imageSize={30}
-            readonly
-            showRating
-            startingValue={5}
-            style={styles.rating}
-          />
           <Text style={styles.description}>{product.text}</Text>
           <View style={styles.endLine} />
           <TouchableHighlight
@@ -147,9 +138,9 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 17,
     marginBottom: 0,
-    marginLeft: 15,
+    marginLeft: 20,
     marginRight: 15,
-    marginTop: 10,
+    marginTop: 20,
     paddingBottom: 10,
     textAlign: "justify"
   },
@@ -174,9 +165,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     height: 200,
     width: 200
-  },
-  rating: {
-    marginTop: 10
   }
 });
 
