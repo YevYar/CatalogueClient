@@ -1,18 +1,18 @@
 /**
- * This component presents the registration page.
+ * This container (can be called a screen or page) presents the registration page.
  *
  * @format
  * @flow
  */
 
 import React, { Component } from "react";
-import { Alert, StyleSheet, Text, TouchableHighlight } from "react-native";
+import { StyleSheet, Text, TouchableHighlight } from "react-native";
 import { connect } from "react-redux";
 
-import LRForm from "./LRForm";
+import LRForm from "../components/LRForm";
 import { register } from "../actionCreators/AsyncActions";
 
-type Props = { register: Function };
+type Props = { navigation: Object, register: Function };
 type States = {
   password: string,
   passwordConfirmed: string,
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => {
+const mapStateToProps = () => {
   return {};
 };
 

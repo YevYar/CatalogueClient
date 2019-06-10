@@ -26,7 +26,7 @@ export default class CommentInput extends Component<Props, States> {
     onSend: () => {}
   };
 
-  constructor(props, defaultProps) {
+  constructor(props: Object, defaultProps: Object) {
     super(props, defaultProps);
     this.state = {
       comment: "",
@@ -34,11 +34,11 @@ export default class CommentInput extends Component<Props, States> {
     };
   }
 
-  changeComment(str) {
+  changeComment(str: string) {
     this.setState({ comment: str });
   }
 
-  changeRating(value) {
+  changeRating(value: number) {
     this.setState({ rating: value });
   }
 

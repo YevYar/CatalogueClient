@@ -4,5 +4,6 @@
     "browser": true
   },
   "plugins": ["react"],
-  "extends": ["eslint:recommended", "plugin:react/recommended"]
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "rules": { "no-console": "off" }
 }

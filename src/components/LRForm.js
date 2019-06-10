@@ -7,7 +7,6 @@
 
 import React, { Component } from "react";
 import {
-  Alert,
   Image,
   KeyboardAvoidingView,
   StyleSheet,
@@ -46,7 +45,7 @@ export default class LRForm extends Component<Props, States> {
     usernameValidation: () => true
   };
 
-  constructor(props, defaultProps) {
+  constructor(props: Object, defaultProps: Object) {
     super(props, defaultProps);
     this.state = {
       cPassword: "",
@@ -58,7 +57,7 @@ export default class LRForm extends Component<Props, States> {
     };
   }
 
-  confirmPasswordValidation(cPass = this.state.cPassword) {
+  confirmPasswordValidation(cPass: string = this.state.cPassword) {
     if (this.props.confirmPassword) {
       if (cPass.length === 0 || this.state.password !== cPass) {
         this.setState({ cPasswordError: true });
@@ -70,7 +69,7 @@ export default class LRForm extends Component<Props, States> {
     } else return true;
   }
 
-  passwordValidation(password = this.state.password) {
+  passwordValidation(password: string = this.state.password) {
     if (this.state.cPassword.length > 0)
       this.confirmPasswordValidation(password);
     if (password.length === 0 || !this.props.passwordValidation(password)) {
@@ -82,7 +81,7 @@ export default class LRForm extends Component<Props, States> {
     }
   }
 
-  usernameValidation(username = this.state.username) {
+  usernameValidation(username: string = this.state.username) {
     if (username.length === 0 || !this.props.usernameValidation(username)) {
       this.setState({ usernameError: true });
       return false;
@@ -130,7 +129,12 @@ export default class LRForm extends Component<Props, States> {
     );
 
     return (
-      <KeyboardAvoidingView behavior="height" enabled style={styles.container}>
+      <KeyboardAvoidingView
+        behavior="height"
+        enabled
+        keyboardVerticalOffset={-45}
+        style={styles.container}
+      >
         <View style={styles.inputContainer}>
           <Image source={USERNAME} style={styles.inputIcon} />
           <TextInput
@@ -185,14 +189,6 @@ export default class LRForm extends Component<Props, States> {
     );
   }
 }
-
-/*LRForm.defaultProps = {
-  confirmPassword: false,
-  errorPasswordText: "Password can't be empty",
-  errorUsernameText: "Username can't be empty",
-  passwordValidation: () => true,
-  usernameValidation: () => true
-};*/
 
 const styles = StyleSheet.create({
   /********************

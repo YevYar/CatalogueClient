@@ -1,18 +1,18 @@
 /**
- * This component presents the login page.
+ * This container (can be called a screen or page) presents the login page.
  *
  * @format
  * @flow
  */
 
 import React, { Component } from "react";
-import { Alert, StyleSheet, Text, TouchableHighlight } from "react-native";
+import { StyleSheet, Text, TouchableHighlight } from "react-native";
 import { connect } from "react-redux";
 
 import { login } from "../actionCreators/AsyncActions";
-import LRForm from "./LRForm";
+import LRForm from "../components/LRForm";
 
-type Props = { login: Function };
+type Props = { login: Function, navigation: Object };
 type States = {
   password: string,
   username: string
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => {
+const mapStateToProps = () => {
   return {};
 };
 

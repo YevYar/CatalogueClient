@@ -32,6 +32,10 @@ let headers = {
   }
 };
 
+/**
+ * This function updates the header for server requests.
+ * It only adds Authorization header now.
+ */
 function updateHeaders() {
   const state = store.getState();
   const token = state.token;
@@ -41,8 +45,8 @@ function updateHeaders() {
   } else headers.headers.Authorization = `Token ${token}`;
 }
 
-export function login(username, password) {
-  return dispatch => {
+export function login(username: string, password: string) {
+  return (dispatch: Function) => {
     return axios
       .post(`${apiUrl}/login/`, { username: username, password: password })
       .then(response => {
@@ -57,9 +61,9 @@ export function login(username, password) {
   };
 }
 
-export function fetchProductComments(id) {
+export function fetchProductComments(id: number) {
   updateHeaders();
-  return dispatch => {
+  return (dispatch: Function) => {
     return axios
       .get(`${apiUrl}/reviews/${id}`, headers)
       .then(response => {
@@ -76,7 +80,7 @@ export function fetchProductComments(id) {
 
 export function fetchProducts() {
   updateHeaders();
-  return dispatch => {
+  return (dispatch: Function) => {
     return axios
       .get(`${apiUrl}/products/`, headers)
       .then(response => {
@@ -91,19 +95,13 @@ export function fetchProducts() {
   };
 }
 
-export function postComment(comment, productId, rating) {
-  // const state = store.getState();
-  // const token = state.token;
-  // setToken(token);
-  //headers.Authorization = token;
-  /*let header = {
-    headers: {
-      Authorization: `Token ${token}`
-    }
-  };
-  headers.headers.Authorization = token;*/
+export function postComment(
+  comment: string,
+  productId: number,
+  rating: number
+) {
   updateHeaders();
-  return dispatch => {
+  return (dispatch: Function) => {
     return axios
       .post(
         `${apiUrl}/reviews/${productId}`,
@@ -122,8 +120,8 @@ export function postComment(comment, productId, rating) {
   };
 }
 
-export function register(username, password) {
-  return dispatch => {
+export function register(username: string, password: string) {
+  return (dispatch: Function) => {
     return axios
       .post(`${apiUrl}/register/`, { username: username, password: password })
       .then(response => {
@@ -139,7 +137,10 @@ export function register(username, password) {
 }
 
 export function restoreSession() {
-  return dispatch => {
+  /****************************************************************************
+   * RNSecureKeyStore.get(key) gets an account data from an encrypted storage *
+   ****************************************************************************/
+  return (dispatch: Function) => {
     return RNSecureKeyStore.get("Token").then(
       res => {
         console.log("get token res: ");

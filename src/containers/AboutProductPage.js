@@ -7,7 +7,6 @@
 
 import React, { Component } from "react";
 import {
-  Alert,
   Dimensions,
   Image as SImage,
   ScrollView,
@@ -23,7 +22,12 @@ import { connect } from "react-redux";
 import { PLACEHOLDER_BIG } from "../images/images";
 import { fetchProductComments } from "../actionCreators/AsyncActions";
 
-type Props = { fetchProductComments: Function, id: number };
+type Props = {
+  fetchProductComments: Function,
+  id: number,
+  navigation: Object,
+  product: Object
+};
 type States = { height: number, loadError: boolean, width: number };
 class AboutProductPage extends Component<Props, States> {
   state = {

@@ -20,7 +20,7 @@ import {
 const imgUrl = "http://smktesting.herokuapp.com/static/";
 
 export default function reducer(
-  state = {
+  state: Object = {
     comments: {},
     isCommentInputVisible: false,
     isLogged: false,
@@ -30,7 +30,7 @@ export default function reducer(
     token: "",
     username: ""
   },
-  action
+  action: Object
 ) {
   //console.log(state);
   let comments;

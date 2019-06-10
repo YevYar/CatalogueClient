@@ -7,7 +7,6 @@
 
 import React, { Component } from "react";
 import {
-  Alert,
   Image as SImage,
   StyleSheet,
   Text,
@@ -19,7 +18,7 @@ import Image from "react-native-image-progress";
 import { PLACEHOLDER } from "../images/images";
 import ProgressCircleSnail from "react-native-progress/CircleSnail";
 
-type Props = {};
+type Props = { image: string, onPress: Function, title: String, text: string };
 type States = { loadError: boolean };
 export default class ProductRow extends Component<Props, States> {
   state = {

@@ -26,6 +26,7 @@ import { postComment } from "../actionCreators/AsyncActions";
 
 type Props = {
   changeCommentInputVisibility: Function,
+  comments: Array<Object>,
   isCommentInputVisible: boolean,
   isLogged: boolean,
   postComment: Function,

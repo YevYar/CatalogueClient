@@ -15,14 +15,12 @@ import { openProductInfo } from "../actionCreators/SyncActions";
 
 type Props = {
   fetchProducts: Function,
-  openProductInfo: Function
+  navigation: Object,
+  openProductInfo: Function,
+  products: Array<Object>
 };
 type States = {};
 class ProductsPage extends Component<Props, States> {
-  componentDidMount() {
-    //this.props.fetchProducts();
-  }
-
   render() {
     const { products } = this.props;
     return (
@@ -62,7 +60,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  // get a brief text from the full text to present it in the product list
+  /*************************************************************************
+   * get a brief text from the full text to present it in the product list *
+   *************************************************************************/
   let data = state.products;
   data.forEach(element => {
     let end = element.text.indexOf(".");

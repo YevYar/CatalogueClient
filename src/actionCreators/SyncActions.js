@@ -27,7 +27,7 @@ import {
 } from "./types";
 import NavigationService from "../NavigationService";
 
-export function changeCommentInputVisibility(isVisible) {
+export function changeCommentInputVisibility(isVisible: boolean) {
   return { type: CHANGE_COMMENT_INPUT_VISIBILITY, isVisible };
 }
 
@@ -38,7 +38,10 @@ export function fetchProductCommentsFail() {
   return { type: FETCH_PRODUCT_COMMENTS_FAIL };
 }
 
-export function fetchProductCommentsSuccess(id, comments) {
+export function fetchProductCommentsSuccess(
+  id: number,
+  comments: Array<Object>
+) {
   return {
     type: FETCH_PRODUCT_COMMENTS_SUCCESS,
     id: id,
@@ -51,7 +54,7 @@ export function fetchProductsFail() {
   return { type: FETCH_PRODUCTS_FAIL };
 }
 
-export function fetchProductsSuccess(products) {
+export function fetchProductsSuccess(products: Array<Object>) {
   return {
     type: FETCH_PRODUCTS_SUCCESS,
     products
@@ -63,7 +66,7 @@ export function loginFail() {
   return { type: LOGIN_FAIL };
 }
 
-export function loginSuccess(answer, username) {
+export function loginSuccess(answer: Object, username: string) {
   console.log(answer);
   if (answer.success === true) {
     //NavigationService.navigate("Home");
@@ -71,8 +74,9 @@ export function loginSuccess(answer, username) {
 
     const token = answer.token;
 
-    // SecureStore.setItemAsync("myToken", token);
-    // SecureStore.setItemAsync("myUsername", username);
+    /******************************************************************************************************
+     * RNSecureKeyStore.set(key, value) saves an account data for session restore in an encrypted storage *
+     ******************************************************************************************************/
     RNSecureKeyStore.set("Token", token, {
       accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY
     }).then(res => console.log(res), err => console.log(err));
@@ -93,8 +97,9 @@ export function loginSuccess(answer, username) {
 }
 
 export function logout() {
-  // SecureStore.deleteItemAsync("myToken");
-  // SecureStore.deleteItemAsync("myUsername");
+  /**********************************************************************************
+   * RNSecureKeyStore.remove(key) removes an account data from an encrypted storage *
+   **********************************************************************************/
   RNSecureKeyStore.remove("Token").then(
     res => console.log(res),
     err => console.log(err)
@@ -106,7 +111,7 @@ export function logout() {
   return { type: LOGOUT };
 }
 
-export function openProductInfo(id) {
+export function openProductInfo(id: number) {
   return {
     type: OPEN_PRODUCT_INFO,
     id
@@ -118,8 +123,11 @@ export function postCommentFail() {
   return { type: POST_COMMENT_FAIL };
 }
 
-export function postCommentSuccess(answer, comment, rating /*answer*/) {
-  //let date = new Date();
+export function postCommentSuccess(
+  answer: Object,
+  comment: string,
+  rating: number
+) {
   if (answer.success === true) {
     let newComment = {
       created_at: new Date().toString(),
@@ -136,7 +144,7 @@ export function registerFail() {
   return { type: REGISTER_FAIL };
 }
 
-export function registerSuccess(answer, username) {
+export function registerSuccess(answer: Object, username: string) {
   if (answer.success === true) {
     //NavigationService.navigate("Home");
     NavigationService.goBack();
@@ -144,8 +152,9 @@ export function registerSuccess(answer, username) {
 
     const token = answer.token;
 
-    // SecureStore.setItemAsync("myToken", token);
-    // SecureStore.setItemAsync("myUsername", username);
+    /******************************************************************************************************
+     * RNSecureKeyStore.set(key, value) saves an account data for session restore in an encrypted storage *
+     ******************************************************************************************************/
     RNSecureKeyStore.set("Token", token, {
       accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY
     }).then(res => console.log(res), err => console.log(err));
@@ -169,7 +178,7 @@ export function restoreSessionFail() {
   return { type: RESTORE_SESSION_FAIL };
 }
 
-export function restoreSessionSuccess(token, username) {
+export function restoreSessionSuccess(token: string, username: string) {
   if (token.length !== 0 && username.length !== 0) {
     console.log("restoreSessionSuccess token: " + token);
     console.log("restoreSessionSuccess username: " + username);
