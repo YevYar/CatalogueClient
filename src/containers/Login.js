@@ -6,7 +6,7 @@
  */
 
 import React, { Component } from "react";
-import { StyleSheet, Text, TouchableHighlight } from "react-native";
+import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
 import { connect } from "react-redux";
 
 import { login } from "../actionCreators/AsyncActions";
@@ -28,15 +28,17 @@ class Login extends Component<Props, States> {
 
   render() {
     return (
-      <LRForm onSubmit={this.props.login} submitButtonText={"Sign in"}>
-        <TouchableHighlight
-          onPress={() => this.props.navigation.navigate("Registration")}
-          style={[styles.buttonContainer, styles.buttonContainerWithoutDecor]}
-          underlayColor="transparent"
-        >
-          <Text style={styles.additionalButtonText}>Sign up</Text>
-        </TouchableHighlight>
-      </LRForm>
+      <View style={styles.container}>
+        <LRForm onSubmit={this.props.login} submitButtonText={"Sign in"}>
+          <TouchableHighlight
+            onPress={() => this.props.navigation.navigate("Registration")}
+            style={[styles.buttonContainer, styles.buttonContainerWithoutDecor]}
+            underlayColor="transparent"
+          >
+            <Text style={styles.additionalButtonText}>Sign up</Text>
+          </TouchableHighlight>
+        </LRForm>
+      </View>
     );
   }
 }
@@ -61,7 +63,7 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: "center",
-    backgroundColor: "rgba(30, 144, 255, 0.2)",
+    backgroundColor: "rgba(30, 144, 255, 0.1)",
     flex: 1,
     justifyContent: "center"
   },

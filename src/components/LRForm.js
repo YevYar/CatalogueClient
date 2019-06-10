@@ -129,12 +129,7 @@ export default class LRForm extends Component<Props, States> {
     );
 
     return (
-      <KeyboardAvoidingView
-        behavior="height"
-        enabled
-        keyboardVerticalOffset={-45}
-        style={styles.container}
-      >
+      <KeyboardAvoidingView enabled style={styles.container}>
         <View style={styles.inputContainer}>
           <Image source={USERNAME} style={styles.inputIcon} />
           <TextInput
@@ -210,9 +205,9 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: "center",
-    backgroundColor: "rgba(30, 144, 255, 0.1)",
     flex: 1,
-    justifyContent: "center"
+    justifyContent: "center",
+    paddingTop: 70
   },
   errorTextWrapper: {
     flexDirection: "row",

@@ -6,7 +6,7 @@
  */
 
 import React, { Component } from "react";
-import { StyleSheet, Text, TouchableHighlight } from "react-native";
+import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
 import { connect } from "react-redux";
 
 import LRForm from "../components/LRForm";
@@ -30,35 +30,37 @@ class Registration extends Component<Props, States> {
 
   render() {
     return (
-      <LRForm
-        confirmPassword={true}
-        errorPasswordText={
-          "Password must be more than 3 symbols and less than 16 and can contain only latin letters and digits"
-        }
-        errorUsernameText={
-          "Username must be more than 2 symbols and less than 13 and can contain only latin letters and digits"
-        }
-        onSubmit={this.props.register}
-        passwordValidation={str => {
-          //str.length > 4 && str.length < 16 ? true : false
-          const regExp = RegExp("^([1-zA-Z0-1]{4,15})$");
-          return regExp.test(str);
-        }}
-        submitButtonText={"Sign up"}
-        usernameValidation={str => {
-          //str.length > 2 && str.length < 14 ? true : false
-          const regExp = RegExp("^([1-zA-Z0-1]{3,12})$");
-          return regExp.test(str);
-        }}
-      >
-        <TouchableHighlight
-          onPress={() => this.props.navigation.navigate("Login")}
-          style={[styles.buttonContainer, styles.buttonContainerWithoutDecor]}
-          underlayColor="transparent"
+      <View style={styles.container}>
+        <LRForm
+          confirmPassword={true}
+          errorPasswordText={
+            "Password must be more than 3 symbols and less than 16 and can contain only latin letters and digits"
+          }
+          errorUsernameText={
+            "Username must be more than 2 symbols and less than 13 and can contain only latin letters and digits"
+          }
+          onSubmit={this.props.register}
+          passwordValidation={str => {
+            //str.length > 4 && str.length < 16 ? true : false
+            const regExp = RegExp("^([1-zA-Z0-1]{4,15})$");
+            return regExp.test(str);
+          }}
+          submitButtonText={"Sign up"}
+          usernameValidation={str => {
+            //str.length > 2 && str.length < 14 ? true : false
+            const regExp = RegExp("^([1-zA-Z0-1]{3,12})$");
+            return regExp.test(str);
+          }}
         >
-          <Text style={styles.additionalButtonText}>Sign in</Text>
-        </TouchableHighlight>
-      </LRForm>
+          <TouchableHighlight
+            onPress={() => this.props.navigation.navigate("Login")}
+            style={[styles.buttonContainer, styles.buttonContainerWithoutDecor]}
+            underlayColor="transparent"
+          >
+            <Text style={styles.additionalButtonText}>Sign in</Text>
+          </TouchableHighlight>
+        </LRForm>
+      </View>
     );
   }
 }
@@ -83,7 +85,7 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: "center",
-    backgroundColor: "rgba(30, 144, 255, 0.2)",
+    backgroundColor: "rgba(30, 144, 255, 0.1)",
     flex: 1,
     justifyContent: "center"
   },
