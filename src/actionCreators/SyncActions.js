@@ -23,7 +23,8 @@ import {
   REGISTER_FAIL,
   REGISTER_SUCCESS,
   RESTORE_SESSION_FAIL,
-  RESTORE_SESSION_SUCCESS
+  RESTORE_SESSION_SUCCESS,
+  SET_COMMENTS_NOT_LOADED
 } from "./types";
 import NavigationService from "../NavigationService";
 
@@ -184,4 +185,8 @@ export function restoreSessionSuccess(token: string, username: string) {
     console.log("restoreSessionSuccess username: " + username);
     return { type: RESTORE_SESSION_SUCCESS, token, username };
   } else return restoreSessionFail();
+}
+
+export function setCommentsLoadedToFalse() {
+  return { type: SET_COMMENTS_NOT_LOADED };
 }

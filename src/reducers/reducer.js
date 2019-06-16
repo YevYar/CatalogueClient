@@ -9,13 +9,15 @@ import {
   CHANGE_COMMENT_INPUT_VISIBILITY,
   LOGIN_SUCCESS,
   LOGOUT,
+  FETCH_PRODUCT_COMMENTS_FAIL,
   FETCH_PRODUCT_COMMENTS_SUCCESS,
   FETCH_PRODUCTS_FAIL,
   FETCH_PRODUCTS_SUCCESS,
   OPEN_PRODUCT_INFO,
   POST_COMMENT_SUCCESS,
   REGISTER_SUCCESS,
-  RESTORE_SESSION_SUCCESS
+  RESTORE_SESSION_SUCCESS,
+  SET_COMMENTS_NOT_LOADED
 } from "../actionCreators/types";
 
 const imgUrl = "http://smktesting.herokuapp.com/static/";
@@ -24,9 +26,10 @@ export default function reducer(
   state: Object = {
     comments: {},
     isCommentInputVisible: false,
+    isCommentsLoadedWithoutErrors: false,
+    isCommentsLoadingFinished: false,
     isLogged: false,
-    isProductListLoaded: false,
-    isProductCommentsLoaded: false,
+    isProductsLoadingFinished: false,
     products: [],
     selectedProduct: -1,
     tempCommentId: -1,
@@ -65,6 +68,13 @@ export default function reducer(
         username: ""
       };
 
+    case FETCH_PRODUCT_COMMENTS_FAIL:
+      return {
+        ...state,
+        isCommentsLoadedWithoutErrors: false,
+        isCommentsLoadingFinished: true
+      };
+
     case FETCH_PRODUCT_COMMENTS_SUCCESS:
       data = action.comments;
       data = data.sort((a, b) => {
@@ -74,17 +84,23 @@ export default function reducer(
       });
       comments = state.comments;
       comments[`product_${action.id}`] = data;
-      return { ...state, tempCommentId: -1, comments: comments };
+      return {
+        ...state,
+        isCommentsLoadedWithoutErrors: true,
+        isCommentsLoadingFinished: true,
+        tempCommentId: -1,
+        comments: comments
+      };
 
     case FETCH_PRODUCTS_FAIL:
-      return { ...state, isProductListLoaded: true };
+      return { ...state, isProductsLoadingFinished: true };
 
     case FETCH_PRODUCTS_SUCCESS:
       data = action.products;
       data.forEach(element => {
         element.img = imgUrl + element.img;
       });
-      return { ...state, isProductListLoaded: true, products: data };
+      return { ...state, isProductsLoadingFinished: true, products: data };
 
     case OPEN_PRODUCT_INFO:
       return { ...state, selectedProduct: action.id };
@@ -122,6 +138,9 @@ export default function reducer(
         token: action.token,
         username: action.username
       };
+
+    case SET_COMMENTS_NOT_LOADED:
+      return { ...state, isCommentsLoadingFinished: false };
 
     default:
       return state;

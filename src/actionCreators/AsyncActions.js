@@ -20,7 +20,8 @@ import {
   registerFail,
   registerSuccess,
   restoreSessionFail,
-  restoreSessionSuccess
+  restoreSessionSuccess,
+  setCommentsLoadedToFalse
 } from "./SyncActions";
 
 import store from "../store";
@@ -55,7 +56,7 @@ export function login(username: string, password: string) {
       })
       .catch(error => {
         console.log("login: " + error);
-        loginFail();
+        dispatch(loginFail());
         //throw error;
       });
   };
@@ -64,6 +65,7 @@ export function login(username: string, password: string) {
 export function fetchProductComments(id: number) {
   updateHeaders();
   return (dispatch: Function) => {
+    dispatch(setCommentsLoadedToFalse());
     return axios
       .get(`${apiUrl}/reviews/${id}`, headers)
       .then(response => {
@@ -72,7 +74,7 @@ export function fetchProductComments(id: number) {
       })
       .catch(error => {
         console.log("fetchProductComments: " + error);
-        fetchProductCommentsFail();
+        dispatch(fetchProductCommentsFail());
         //throw error;
       });
   };
@@ -114,7 +116,7 @@ export function postComment(
       })
       .catch(error => {
         console.log("postComment: " + error);
-        postCommentFail();
+        dispatch(postCommentFail());
         //throw error;
       });
   };
@@ -130,7 +132,7 @@ export function register(username: string, password: string) {
       })
       .catch(error => {
         console.log("register: " + error);
-        registerFail();
+        dispatch(registerFail());
         //throw error;
       });
   };
@@ -156,14 +158,14 @@ export function restoreSession() {
           err => {
             console.log("get username err: ");
             console.log(err);
-            restoreSessionFail();
+            dispatch(restoreSessionFail());
           }
         );
       },
       err => {
         console.log("get token err: ");
         console.log(err);
-        restoreSessionFail();
+        dispatch(restoreSessionFail());
       }
     );
   };

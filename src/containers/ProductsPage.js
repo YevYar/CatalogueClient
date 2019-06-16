@@ -7,7 +7,6 @@
 
 import React, { Component } from "react";
 import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
-import ProgressCircleSnail from "react-native-progress/CircleSnail";
 import { connect } from "react-redux";
 
 import ProductRow from "../components/ProductRow";
@@ -16,32 +15,16 @@ import { openProductInfo } from "../actionCreators/SyncActions";
 
 type Props = {
   fetchProducts: Function,
-  isProductListLoaded: boolean,
+  isProductsLoadingFinished: boolean,
   navigation: Object,
   openProductInfo: Function,
   products: Array<Object>
 };
-type States = { isProgressBarVisible: boolean };
+type States = {};
 class ProductsPage extends Component<Props, States> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      isProgressBarVisible: false
-    };
-  }
-
-  componentDidMount() {
-    requestAnimationFrame(() => {
-      this.setState({
-        isProgressBarVisible: true
-      });
-    });
-  }
-
   render() {
     const { products } = this.props;
-    console.log("render product list");
-    let content = this.props.isProductListLoaded ? (
+    const content = this.props.isProductsLoadingFinished ? (
       <FlatList
         data={products}
         keyExtractor={item => item.id.toString()}
@@ -59,20 +42,12 @@ class ProductsPage extends Component<Props, States> {
         style={styles.list}
       />
     ) : (
-      //this.state.isProgressBarVisible ? (
-      /*<ProgressCircleSnail
-        color={"rgba(30, 144, 255, 1)"}
-        size={75}
-        style={{ alignSelf: "center" }}
-        thickness={4}
-      />*/
       <ActivityIndicator
         size={55}
         color="rgba(30, 144, 255, 1)"
-        style={{ alignSelf: "center" }}
+        style={styles.activityIndicator}
       />
     );
-    //) : null;
     return <View style={styles.page}>{content}</View>;
   }
 }
@@ -89,6 +64,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "center"
+  },
+
+  /******************
+   * element styles *
+   ******************/
+  activityIndicator: {
+    alignSelf: "center"
   }
 });
 
@@ -106,7 +88,7 @@ const mapStateToProps = state => {
   });
 
   return {
-    isProductListLoaded: state.isProductListLoaded,
+    isProductsLoadingFinished: state.isProductsLoadingFinished,
     products: data
   };
 };

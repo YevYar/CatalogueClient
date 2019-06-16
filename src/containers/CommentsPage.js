@@ -7,6 +7,7 @@
 
 import React, { Component } from "react";
 import {
+  ActivityIndicator,
   Alert,
   FlatList,
   Image,
@@ -28,6 +29,8 @@ type Props = {
   changeCommentInputVisibility: Function,
   comments: Array<Object>,
   isCommentInputVisible: boolean,
+  isCommentsLoadedWithoutErrors: boolean,
+  isCommentsLoadingFinished: boolean,
   isLogged: boolean,
   postComment: Function,
   productId: number
@@ -44,21 +47,8 @@ class CommentsPage extends Component<Props, States> {
 
   render() {
     const { comments } = this.props;
-    return (
-      <View style={styles.page}>
-        <FlatList
-          data={comments}
-          keyExtractor={item => item.id.toString()}
-          renderItem={({ item }) => (
-            <Comment
-              dateTime={item.created_at}
-              name={item.created_by.username}
-              rating={item.rate}
-              text={item.text}
-            />
-          )}
-          style={styles.list}
-        />
+    if (this.props.isCommentsLoadingFinished) {
+      const addButton = this.props.isCommentsLoadedWithoutErrors ? (
         <TouchableHighlight
           onPress={() => {
             if (this.props.isLogged) {
@@ -70,26 +60,55 @@ class CommentsPage extends Component<Props, States> {
         >
           <Image source={ADD_COMMENT} style={styles.addButton} />
         </TouchableHighlight>
-        <Modal
-          isVisible={
-            this.props.isCommentInputVisible ===
-            this.state.isCommentInputVisible
-              ? this.props.isCommentInputVisible
-              : false
-          }
-        >
-          <CommentInput
-            onClosePress={() => {
-              this.changeModalVisibility(false);
-              this.props.changeCommentInputVisibility(false);
-            }}
-            onSend={(comment, rating) =>
-              this.props.postComment(comment, this.props.productId, rating)
-            }
+      ) : null;
+
+      return (
+        <View style={styles.page}>
+          <FlatList
+            data={comments}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({ item }) => (
+              <Comment
+                dateTime={item.created_at}
+                name={item.created_by.username}
+                rating={item.rate}
+                text={item.text}
+              />
+            )}
+            style={styles.list}
           />
-        </Modal>
-      </View>
-    );
+          {addButton}
+          <Modal
+            isVisible={
+              this.props.isCommentInputVisible ===
+              this.state.isCommentInputVisible
+                ? this.props.isCommentInputVisible
+                : false
+            }
+          >
+            <CommentInput
+              onClosePress={() => {
+                this.changeModalVisibility(false);
+                this.props.changeCommentInputVisibility(false);
+              }}
+              onSend={(comment, rating) =>
+                this.props.postComment(comment, this.props.productId, rating)
+              }
+            />
+          </Modal>
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.page}>
+          <ActivityIndicator
+            size={55}
+            color="rgba(30, 144, 255, 1)"
+            style={styles.activityIndicator}
+          />
+        </View>
+      );
+    }
   }
 }
 
@@ -111,12 +130,17 @@ const styles = StyleSheet.create({
   },
   page: {
     backgroundColor: "rgba(30, 144, 255, 0.08)",
-    flex: 1
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center"
   },
 
   /******************
    * element styles *
    ******************/
+  activityIndicator: {
+    alignSelf: "center"
+  },
   addButton: {
     height: 75,
     width: 75
@@ -128,6 +152,8 @@ const mapStateToProps = state => {
   return {
     comments: data,
     isCommentInputVisible: state.isCommentInputVisible,
+    isCommentsLoadedWithoutErrors: state.isCommentsLoadedWithoutErrors,
+    isCommentsLoadingFinished: state.isCommentsLoadingFinished,
     isLogged: state.isLogged,
     productId: state.selectedProduct
   };

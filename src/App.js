@@ -22,9 +22,6 @@ import { fetchProducts } from "./actionCreators/AsyncActions";
 import { restoreSession } from "./actionCreators/AsyncActions";
 import store from "./store";
 
-//store.dispatch(restoreSession());
-//store.dispatch(fetchProducts());
-
 const MainNavigator = createStackNavigator(
   {
     Home: { screen: ProductsPage, navigationOptions: { title: "Products" } },
@@ -71,12 +68,11 @@ class App extends Component<Props, States> {
   componentDidMount() {
     this.props.restoreSession();
     this.props.fetchProducts();
-    //setTimeout(() => this.props.fetchProducts(), 12000);
+    //setTimeout(() => this.props.fetchProducts(), 5000);
   }
 
   render() {
     return (
-      //<Provider store={store}>
       <MenuProvider>
         <Navigation
           ref={navigatorRef => {
@@ -84,7 +80,6 @@ class App extends Component<Props, States> {
           }}
         />
       </MenuProvider>
-      //</Provider>
     );
   }
 }
