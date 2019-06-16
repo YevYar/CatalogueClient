@@ -18,7 +18,7 @@ type States = {
   username: string
 };
 class Login extends Component<Props, States> {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       password: "",

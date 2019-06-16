@@ -89,7 +89,7 @@ export function fetchProducts() {
       })
       .catch(error => {
         console.log("fetchProducts: " + error);
-        fetchProductsFail();
+        dispatch(fetchProductsFail());
         //throw error;
       });
   };

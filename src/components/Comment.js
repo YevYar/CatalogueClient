@@ -10,7 +10,13 @@ import { StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
 import { Rating } from "react-native-ratings";
 
-export default function Comment(props: Object) {
+type Props = {
+  dateTime: string,
+  name: string,
+  rating: string,
+  text: string
+};
+export default function Comment(props: Props) {
   let date = new Date(props.dateTime);
   const options = {
     year: "numeric",

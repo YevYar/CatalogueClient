@@ -10,6 +10,7 @@ import {
   LOGIN_SUCCESS,
   LOGOUT,
   FETCH_PRODUCT_COMMENTS_SUCCESS,
+  FETCH_PRODUCTS_FAIL,
   FETCH_PRODUCTS_SUCCESS,
   OPEN_PRODUCT_INFO,
   POST_COMMENT_SUCCESS,
@@ -24,6 +25,8 @@ export default function reducer(
     comments: {},
     isCommentInputVisible: false,
     isLogged: false,
+    isProductListLoaded: false,
+    isProductCommentsLoaded: false,
     products: [],
     selectedProduct: -1,
     tempCommentId: -1,
@@ -73,12 +76,15 @@ export default function reducer(
       comments[`product_${action.id}`] = data;
       return { ...state, tempCommentId: -1, comments: comments };
 
+    case FETCH_PRODUCTS_FAIL:
+      return { ...state, isProductListLoaded: true };
+
     case FETCH_PRODUCTS_SUCCESS:
       data = action.products;
       data.forEach(element => {
         element.img = imgUrl + element.img;
       });
-      return { ...state, products: data };
+      return { ...state, isProductListLoaded: true, products: data };
 
     case OPEN_PRODUCT_INFO:
       return { ...state, selectedProduct: action.id };

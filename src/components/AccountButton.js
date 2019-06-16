@@ -21,7 +21,13 @@ import { logout } from "../actionCreators/SyncActions";
 
 const { Popover } = renderers;
 
-function AccountButton(props) {
+type Props = {
+  isLogged: boolean,
+  logout: Function,
+  onPress: Function,
+  username: string
+};
+function AccountButton(props: Props) {
   const element = props.isLogged ? (
     <Menu
       renderer={Popover}

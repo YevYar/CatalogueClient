@@ -9,7 +9,7 @@
 import React, { Component } from "react";
 import { createAppContainer, createStackNavigator } from "react-navigation";
 import { MenuProvider } from "react-native-popup-menu";
-import { Provider } from "react-redux";
+import { Provider, connect } from "react-redux";
 
 import AboutProductPage from "./containers/AboutProductPage";
 import AccountButton from "./components/AccountButton";
@@ -22,8 +22,8 @@ import { fetchProducts } from "./actionCreators/AsyncActions";
 import { restoreSession } from "./actionCreators/AsyncActions";
 import store from "./store";
 
-store.dispatch(restoreSession());
-store.dispatch(fetchProducts());
+//store.dispatch(restoreSession());
+//store.dispatch(fetchProducts());
 
 const MainNavigator = createStackNavigator(
   {
@@ -65,20 +65,45 @@ const MainNavigator = createStackNavigator(
 
 const Navigation = createAppContainer(MainNavigator);
 
-type Props = {};
+type Props = { fetchProducts: Function, restoreSession: Function };
 type States = {};
-export default class App extends Component<Props, States> {
+class App extends Component<Props, States> {
+  componentDidMount() {
+    this.props.restoreSession();
+    this.props.fetchProducts();
+    //setTimeout(() => this.props.fetchProducts(), 12000);
+  }
+
   render() {
     return (
-      <Provider store={store}>
-        <MenuProvider>
-          <Navigation
-            ref={navigatorRef => {
-              NavigationService.setTopLevelNavigator(navigatorRef);
-            }}
-          />
-        </MenuProvider>
-      </Provider>
+      //<Provider store={store}>
+      <MenuProvider>
+        <Navigation
+          ref={navigatorRef => {
+            NavigationService.setTopLevelNavigator(navigatorRef);
+          }}
+        />
+      </MenuProvider>
+      //</Provider>
     );
   }
 }
+
+const mapStateToProps = () => {
+  return {};
+};
+
+const mapDispatchToProps = { fetchProducts, restoreSession };
+
+const ConnectedApp = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
+
+const Root = () => (
+  <Provider store={store}>
+    <ConnectedApp />
+  </Provider>
+);
+
+export default Root;

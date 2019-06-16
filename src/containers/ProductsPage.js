@@ -6,7 +6,8 @@
  */
 
 import React, { Component } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
+import ProgressCircleSnail from "react-native-progress/CircleSnail";
 import { connect } from "react-redux";
 
 import ProductRow from "../components/ProductRow";
@@ -15,34 +16,64 @@ import { openProductInfo } from "../actionCreators/SyncActions";
 
 type Props = {
   fetchProducts: Function,
+  isProductListLoaded: boolean,
   navigation: Object,
   openProductInfo: Function,
   products: Array<Object>
 };
-type States = {};
+type States = { isProgressBarVisible: boolean };
 class ProductsPage extends Component<Props, States> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      isProgressBarVisible: false
+    };
+  }
+
+  componentDidMount() {
+    requestAnimationFrame(() => {
+      this.setState({
+        isProgressBarVisible: true
+      });
+    });
+  }
+
   render() {
     const { products } = this.props;
-    return (
-      <View style={styles.page}>
-        <FlatList
-          data={products}
-          keyExtractor={item => item.id.toString()}
-          renderItem={({ item }) => (
-            <ProductRow
-              image={item.img}
-              onPress={() => {
-                this.props.openProductInfo(item.id);
-                this.props.navigation.navigate("About");
-              }}
-              text={item.text}
-              title={item.title}
-            />
-          )}
-          style={styles.list}
-        />
-      </View>
+    console.log("render product list");
+    let content = this.props.isProductListLoaded ? (
+      <FlatList
+        data={products}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({ item }) => (
+          <ProductRow
+            image={item.img}
+            onPress={() => {
+              this.props.openProductInfo(item.id);
+              this.props.navigation.navigate("About");
+            }}
+            text={item.text}
+            title={item.title}
+          />
+        )}
+        style={styles.list}
+      />
+    ) : (
+      //this.state.isProgressBarVisible ? (
+      /*<ProgressCircleSnail
+        color={"rgba(30, 144, 255, 1)"}
+        size={75}
+        style={{ alignSelf: "center" }}
+        thickness={4}
+      />*/
+      <ActivityIndicator
+        size={55}
+        color="rgba(30, 144, 255, 1)"
+        style={{ alignSelf: "center" }}
+      />
     );
+    //) : null;
+    return <View style={styles.page}>{content}</View>;
   }
 }
 
@@ -55,7 +86,9 @@ const styles = StyleSheet.create({
   },
   page: {
     backgroundColor: "rgba(30, 144, 255, 0.08)",
-    flex: 1
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center"
   }
 });
 
@@ -73,6 +106,7 @@ const mapStateToProps = state => {
   });
 
   return {
+    isProductListLoaded: state.isProductListLoaded,
     products: data
   };
 };

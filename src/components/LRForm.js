@@ -45,7 +45,7 @@ export default class LRForm extends Component<Props, States> {
     usernameValidation: () => true
   };
 
-  constructor(props: Object, defaultProps: Object) {
+  constructor(props: Props, defaultProps: Object) {
     super(props, defaultProps);
     this.state = {
       cPassword: "",

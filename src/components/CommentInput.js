@@ -26,7 +26,7 @@ export default class CommentInput extends Component<Props, States> {
     onSend: () => {}
   };
 
-  constructor(props: Object, defaultProps: Object) {
+  constructor(props: Props, defaultProps: Object) {
     super(props, defaultProps);
     this.state = {
       comment: "",
