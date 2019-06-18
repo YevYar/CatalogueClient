@@ -1,0 +1,74 @@
+/**
+ * This component presents the input for login / registration form.
+ *
+ * @format
+ * @flow
+ */
+
+import React from "react";
+import { StyleSheet, Image, TextInput, View } from "react-native";
+
+type Props = {
+  icon: number,
+  onBlur: Function,
+  onChangeText: Function,
+  onEndEditing?: Function,
+  placeholder: string,
+  secureTextEntry?: boolean,
+  value: string
+};
+export default function LRInput(
+  /*{ secureTextEntry = false, ...props }: Props*/ props: Props
+) {
+  props = { secureTextEntry: false, ...props };
+
+  return (
+    <View style={styles.inputContainer}>
+      <Image source={props.icon} style={styles.inputIcon} />
+      <TextInput
+        onBlur={props.onBlur}
+        onChangeText={text => props.onChangeText(text)}
+        //onEndEditing={() => props.onEndEditing()}
+        placeholder={props.placeholder}
+        secureTextEntry={props.secureTextEntry}
+        style={styles.input}
+        underlineColorAndroid="transparent"
+        value={props.value}
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  /********************
+   * container styles *
+   ********************/
+  inputContainer: {
+    alignItems: "center",
+    backgroundColor: "#FFFFFF",
+    borderBottomColor: "#F5FCFF",
+    borderBottomWidth: 1,
+    borderRadius: 7,
+    flexDirection: "row",
+    height: 45,
+    marginBottom: 30,
+    width: 250
+  },
+
+  /******************
+   * element styles *
+   ******************/
+  inputIcon: {
+    height: 30,
+    justifyContent: "center",
+    marginLeft: 15,
+    width: 30
+  },
+  input: {
+    borderBottomColor: "#FFFFFF",
+    flex: 1,
+    fontSize: 16,
+    height: 45,
+    marginLeft: 16
+  }
+});
