@@ -9,8 +9,8 @@ import React, { Component } from "react";
 import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
 import { connect } from "react-redux";
 
-import { login } from "../actionCreators/AsyncActions";
 import LRForm from "../components/LRForm/LRForm";
+import { login } from "../middlewares/UserAccountMiddleware/AuthorizationMiddleware";
 
 type Props = { login: Function, navigation: Object };
 type States = {};

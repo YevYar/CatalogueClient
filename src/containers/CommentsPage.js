@@ -21,9 +21,11 @@ import { connect } from "react-redux";
 import { ADD_COMMENT } from "../images/images";
 import Comment from "../components/Comment";
 import CommentInput from "../components/CommentInput";
-import { changeCommentInputVisibility } from "../actionCreators/SyncActions";
-import { fetchProductComments } from "../actionCreators/AsyncActions";
-import { postComment } from "../actionCreators/AsyncActions";
+import { changeCommentInputVisibility } from "../actionCreators/CommentActions";
+import {
+  fetchProductComments,
+  postComment
+} from "../middlewares/CommentMiddleware";
 
 type Props = {
   changeCommentInputVisibility: Function,
@@ -148,7 +150,14 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  const data = state.comments[`product_${state.selectedProduct}`];
+  let data = state.comments[`product_${state.selectedProduct}`];
+  if (data) {
+    data = data.sort((a, b) => {
+      let aD = new Date(a.created_at),
+        bD = new Date(b.created_at);
+      return aD > bD ? -1 : bD > aD ? 1 : 0;
+    });
+  } else data = [];
   return {
     comments: data,
     isCommentInputVisible: state.isCommentInputVisible,

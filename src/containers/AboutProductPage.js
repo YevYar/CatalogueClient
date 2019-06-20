@@ -20,7 +20,7 @@ import ProgressCircleSnail from "react-native-progress/CircleSnail";
 import { connect } from "react-redux";
 
 import { PLACEHOLDER_BIG } from "../images/images";
-import { fetchProductComments } from "../actionCreators/AsyncActions";
+import { fetchProductComments } from "../middlewares/CommentMiddleware";
 
 type Props = {
   fetchProductComments: Function,

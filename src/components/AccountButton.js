@@ -17,7 +17,7 @@ import {
 } from "react-native-popup-menu";
 
 import { ACCOUNT } from "../images/images";
-import { logout } from "../actionCreators/SyncActions";
+import { logout } from "../middlewares/SessionStoreMiddleware/AccountStoreMiddleware";
 
 const { Popover } = renderers;
 

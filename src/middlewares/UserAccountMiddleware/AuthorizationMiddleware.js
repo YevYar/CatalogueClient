@@ -1,0 +1,50 @@
+/**
+ * This module contains middleware that executes all functions related to the authorization.
+ *
+ * @format
+ * @flow
+ */
+
+import {
+  loginFail,
+  loginSuccess
+} from "../../actionCreators/UserAccountActions/AuthorizationActions";
+import NavigationService from "../../services/NavigationService";
+import { saveUserAccountData } from "../SessionStoreMiddleware/AccountStoreMiddleware";
+import showErrorMessage from "../showErrorMessage";
+import ServerApiService from "../../services/ServerApiService";
+
+const apiClient = ServerApiService.getApiService();
+const updateHeaders = ServerApiService.updateHeaders;
+const INVALID_DATA_MESSAGE = "Invalid entered data.";
+const LOGIN_FAIL_MESSAGE = "Something has gone wrong. We can't login.";
+
+export function login(username: string, password: string) {
+  return (dispatch: Function) => {
+    return apiClient
+      .post("login/", { username: username, password: password })
+      .then(response => {
+        console.log("login");
+
+        if (response.data.success === true) {
+          //NavigationService.navigate("Home");
+          NavigationService.goBack();
+
+          const token = response.data.token;
+
+          saveUserAccountData(token, username);
+          updateHeaders(token);
+          dispatch(loginSuccess(token, username));
+        } else {
+          showErrorMessage(INVALID_DATA_MESSAGE);
+          dispatch(loginFail());
+        }
+      })
+      .catch(error => {
+        console.log("login: " + error);
+        showErrorMessage(LOGIN_FAIL_MESSAGE);
+        dispatch(loginFail());
+        //throw error;
+      });
+  };
+}

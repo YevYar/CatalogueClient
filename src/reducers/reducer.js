@@ -8,7 +8,7 @@
 import {
   CHANGE_COMMENT_INPUT_VISIBILITY,
   LOGIN_SUCCESS,
-  LOGOUT,
+  LOGOUT_SUCCESS,
   FETCH_PRODUCT_COMMENTS_FAIL,
   FETCH_PRODUCT_COMMENTS_SUCCESS,
   FETCH_PRODUCTS_FAIL,
@@ -19,8 +19,6 @@ import {
   RESTORE_SESSION_SUCCESS,
   SET_COMMENTS_NOT_LOADED
 } from "../actionCreators/types";
-
-const imgUrl = "http://smktesting.herokuapp.com/static/";
 
 export default function reducer(
   state: Object = {
@@ -60,7 +58,7 @@ export default function reducer(
         username: action.username
       };
 
-    case LOGOUT:
+    case LOGOUT_SUCCESS:
       return {
         ...state,
         isLogged: false,
@@ -77,11 +75,6 @@ export default function reducer(
 
     case FETCH_PRODUCT_COMMENTS_SUCCESS:
       data = action.comments;
-      data = data.sort((a, b) => {
-        let aD = new Date(a.created_at),
-          bD = new Date(b.created_at);
-        return aD > bD ? -1 : bD > aD ? 1 : 0;
-      });
       comments = state.comments;
       comments[`product_${action.id}`] = data;
       return {
@@ -96,11 +89,11 @@ export default function reducer(
       return { ...state, isProductsLoadingFinished: true };
 
     case FETCH_PRODUCTS_SUCCESS:
-      data = action.products;
-      data.forEach(element => {
-        element.img = imgUrl + element.img;
-      });
-      return { ...state, isProductsLoadingFinished: true, products: data };
+      return {
+        ...state,
+        isProductsLoadingFinished: true,
+        products: action.products
+      };
 
     case OPEN_PRODUCT_INFO:
       return { ...state, selectedProduct: action.id };

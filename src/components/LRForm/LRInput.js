@@ -6,13 +6,12 @@
  */
 
 import React from "react";
-import { StyleSheet, Image, TextInput, View } from "react-native";
+import { Image, StyleSheet, TextInput, View } from "react-native";
 
 type Props = {
   icon: number,
   onBlur: Function,
   onChangeText: Function,
-  onEndEditing?: Function,
   placeholder: string,
   secureTextEntry?: boolean,
   value: string
@@ -28,7 +27,6 @@ export default function LRInput(
       <TextInput
         onBlur={props.onBlur}
         onChangeText={text => props.onChangeText(text)}
-        //onEndEditing={() => props.onEndEditing()}
         placeholder={props.placeholder}
         secureTextEntry={props.secureTextEntry}
         style={styles.input}

@@ -7,9 +7,9 @@
 
 import React, { Component } from "react";
 import { Image, StyleSheet, TouchableHighlight, View } from "react-native";
-
 import { AirbnbRating } from "react-native-ratings";
 import { AutoGrowingTextInput } from "react-native-autogrow-textinput";
+
 import { _1STAR } from "../images/images";
 import { _2STARS } from "../images/images";
 import { _3STARS } from "../images/images";

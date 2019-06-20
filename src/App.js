@@ -15,11 +15,11 @@ import AboutProductPage from "./containers/AboutProductPage";
 import AccountButton from "./components/AccountButton";
 import CommentsPage from "./containers/CommentsPage";
 import Login from "./containers/Login";
-import NavigationService from "./NavigationService";
+import NavigationService from "./services/NavigationService";
 import ProductsPage from "./containers/ProductsPage";
 import Registration from "./containers/Registration";
-import { fetchProducts } from "./actionCreators/AsyncActions";
-import { restoreSession } from "./actionCreators/AsyncActions";
+import { fetchProducts } from "./middlewares/CatalogueMiddleware";
+import { restoreSession } from "./middlewares/SessionStoreMiddleware/RestoreSessionMiddleware";
 import store from "./store";
 
 const MainNavigator = createStackNavigator(

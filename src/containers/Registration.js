@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 import * as yup from "yup";
 
 import LRForm from "../components/LRForm/LRForm";
-import { register } from "../actionCreators/AsyncActions";
+import { register } from "../middlewares/UserAccountMiddleware/RegistrationMiddleware";
 
 function equalTo(ref, msg) {
   return this.test({

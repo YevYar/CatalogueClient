@@ -13,12 +13,12 @@ import {
   TouchableHighlight,
   View
 } from "react-native";
-
 import Image from "react-native-image-progress";
-import { PLACEHOLDER } from "../images/images";
 import ProgressCircleSnail from "react-native-progress/CircleSnail";
 
-type Props = { image: string, onPress: Function, title: String, text: string };
+import { PLACEHOLDER } from "../images/images";
+
+type Props = { image: string, onPress: Function, text: string, title: String };
 type States = { loadError: boolean };
 export default class ProductRow extends Component<Props, States> {
   state = {

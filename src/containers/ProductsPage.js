@@ -10,8 +10,8 @@ import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
 import { connect } from "react-redux";
 
 import ProductRow from "../components/ProductRow";
-import { fetchProducts } from "../actionCreators/AsyncActions";
-import { openProductInfo } from "../actionCreators/SyncActions";
+import { fetchProducts } from "../middlewares/CatalogueMiddleware";
+import { openProductInfo } from "../actionCreators/CatalogueActions";
 
 type Props = {
   fetchProducts: Function,
