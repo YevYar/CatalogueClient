@@ -16,7 +16,14 @@ import {
 import Image from "react-native-image-progress";
 import ProgressCircleSnail from "react-native-progress/CircleSnail";
 
-import { PLACEHOLDER } from "../images/images";
+import { PLACEHOLDER } from "../constants/images";
+import {
+  listElementBackground,
+  listElementBorder,
+  mainDark,
+  screenBackground,
+  mainTextColor
+} from "../constants/colors";
 
 type Props = { image: string, onPress: Function, text: string, title: String };
 type States = { loadError: boolean };
@@ -36,7 +43,7 @@ export default class ProductRow extends Component<Props, States> {
       <Image
         source={{ uri: this.props.image }}
         indicator={ProgressCircleSnail}
-        indicatorProps={{ color: "rgba(30, 144, 255, 1)" }}
+        indicatorProps={{ color: mainDark }}
         onError={() => this.changeToDefaultImg()}
         resizeMode="contain"
         style={styles.image}
@@ -48,7 +55,7 @@ export default class ProductRow extends Component<Props, States> {
       <View style={styles.wrapper}>
         <TouchableHighlight
           onPress={() => this.props.onPress()}
-          underlayColor="rgba(30, 144, 255, 0.1)"
+          underlayColor={screenBackground}
         >
           <View style={styles.container}>
             <View style={styles.imageBlock}>{img}</View>
@@ -70,8 +77,8 @@ const styles = StyleSheet.create({
    ********************/
   container: {
     alignItems: "stretch",
-    backgroundColor: "white",
-    borderColor: "black",
+    backgroundColor: listElementBackground,
+    borderColor: listElementBorder,
     borderRadius: 10,
     borderWidth: 1,
     elevation: 4,
@@ -81,7 +88,7 @@ const styles = StyleSheet.create({
     padding: 5
   },
   descriptionBlock: {
-    borderLeftColor: "black",
+    borderLeftColor: listElementBorder,
     borderLeftWidth: 1,
     flex: 1,
     flexDirection: "column",
@@ -105,14 +112,14 @@ const styles = StyleSheet.create({
    * element styles *
    ******************/
   brief: {
-    color: "black",
+    color: mainTextColor,
     fontSize: 16
   },
   image: {
     flex: 1
   },
   name: {
-    color: "black",
+    color: mainTextColor,
     fontSize: 18,
     fontWeight: "bold",
     paddingBottom: 5

@@ -17,7 +17,12 @@ import * as yup from "yup";
 
 import LRErrorMessage from "./LRErrorMessage";
 import LRInput from "./LRInput";
-import { PASSWORD, USERNAME } from "../../images/images";
+import { PASSWORD, USERNAME } from "../../constants/images";
+import {
+  additionalDark,
+  mainLight,
+  mainTextColorOnDarkBG
+} from "../../constants/colors";
 
 type Props = {
   children?: Object,
@@ -116,7 +121,7 @@ export default class LRForm extends Component<Props, States> {
             <TouchableHighlight
               onPress={handleSubmit}
               style={styles.buttonContainer}
-              underlayColor="#F1C408"
+              underlayColor={mainLight}
             >
               <Text style={styles.buttonText}>
                 {this.props.submitButtonText}
@@ -136,7 +141,7 @@ const styles = StyleSheet.create({
    ********************/
   buttonContainer: {
     alignItems: "center",
-    backgroundColor: "#00b5ec",
+    backgroundColor: additionalDark,
     borderRadius: 10,
     flexDirection: "row",
     height: 45,
@@ -155,7 +160,7 @@ const styles = StyleSheet.create({
    * element styles *
    ******************/
   buttonText: {
-    color: "white",
+    color: mainTextColorOnDarkBG,
     fontSize: 20
   }
 });

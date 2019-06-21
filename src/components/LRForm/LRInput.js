@@ -8,6 +8,12 @@
 import React from "react";
 import { Image, StyleSheet, TextInput, View } from "react-native";
 
+import {
+  inputBackgroundColor,
+  inputBorderBottomColor
+  //inputBorderColor
+} from "../../constants/colors";
+
 type Props = {
   icon: number,
   onBlur: Function,
@@ -43,8 +49,8 @@ const styles = StyleSheet.create({
    ********************/
   inputContainer: {
     alignItems: "center",
-    backgroundColor: "#FFFFFF",
-    borderBottomColor: "#F5FCFF",
+    backgroundColor: inputBackgroundColor,
+    borderBottomColor: inputBorderBottomColor,
     borderBottomWidth: 1,
     borderRadius: 7,
     flexDirection: "row",
@@ -63,7 +69,7 @@ const styles = StyleSheet.create({
     width: 30
   },
   input: {
-    borderBottomColor: "#FFFFFF",
+    borderBottomColor: inputBorderBottomColor /*inputBorderColor*/,
     flex: 1,
     fontSize: 16,
     height: 45,

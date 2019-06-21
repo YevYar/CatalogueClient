@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import * as yup from "yup";
 
 import LRForm from "../components/LRForm/LRForm";
+import { additionalTextColor, screenBackground_2 } from "../constants/colors";
 import { register } from "../middlewares/UserAccountMiddleware/RegistrationMiddleware";
 
 function equalTo(ref, msg) {
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: "center",
-    backgroundColor: "rgba(30, 144, 255, 0.1)",
+    backgroundColor: screenBackground_2,
     flex: 1,
     justifyContent: "center"
   },
@@ -101,6 +102,7 @@ const styles = StyleSheet.create({
    * element styles *
    ******************/
   additionalButtonText: {
+    color: additionalTextColor,
     fontSize: 17
   }
 });

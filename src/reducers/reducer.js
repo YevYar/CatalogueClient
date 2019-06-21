@@ -33,6 +33,24 @@ export default function reducer(
     tempCommentId: -1,
     token: "",
     username: ""
+
+    /*appState: {
+      isCommentsLoadedWithoutErrors: false,
+      isCommentsLoadingFinished: false,
+      isLogged: false,
+      isProductsLoadingFinished: false,
+      selectedProduct: -1,
+      tempCommentId: -1
+    },
+    domainData: {
+      comments: {},
+      products: [],
+      token: "",
+      username: ""
+    },
+    uiState: {
+      isCommentInputVisible: false
+    }*/
   },
   action: Object
 ) {

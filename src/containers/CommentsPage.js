@@ -18,7 +18,7 @@ import {
 import Modal from "react-native-modal";
 import { connect } from "react-redux";
 
-import { ADD_COMMENT } from "../images/images";
+import { ADD_COMMENT } from "../constants/images";
 import Comment from "../components/Comment";
 import CommentInput from "../components/CommentInput";
 import { changeCommentInputVisibility } from "../actionCreators/CommentActions";
@@ -26,6 +26,7 @@ import {
   fetchProductComments,
   postComment
 } from "../middlewares/CommentMiddleware";
+import { mainDark, mainLight, screenBackground } from "../constants/colors";
 
 type Props = {
   changeCommentInputVisibility: Function,
@@ -105,7 +106,7 @@ class CommentsPage extends Component<Props, States> {
         <View style={styles.page}>
           <ActivityIndicator
             size={55}
-            color="rgba(30, 144, 255, 1)"
+            color={mainDark}
             style={styles.activityIndicator}
           />
         </View>
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
    * container styles *
    ********************/
   addButtonBlock: {
-    borderColor: "#F1C408",
+    borderColor: mainLight,
     borderRadius: 49,
     borderWidth: 5,
     bottom: 30,
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   page: {
-    backgroundColor: "rgba(30, 144, 255, 0.08)",
+    backgroundColor: screenBackground,
     flex: 1,
     flexDirection: "column",
     justifyContent: "center"

@@ -19,8 +19,15 @@ import Image from "react-native-image-progress";
 import ProgressCircleSnail from "react-native-progress/CircleSnail";
 import { connect } from "react-redux";
 
-import { PLACEHOLDER_BIG } from "../images/images";
+import { PLACEHOLDER_BIG } from "../constants/images";
 import { fetchProductComments } from "../middlewares/CommentMiddleware";
+import {
+  mainTextColor,
+  mainTextColorOnDarkBG,
+  mainDark,
+  mainLight,
+  screenBackground_3
+} from "../constants/colors";
 
 type Props = {
   fetchProductComments: Function,
@@ -73,7 +80,7 @@ class AboutProductPage extends Component<Props, States> {
       <Image
         source={{ uri: product.img }}
         indicator={ProgressCircleSnail}
-        indicatorProps={{ color: "rgba(30, 144, 255, 1)" }}
+        indicatorProps={{ color: mainDark }}
         onError={() => this.changeToDefaultImg()}
         onLoad={() => this.defineImageDimensions()}
         resizeMode="contain"
@@ -99,7 +106,7 @@ class AboutProductPage extends Component<Props, States> {
               this.props.navigation.navigate("Comments");
             }}
             style={styles.commentsButton}
-            underlayColor="#1E90FF"
+            underlayColor={mainDark}
           >
             <Text style={styles.commentsButtonText}>COMMENTS</Text>
           </TouchableHighlight>
@@ -114,7 +121,7 @@ const styles = StyleSheet.create({
    * container styles *
    ********************/
   page: {
-    backgroundColor: "white",
+    backgroundColor: screenBackground_3,
     flex: 1
   },
 
@@ -123,8 +130,8 @@ const styles = StyleSheet.create({
    ******************/
   commentsButton: {
     alignSelf: "stretch",
-    backgroundColor: "#F1C408",
-    borderColor: "#1E90FF",
+    backgroundColor: mainLight,
+    borderColor: mainDark,
     borderRadius: 10,
     borderWidth: 1,
     elevation: 4,
@@ -133,13 +140,13 @@ const styles = StyleSheet.create({
     padding: 8
   },
   commentsButtonText: {
-    color: "white",
+    color: mainTextColorOnDarkBG,
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center"
   },
   description: {
-    color: "black",
+    color: mainTextColor,
     fontSize: 17,
     marginBottom: 0,
     marginLeft: 20,
@@ -149,16 +156,16 @@ const styles = StyleSheet.create({
     textAlign: "justify"
   },
   endLine: {
-    borderBottomColor: "#1E90FF",
+    borderBottomColor: mainDark,
     borderBottomWidth: 1,
     marginLeft: 10,
     marginRight: 10
   },
   name: {
     alignSelf: "stretch",
-    borderBottomColor: "#1E90FF",
+    borderBottomColor: mainDark,
     borderBottomWidth: 1,
-    color: "#1E90FF",
+    color: mainDark,
     fontSize: 21,
     fontWeight: "bold",
     margin: 10,

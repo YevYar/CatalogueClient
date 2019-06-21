@@ -8,6 +8,8 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
+import { errorTextColor } from "../../constants/colors";
+
 type Props = {
   errorMessage: string
 };
@@ -33,7 +35,7 @@ const styles = StyleSheet.create({
    * element styles *
    ******************/
   error: {
-    color: "red",
+    color: errorTextColor,
     flexWrap: "wrap",
     fontSize: 14,
     //marginBottom: 12,

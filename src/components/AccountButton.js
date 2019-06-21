@@ -16,7 +16,13 @@ import {
   renderers
 } from "react-native-popup-menu";
 
-import { ACCOUNT } from "../images/images";
+import { ACCOUNT } from "../constants/images";
+import {
+  accountMenuColor,
+  additionalTextColor,
+  mainLight,
+  navHeaderElementsColor
+} from "../constants/colors";
 import { logout } from "../middlewares/SessionStoreMiddleware/AccountStoreMiddleware";
 
 const { Popover } = renderers;
@@ -32,7 +38,7 @@ function AccountButton(props: Props) {
     <Menu
       renderer={Popover}
       rendererProps={{
-        anchorStyle: { backgroundColor: "red" },
+        anchorStyle: { backgroundColor: accountMenuColor },
         placement: "left",
         preferredPlacement: "left"
       }}
@@ -54,7 +60,7 @@ function AccountButton(props: Props) {
     <TouchableHighlight
       onPress={() => props.onPress()}
       style={styles.container}
-      underlayColor="#F1C408"
+      underlayColor={mainLight}
     >
       <Image source={ACCOUNT} style={styles.image} />
     </TouchableHighlight>
@@ -68,7 +74,7 @@ const styles = StyleSheet.create({
    * container styles *
    ********************/
   container: {
-    backgroundColor: "white",
+    backgroundColor: navHeaderElementsColor,
     borderBottomLeftRadius: 8,
     borderTopLeftRadius: 8,
     height: 56,
@@ -86,7 +92,7 @@ const styles = StyleSheet.create({
     width: 48
   },
   logout: {
-    color: "red",
+    color: accountMenuColor,
     fontSize: 16.5,
     width: 100
   },
@@ -95,6 +101,7 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline"
   },
   text: {
+    color: additionalTextColor,
     fontSize: 15.5,
     height: 48,
     textAlign: "center"

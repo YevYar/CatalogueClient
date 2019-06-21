@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 
 import ProductRow from "../components/ProductRow";
 import { fetchProducts } from "../middlewares/CatalogueMiddleware";
+import { mainDark, screenBackground } from "../constants/colors";
 import { openProductInfo } from "../actionCreators/CatalogueActions";
 
 type Props = {
@@ -44,7 +45,7 @@ class ProductsPage extends Component<Props, States> {
     ) : (
       <ActivityIndicator
         size={55}
-        color="rgba(30, 144, 255, 1)"
+        color={mainDark}
         style={styles.activityIndicator}
       />
     );
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   page: {
-    backgroundColor: "rgba(30, 144, 255, 0.08)",
+    backgroundColor: screenBackground,
     flex: 1,
     flexDirection: "column",
     justifyContent: "center"

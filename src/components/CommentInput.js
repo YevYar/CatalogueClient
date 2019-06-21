@@ -10,13 +10,18 @@ import { Image, StyleSheet, TouchableHighlight, View } from "react-native";
 import { AirbnbRating } from "react-native-ratings";
 import { AutoGrowingTextInput } from "react-native-autogrow-textinput";
 
-import { _1STAR } from "../images/images";
-import { _2STARS } from "../images/images";
-import { _3STARS } from "../images/images";
-import { _4STARS } from "../images/images";
-import { _5STARS } from "../images/images";
-import { CLOSE } from "../images/images";
-import { SEND } from "../images/images";
+import { _1STAR } from "../constants/images";
+import { _2STARS } from "../constants/images";
+import { _3STARS } from "../constants/images";
+import { _4STARS } from "../constants/images";
+import { _5STARS } from "../constants/images";
+import { CLOSE } from "../constants/images";
+import { SEND } from "../constants/images";
+import {
+  commentInputBG,
+  commentInputBorder,
+  inputBackgroundColor
+} from "../constants/colors";
 
 type Props = { onClosePress: Function, onSend: Function };
 type States = { comment: string, rating: number };
@@ -114,8 +119,8 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: "center",
-    backgroundColor: "rgba(110, 170, 200, 0.7)",
-    borderColor: "gold",
+    backgroundColor: commentInputBG,
+    borderColor: commentInputBorder,
     borderRadius: 20,
     borderWidth: 3,
     flexDirection: "column",
@@ -125,9 +130,9 @@ const styles = StyleSheet.create({
   },
   inputBlock: {
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: inputBackgroundColor,
     borderBottomWidth: 0,
-    borderColor: "gold",
+    borderColor: commentInputBorder,
     borderRadius: 15,
     borderWidth: 2,
     flexDirection: "row",
@@ -146,7 +151,7 @@ const styles = StyleSheet.create({
   },
   input: {
     alignSelf: "stretch",
-    backgroundColor: "white",
+    backgroundColor: inputBackgroundColor,
     borderBottomRightRadius: 0,
     borderRadius: 15,
     borderTopRightRadius: 0,

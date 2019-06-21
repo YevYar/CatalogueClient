@@ -19,6 +19,7 @@ import NavigationService from "./services/NavigationService";
 import ProductsPage from "./containers/ProductsPage";
 import Registration from "./containers/Registration";
 import { fetchProducts } from "./middlewares/CatalogueMiddleware";
+import { mainDark, navHeaderElementsColor } from "./constants/colors";
 import { restoreSession } from "./middlewares/SessionStoreMiddleware/RestoreSessionMiddleware";
 import store from "./store";
 
@@ -48,9 +49,9 @@ const MainNavigator = createStackNavigator(
         <AccountButton onPress={() => navigation.navigate("Login")} />
       ),
       headerStyle: {
-        backgroundColor: "#1E90FF"
+        backgroundColor: mainDark
       },
-      headerTintColor: "#fff",
+      headerTintColor: navHeaderElementsColor,
       headerTitleStyle: {
         fontSize: 23,
         fontWeight: "bold"

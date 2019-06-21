@@ -10,6 +10,7 @@ import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
 import { connect } from "react-redux";
 
 import LRForm from "../components/LRForm/LRForm";
+import { additionalTextColor, screenBackground_2 } from "../constants/colors";
 import { login } from "../middlewares/UserAccountMiddleware/AuthorizationMiddleware";
 
 type Props = { login: Function, navigation: Object };
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: "center",
-    backgroundColor: "rgba(30, 144, 255, 0.1)",
+    backgroundColor: screenBackground_2,
     flex: 1,
     justifyContent: "center"
   },
@@ -57,6 +58,7 @@ const styles = StyleSheet.create({
    * element styles *
    ******************/
   additionalButtonText: {
+    color: additionalTextColor,
     fontSize: 17
   }
 });

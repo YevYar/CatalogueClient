@@ -8,6 +8,12 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Rating } from "react-native-ratings";
+import {
+  listElementBackground,
+  listElementBorder,
+  mainDark,
+  mainTextColor
+} from "../constants/colors";
 
 type Props = {
   dateTime: string,
@@ -52,8 +58,8 @@ const styles = StyleSheet.create({
    ********************/
   container: {
     alignItems: "flex-start",
-    backgroundColor: "white",
-    borderColor: "black",
+    backgroundColor: listElementBackground,
+    borderColor: listElementBorder,
     borderRadius: 10,
     borderWidth: 1,
     elevation: 4,
@@ -67,7 +73,7 @@ const styles = StyleSheet.create({
     padding: 5
   },
   text: {
-    color: "black",
+    color: mainTextColor,
     fontSize: 16,
     marginTop: 7,
     textAlign: "justify"
@@ -83,13 +89,13 @@ const styles = StyleSheet.create({
    * element styles *
    ******************/
   name: {
-    color: "#1E90FF",
+    color: mainDark,
     flex: 1,
     fontSize: 17,
     fontWeight: "bold"
   },
   time: {
-    color: "black",
+    color: mainTextColor,
     flex: 1,
     fontSize: 13.5,
     fontStyle: "italic",
