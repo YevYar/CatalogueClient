@@ -16,14 +16,14 @@ import {
 import Image from "react-native-image-progress";
 import ProgressCircleSnail from "react-native-progress/CircleSnail";
 
-import { PLACEHOLDER } from "../constants/images";
+import { PLACEHOLDER } from "../../constants/images";
 import {
   listElementBackground,
   listElementBorder,
   mainDark,
   screenBackground,
   mainTextColor
-} from "../constants/colors";
+} from "../../constants/colors";
 
 type Props = { image: string, onPress: Function, text: string, title: String };
 type States = { loadError: boolean };

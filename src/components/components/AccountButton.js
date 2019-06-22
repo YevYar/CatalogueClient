@@ -7,7 +7,6 @@
 
 import React from "react";
 import { Image, StyleSheet, Text, TouchableHighlight } from "react-native";
-import { connect } from "react-redux";
 import {
   Menu,
   MenuOption,
@@ -16,14 +15,13 @@ import {
   renderers
 } from "react-native-popup-menu";
 
-import { ACCOUNT } from "../constants/images";
+import { ACCOUNT } from "../../constants/images";
 import {
   accountMenuColor,
   additionalTextColor,
   mainLight,
   navHeaderElementsColor
-} from "../constants/colors";
-import { logout } from "../middlewares/SessionStoreMiddleware/AccountStoreMiddleware";
+} from "../../constants/colors";
 
 const { Popover } = renderers;
 
@@ -33,7 +31,7 @@ type Props = {
   onPress: Function,
   username: string
 };
-function AccountButton(props: Props) {
+export default function AccountButton(props: Props) {
   const element = props.isLogged ? (
     <Menu
       renderer={Popover}
@@ -107,19 +105,3 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
-
-const mapStateToProps = state => {
-  return {
-    isLogged: state.appState.isLogged,
-    username: state.domainData.username
-  };
-};
-
-const mapDispatchToProps = {
-  logout
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AccountButton);

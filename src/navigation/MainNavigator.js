@@ -8,38 +8,41 @@
 import React from "react";
 import { createStackNavigator } from "react-navigation";
 
-import AboutProductPage from "../containers/AboutProductPage";
-import AccountButton from "../components/AccountButton";
-import CommentsPage from "../containers/CommentsPage";
-import Login from "../containers/Login";
-import ProductsPage from "../containers/ProductsPage";
-import Registration from "../containers/Registration";
+import AboutProductContainer from "../containers/AboutProductContainer";
+import AccountButtonContainer from "../containers/AccountButtonContainer";
+import CommentsContainer from "../containers/CommentsContainer";
+import LoginContainer from "../containers/LoginContainer";
+import ProductsContainer from "../containers/ProductsContainer";
+import RegistrationContainer from "../containers/RegistrationContainer";
 import { mainDark, navHeaderElementsColor } from "../constants/colors";
 
 export default createStackNavigator(
   {
-    Home: { screen: ProductsPage, navigationOptions: { title: "Products" } },
+    Home: {
+      screen: ProductsContainer,
+      navigationOptions: { title: "Products" }
+    },
     About: {
-      screen: AboutProductPage,
+      screen: AboutProductContainer,
       navigationOptions: { title: "About product" }
     },
     Comments: {
-      screen: CommentsPage,
+      screen: CommentsContainer,
       navigationOptions: { title: "Comments" }
     },
     Login: {
-      screen: Login,
+      screen: LoginContainer,
       navigationOptions: { headerRight: null, title: "Login" }
     },
     Registration: {
-      screen: Registration,
+      screen: RegistrationContainer,
       navigationOptions: { headerRight: null, title: "Registration" }
     }
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
       headerRight: (
-        <AccountButton onPress={() => navigation.navigate("Login")} />
+        <AccountButtonContainer onPress={() => navigation.navigate("Login")} />
       ),
       headerStyle: {
         backgroundColor: mainDark

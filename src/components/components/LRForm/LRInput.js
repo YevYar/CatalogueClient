@@ -12,7 +12,7 @@ import {
   inputBackgroundColor,
   inputBorderBottomColor
   //inputBorderColor
-} from "../../constants/colors";
+} from "../../../constants/colors";
 
 type Props = {
   icon: number,
@@ -31,7 +31,7 @@ export default function LRInput(
     <View style={styles.inputContainer}>
       <Image source={props.icon} style={styles.inputIcon} />
       <TextInput
-        onBlur={props.onBlur}
+        onBlur={() => props.onBlur()}
         onChangeText={text => props.onChangeText(text)}
         placeholder={props.placeholder}
         secureTextEntry={props.secureTextEntry}

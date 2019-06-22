@@ -1,5 +1,5 @@
 /**
- * This container (can be called a screen or page) presents information about the selected product.
+ * This screen (or page) presents information about the selected product.
  *
  * @format
  * @flow
@@ -17,26 +17,25 @@ import {
 } from "react-native";
 import Image from "react-native-image-progress";
 import ProgressCircleSnail from "react-native-progress/CircleSnail";
-import { connect } from "react-redux";
 
-import { PLACEHOLDER_BIG } from "../constants/images";
-import { fetchProductComments } from "../middlewares/CommentMiddleware";
+import { PLACEHOLDER_BIG } from "../../constants/images";
 import {
   mainTextColor,
   mainTextColorOnDarkBG,
   mainDark,
   mainLight,
   screenBackground_3
-} from "../constants/colors";
+} from "../../constants/colors";
 
 type Props = {
   fetchProductComments: Function,
+  goTo: Function,
   id: number,
-  navigation: Object,
+  //navigation: Object,
   product: Object
 };
 type States = { height: number, loadError: boolean, width: number };
-class AboutProductPage extends Component<Props, States> {
+export default class AboutProductScreen extends Component<Props, States> {
   state = {
     height: 100,
     loadError: false,
@@ -103,7 +102,8 @@ class AboutProductPage extends Component<Props, States> {
           <TouchableHighlight
             onPress={() => {
               this.props.fetchProductComments(this.props.id);
-              this.props.navigation.navigate("Comments");
+              this.props.goTo();
+              //this.props.navigation.navigate("Comments");
             }}
             style={styles.commentsButton}
             underlayColor={mainDark}
@@ -178,20 +178,3 @@ const styles = StyleSheet.create({
     width: 200
   }
 });
-
-const mapStateToProps = state => {
-  const data = state.domainData.products.find(
-    x => x.id === state.appState.selectedProduct
-  );
-  return {
-    id: state.appState.selectedProduct,
-    product: data //not { ...data }, because data doesn't mutate in the presentation component
-  };
-};
-
-const mapDispatchToProps = { fetchProductComments };
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AboutProductPage);

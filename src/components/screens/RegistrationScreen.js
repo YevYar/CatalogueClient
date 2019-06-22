@@ -1,5 +1,5 @@
 /**
- * This container (can be called a screen or page) presents the login page.
+ * This screen (or page) presents the registration page.
  *
  * @format
  * @flow
@@ -7,25 +7,40 @@
 
 import React, { Component } from "react";
 import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
-import { connect } from "react-redux";
+import * as yup from "yup";
 
 import LRForm from "../components/LRForm/LRForm";
-import { additionalTextColor, screenBackground_2 } from "../constants/colors";
-import { login } from "../middlewares/UserAccountMiddleware/AuthorizationMiddleware";
+import {
+  additionalTextColor,
+  screenBackground_2
+} from "../../constants/colors";
 
-type Props = { login: Function, navigation: Object };
+type Props = {
+  //navigation: Object,
+  goTo: Function,
+  register: Function,
+  validationSchema?: yup.Schema
+};
 type States = {};
-class Login extends Component<Props, States> {
+export default class RegistrationScreen extends Component<Props, States> {
   render() {
     return (
       <View style={styles.container}>
-        <LRForm onSubmit={this.props.login} submitButtonText={"Sign in"}>
+        <LRForm
+          confirmPassword={true}
+          onSubmit={this.props.register}
+          submitButtonText={"Sign up"}
+          validationSchema={this.props.validationSchema}
+        >
           <TouchableHighlight
-            onPress={() => this.props.navigation.navigate("Registration")}
+            onPress={
+              () => this.props.goTo()
+              //() => this.props.navigation.navigate("Login")
+            }
             style={styles.buttonContainerWithoutDecor}
             underlayColor="transparent"
           >
-            <Text style={styles.additionalButtonText}>Sign up</Text>
+            <Text style={styles.additionalButtonText}>Sign in</Text>
           </TouchableHighlight>
         </LRForm>
       </View>
@@ -62,14 +77,3 @@ const styles = StyleSheet.create({
     fontSize: 17
   }
 });
-
-const mapStateToProps = () => {
-  return {};
-};
-
-const mapDispatchToProps = { login };
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Login);

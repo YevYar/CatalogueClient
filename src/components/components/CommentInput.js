@@ -10,18 +10,18 @@ import { Image, StyleSheet, TouchableHighlight, View } from "react-native";
 import { AirbnbRating } from "react-native-ratings";
 import { AutoGrowingTextInput } from "react-native-autogrow-textinput";
 
-import { _1STAR } from "../constants/images";
-import { _2STARS } from "../constants/images";
-import { _3STARS } from "../constants/images";
-import { _4STARS } from "../constants/images";
-import { _5STARS } from "../constants/images";
-import { CLOSE } from "../constants/images";
-import { SEND } from "../constants/images";
+import { _1STAR } from "../../constants/images";
+import { _2STARS } from "../../constants/images";
+import { _3STARS } from "../../constants/images";
+import { _4STARS } from "../../constants/images";
+import { _5STARS } from "../../constants/images";
+import { CLOSE } from "../../constants/images";
+import { SEND } from "../../constants/images";
 import {
   commentInputBG,
   commentInputBorder,
   inputBackgroundColor
-} from "../constants/colors";
+} from "../../constants/colors";
 
 type Props = { onClosePress: Function, onSend: Function };
 type States = { comment: string, rating: number };

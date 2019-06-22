@@ -42,7 +42,9 @@ export default function reducer(
   },
   action: Object
 ) {
-  //console.log(state);
+  console.log("====================== STATE");
+  console.log(action.type);
+  console.log(state);
 
   switch (action.type) {
     case CHANGE_COMMENT_INPUT_VISIBILITY:

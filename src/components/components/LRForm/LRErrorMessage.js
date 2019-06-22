@@ -8,12 +8,12 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-import { errorTextColor } from "../../constants/colors";
+import { errorTextColor } from "../../../constants/colors";
 
 type Props = {
   errorMessage: string
 };
-export default function LRInput(props: Props) {
+export default function LRErrorMessage(props: Props) {
   return (
     <View style={styles.errorTextWrapper}>
       <Text style={styles.error}>{props.errorMessage}</Text>

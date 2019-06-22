@@ -17,12 +17,12 @@ import * as yup from "yup";
 
 import LRErrorMessage from "./LRErrorMessage";
 import LRInput from "./LRInput";
-import { PASSWORD, USERNAME } from "../../constants/images";
+import { PASSWORD, USERNAME } from "../../../constants/images";
 import {
   additionalDark,
   mainLight,
   mainTextColorOnDarkBG
-} from "../../constants/colors";
+} from "../../../constants/colors";
 
 type Props = {
   children?: Object,
@@ -59,6 +59,10 @@ export default class LRForm extends Component<Props, States> {
 
   constructor(props: Props, defaultProps: Object) {
     super(props, defaultProps);
+    console.log("console.log(props.validationSchema)");
+    console.log(props.validationSchema);
+    /*if (props.validationSchema === undefined)
+      this.props.validationSchema = defaultProps.validationSchema;*/
   }
 
   render() {

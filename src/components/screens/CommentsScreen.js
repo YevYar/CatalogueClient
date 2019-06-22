@@ -1,5 +1,5 @@
 /**
- * This container (can be called a screen or page) presents comments about the selected product.
+ * This screen (or page) presents comments about the selected product.
  *
  * @format
  * @flow
@@ -16,17 +16,11 @@ import {
   View
 } from "react-native";
 import Modal from "react-native-modal";
-import { connect } from "react-redux";
 
-import { ADD_COMMENT } from "../constants/images";
+import { ADD_COMMENT } from "../../constants/images";
 import Comment from "../components/Comment";
 import CommentInput from "../components/CommentInput";
-import { changeCommentInputVisibility } from "../actionCreators/CommentActions";
-import {
-  fetchProductComments,
-  postComment
-} from "../middlewares/CommentMiddleware";
-import { mainDark, mainLight, screenBackground } from "../constants/colors";
+import { mainDark, mainLight, screenBackground } from "../../constants/colors";
 
 type Props = {
   changeCommentInputVisibility: Function,
@@ -39,12 +33,12 @@ type Props = {
   productId: number
 };
 type States = { isCommentInputVisible: boolean };
-class CommentsPage extends Component<Props, States> {
+export default class CommentsScreen extends Component<Props, States> {
   state = {
     isCommentInputVisible: false
   };
 
-  changeModalVisibility(value) {
+  changeModalVisibility(value: boolean) {
     this.setState({ isCommentInputVisible: value });
   }
 
@@ -149,36 +143,3 @@ const styles = StyleSheet.create({
     width: 75
   }
 });
-
-const mapStateToProps = state => {
-  /*let data =
-    state.domainData.comments[`product_${state.appState.selectedProduct}`];
-  if (data) {
-    data = data.sort((a, b) => {
-      let aD = new Date(a.created_at),
-        bD = new Date(b.created_at);
-      return aD > bD ? -1 : bD > aD ? 1 : 0;
-    });
-  } else data = [];*/
-  return {
-    comments:
-      // comments don't mutate in the presentation component, so I can get they by reference
-      state.domainData.comments[`product_${state.appState.selectedProduct}`],
-    isCommentInputVisible: state.uiState.isCommentInputVisible,
-    isCommentsLoadedWithoutErrors: state.appState.isCommentsLoadedWithoutErrors,
-    isCommentsLoadingFinished: state.appState.isCommentsLoadingFinished,
-    isLogged: state.appState.isLogged,
-    productId: state.appState.selectedProduct
-  };
-};
-
-const mapDispatchToProps = {
-  changeCommentInputVisibility,
-  fetchProductComments,
-  postComment
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CommentsPage);

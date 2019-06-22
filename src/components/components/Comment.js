@@ -13,7 +13,7 @@ import {
   listElementBorder,
   mainDark,
   mainTextColor
-} from "../constants/colors";
+} from "../../constants/colors";
 
 type Props = {
   dateTime: string,

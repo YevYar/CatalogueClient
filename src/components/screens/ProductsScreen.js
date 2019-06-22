@@ -1,5 +1,5 @@
 /**
- * This container (can be called a screen or page) presents product list.
+ * This screen (or page) presents the product list.
  *
  * @format
  * @flow
@@ -7,22 +7,20 @@
 
 import React, { Component } from "react";
 import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
-import { connect } from "react-redux";
 
 import ProductRow from "../components/ProductRow";
-import { fetchProducts } from "../middlewares/CatalogueMiddleware";
-import { mainDark, screenBackground } from "../constants/colors";
-import { openProductInfo } from "../actionCreators/CatalogueActions";
+import { mainDark, screenBackground } from "../../constants/colors";
 
 type Props = {
   fetchProducts: Function,
+  goTo: Function,
   isProductsLoadingFinished: boolean,
-  navigation: Object,
+  //navigation: Object,
   openProductInfo: Function,
   products: Array<Object>
 };
 type States = {};
-class ProductsPage extends Component<Props, States> {
+export default class ProductsScreen extends Component<Props, States> {
   render() {
     const { products } = this.props;
     const content = this.props.isProductsLoadingFinished ? (
@@ -34,7 +32,8 @@ class ProductsPage extends Component<Props, States> {
             image={item.img}
             onPress={() => {
               this.props.openProductInfo(item.id);
-              this.props.navigation.navigate("About");
+              this.props.goTo();
+              //this.props.navigation.navigate("About");
             }}
             text={item.brief}
             title={item.title}
@@ -74,21 +73,3 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   }
 });
-
-const mapStateToProps = state => {
-  return {
-    isProductsLoadingFinished: state.appState.isProductsLoadingFinished,
-    // products don't mutate in the presentation component, so I can get they by reference
-    products: state.domainData.products
-  };
-};
-
-const mapDispatchToProps = {
-  fetchProducts,
-  openProductInfo
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProductsPage);

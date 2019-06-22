@@ -1,5 +1,5 @@
 /**
- * This service contains the axios api client for connecting to the server
+ * This service contains the axios api client for connecting to the server.
  *
  * @format
  * @flow
