@@ -29,6 +29,18 @@ export function fetchProductComments(id: number) {
       .then(response => {
         console.log("fetchProductComments");
         console.log(response.data);
+
+        /*********************************************************
+         * sort product comments by date (the newest in the top) *
+         *********************************************************/
+        if (response.data) {
+          response.data.sort((a, b) => {
+            let aD = new Date(a.created_at),
+              bD = new Date(b.created_at);
+            return aD > bD ? -1 : bD > aD ? 1 : 0;
+          });
+        } else response.data = [];
+
         dispatch(fetchProductCommentsSuccess(id, response.data));
       })
       .catch(error => {

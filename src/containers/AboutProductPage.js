@@ -185,7 +185,7 @@ const mapStateToProps = state => {
   );
   return {
     id: state.appState.selectedProduct,
-    product: data
+    product: data //not { ...data }, because data doesn't mutate in the presentation component
   };
 };
 

@@ -36,7 +36,7 @@ class ProductsPage extends Component<Props, States> {
               this.props.openProductInfo(item.id);
               this.props.navigation.navigate("About");
             }}
-            text={item.text}
+            text={item.brief}
             title={item.title}
           />
         )}
@@ -76,21 +76,10 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  /*************************************************************************
-   * get a brief text from the full text to present it in the product list *
-   *************************************************************************/
-  let data = state.domainData.products;
-  data.forEach(element => {
-    let end = element.text.indexOf(".");
-    if (end === -1) {
-      end = element.text.length;
-    }
-    element.text = element.text.substring(0, end);
-  });
-
   return {
     isProductsLoadingFinished: state.appState.isProductsLoadingFinished,
-    products: data
+    // products don't mutate in the presentation component, so I can get they by reference
+    products: state.domainData.products
   };
 };
 

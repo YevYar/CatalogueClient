@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  let data =
+  /*let data =
     state.domainData.comments[`product_${state.appState.selectedProduct}`];
   if (data) {
     data = data.sort((a, b) => {
@@ -159,9 +159,11 @@ const mapStateToProps = state => {
         bD = new Date(b.created_at);
       return aD > bD ? -1 : bD > aD ? 1 : 0;
     });
-  } else data = [];
+  } else data = [];*/
   return {
-    comments: data,
+    comments:
+      // comments don't mutate in the presentation component, so I can get they by reference
+      state.domainData.comments[`product_${state.appState.selectedProduct}`],
     isCommentInputVisible: state.uiState.isCommentInputVisible,
     isCommentsLoadedWithoutErrors: state.appState.isCommentsLoadedWithoutErrors,
     isCommentsLoadingFinished: state.appState.isCommentsLoadingFinished,

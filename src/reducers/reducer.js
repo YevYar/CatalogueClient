@@ -22,18 +22,6 @@ import {
 
 export default function reducer(
   state: Object = {
-    /*comments: {},
-    isCommentInputVisible: false,
-    isCommentsLoadedWithoutErrors: false,
-    isCommentsLoadingFinished: false,
-    isLogged: false,
-    isProductsLoadingFinished: false,
-    products: [],
-    selectedProduct: -1,
-    tempCommentId: -1,
-    token: "",
-    username: ""*/
-
     appState: {
       isCommentsLoadedWithoutErrors: false,
       isCommentsLoadingFinished: false,
@@ -55,10 +43,6 @@ export default function reducer(
   action: Object
 ) {
   //console.log(state);
-  let comments;
-  let data;
-  let newComment;
-  let pComments;
 
   switch (action.type) {
     case CHANGE_COMMENT_INPUT_VISIBILITY:
@@ -147,26 +131,14 @@ export default function reducer(
       };
 
     case POST_COMMENT_SUCCESS:
-      newComment = {
-        ...action.newComment,
-        created_by: { username: state.domainData.username },
-        id: state.appState.tempCommentId - 1,
-        product: state.appState.selectedProduct
-      };
-      /*newComment.created_by.username = state.username;
-      newComment.id = state.tempCommentId--;
-      newComment.product = state.selectedProduct;*/
-      console.log(newComment);
+      action.newComment.created_by = { username: state.domainData.username };
+      action.newComment.id = state.appState.tempCommentId - 1;
+      action.newComment.product = state.appState.selectedProduct;
 
-      /*comments = state.comments;
-      pComments = comments[`product_${state.selectedProduct}`];
-      pComments = [newComment, ...pComments];
-      comments[`product_${state.selectedProduct}`] = pComments;*/
+      console.log(action.newComment);
 
-      //console.log({ ...state, comments: comments });
       return {
         ...state,
-        //comments: comments,
         appState: {
           ...state.appState,
           tempCommentId: state.appState.tempCommentId - 1
@@ -176,7 +148,7 @@ export default function reducer(
           comments: {
             ...state.domainData.comments,
             [`product_${state.appState.selectedProduct}`]: [
-              newComment,
+              action.newComment,
               ...state.domainData.comments[
                 `product_${state.appState.selectedProduct}`
               ]
