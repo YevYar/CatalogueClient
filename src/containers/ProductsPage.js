@@ -79,7 +79,7 @@ const mapStateToProps = state => {
   /*************************************************************************
    * get a brief text from the full text to present it in the product list *
    *************************************************************************/
-  let data = state.products;
+  let data = state.domainData.products;
   data.forEach(element => {
     let end = element.text.indexOf(".");
     if (end === -1) {
@@ -89,7 +89,7 @@ const mapStateToProps = state => {
   });
 
   return {
-    isProductsLoadingFinished: state.isProductsLoadingFinished,
+    isProductsLoadingFinished: state.appState.isProductsLoadingFinished,
     products: data
   };
 };

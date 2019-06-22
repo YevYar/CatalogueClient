@@ -151,7 +151,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  let data = state.comments[`product_${state.selectedProduct}`];
+  let data =
+    state.domainData.comments[`product_${state.appState.selectedProduct}`];
   if (data) {
     data = data.sort((a, b) => {
       let aD = new Date(a.created_at),
@@ -161,11 +162,11 @@ const mapStateToProps = state => {
   } else data = [];
   return {
     comments: data,
-    isCommentInputVisible: state.isCommentInputVisible,
-    isCommentsLoadedWithoutErrors: state.isCommentsLoadedWithoutErrors,
-    isCommentsLoadingFinished: state.isCommentsLoadingFinished,
-    isLogged: state.isLogged,
-    productId: state.selectedProduct
+    isCommentInputVisible: state.uiState.isCommentInputVisible,
+    isCommentsLoadedWithoutErrors: state.appState.isCommentsLoadedWithoutErrors,
+    isCommentsLoadingFinished: state.appState.isCommentsLoadingFinished,
+    isLogged: state.appState.isLogged,
+    productId: state.appState.selectedProduct
   };
 };
 

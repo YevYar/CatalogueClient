@@ -180,9 +180,11 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  const data = state.products.find(x => x.id === state.selectedProduct);
+  const data = state.domainData.products.find(
+    x => x.id === state.appState.selectedProduct
+  );
   return {
-    id: state.selectedProduct,
+    id: state.appState.selectedProduct,
     product: data
   };
 };

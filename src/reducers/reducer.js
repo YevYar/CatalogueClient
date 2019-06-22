@@ -22,7 +22,7 @@ import {
 
 export default function reducer(
   state: Object = {
-    comments: {},
+    /*comments: {},
     isCommentInputVisible: false,
     isCommentsLoadedWithoutErrors: false,
     isCommentsLoadingFinished: false,
@@ -32,9 +32,9 @@ export default function reducer(
     selectedProduct: -1,
     tempCommentId: -1,
     token: "",
-    username: ""
+    username: ""*/
 
-    /*appState: {
+    appState: {
       isCommentsLoadedWithoutErrors: false,
       isCommentsLoadingFinished: false,
       isLogged: false,
@@ -50,7 +50,7 @@ export default function reducer(
     },
     uiState: {
       isCommentInputVisible: false
-    }*/
+    }
   },
   action: Object
 ) {
@@ -64,80 +64,141 @@ export default function reducer(
     case CHANGE_COMMENT_INPUT_VISIBILITY:
       return {
         ...state,
-        isCommentInputVisible: action.isVisible
+        uiState: { ...state.uiState, isCommentInputVisible: action.isVisible }
       };
 
     case LOGIN_SUCCESS:
       console.log("token: " + action.token);
       return {
         ...state,
-        isLogged: true,
-        token: action.token,
-        username: action.username
+        appState: { ...state.appState, isLogged: true },
+        domainData: {
+          ...state.domainData,
+          token: action.token,
+          username: action.username
+        }
       };
 
     case LOGOUT_SUCCESS:
       return {
         ...state,
-        isLogged: false,
-        token: "",
-        username: ""
+        appState: { ...state.appState, isLogged: false },
+        domainData: {
+          ...state.domainData,
+          token: "",
+          username: ""
+        }
       };
 
     case FETCH_PRODUCT_COMMENTS_FAIL:
       return {
         ...state,
-        isCommentsLoadedWithoutErrors: false,
-        isCommentsLoadingFinished: true
+        appState: {
+          ...state.appState,
+          isCommentsLoadedWithoutErrors: false,
+          isCommentsLoadingFinished: true
+        }
       };
 
     case FETCH_PRODUCT_COMMENTS_SUCCESS:
-      data = action.comments;
-      comments = state.comments;
-      comments[`product_${action.id}`] = data;
       return {
         ...state,
-        isCommentsLoadedWithoutErrors: true,
-        isCommentsLoadingFinished: true,
-        tempCommentId: -1,
-        comments: comments
+        appState: {
+          ...state.appState,
+          isCommentsLoadedWithoutErrors: true,
+          isCommentsLoadingFinished: true,
+          tempCommentId: -1
+        },
+        domainData: {
+          ...state.domainData,
+          comments: {
+            ...state.domainData.comments,
+            [`product_${action.id}`]: action.comments
+          }
+        }
       };
 
     case FETCH_PRODUCTS_FAIL:
-      return { ...state, isProductsLoadingFinished: true };
+      return {
+        ...state,
+        appState: {
+          ...state.appState,
+          isProductsLoadingFinished: true
+        }
+      };
 
     case FETCH_PRODUCTS_SUCCESS:
       return {
         ...state,
-        isProductsLoadingFinished: true,
-        products: action.products
+        appState: {
+          ...state.appState,
+          isProductsLoadingFinished: true
+        },
+        domainData: { ...state.domainData, products: action.products }
       };
 
     case OPEN_PRODUCT_INFO:
-      return { ...state, selectedProduct: action.id };
+      return {
+        ...state,
+        appState: {
+          ...state.appState,
+          selectedProduct: action.id
+        }
+      };
 
     case POST_COMMENT_SUCCESS:
-      newComment = action.newComment;
-      newComment.created_by.username = state.username;
+      newComment = {
+        ...action.newComment,
+        created_by: { username: state.domainData.username },
+        id: state.appState.tempCommentId - 1,
+        product: state.appState.selectedProduct
+      };
+      /*newComment.created_by.username = state.username;
       newComment.id = state.tempCommentId--;
-      newComment.product = state.selectedProduct;
+      newComment.product = state.selectedProduct;*/
       console.log(newComment);
 
-      comments = state.comments;
+      /*comments = state.comments;
       pComments = comments[`product_${state.selectedProduct}`];
       pComments = [newComment, ...pComments];
-      comments[`product_${state.selectedProduct}`] = pComments;
+      comments[`product_${state.selectedProduct}`] = pComments;*/
 
-      console.log({ ...state, comments: comments });
-      return { ...state, comments: comments, isCommentInputVisible: false };
+      //console.log({ ...state, comments: comments });
+      return {
+        ...state,
+        //comments: comments,
+        appState: {
+          ...state.appState,
+          tempCommentId: state.appState.tempCommentId - 1
+        },
+        domainData: {
+          ...state.domainData,
+          comments: {
+            ...state.domainData.comments,
+            [`product_${state.appState.selectedProduct}`]: [
+              newComment,
+              ...state.domainData.comments[
+                `product_${state.appState.selectedProduct}`
+              ]
+            ]
+          }
+        },
+        uiState: { ...state.uiState, isCommentInputVisible: false }
+      };
 
     case REGISTER_SUCCESS:
       console.log("token: " + action.token);
       return {
         ...state,
-        isLogged: true,
-        token: action.token,
-        username: action.username
+        appState: {
+          ...state.appState,
+          isLogged: true
+        },
+        domainData: {
+          ...state.domainData,
+          token: action.token,
+          username: action.username
+        }
       };
 
     case RESTORE_SESSION_SUCCESS:
@@ -145,13 +206,25 @@ export default function reducer(
       console.log("username: " + action.username);
       return {
         ...state,
-        isLogged: true,
-        token: action.token,
-        username: action.username
+        appState: {
+          ...state.appState,
+          isLogged: true
+        },
+        domainData: {
+          ...state.domainData,
+          token: action.token,
+          username: action.username
+        }
       };
 
     case SET_COMMENTS_NOT_LOADED:
-      return { ...state, isCommentsLoadingFinished: false };
+      return {
+        ...state,
+        appState: {
+          ...state.appState,
+          isCommentsLoadingFinished: false
+        }
+      };
 
     default:
       return state;

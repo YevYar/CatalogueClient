@@ -110,8 +110,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    isLogged: state.isLogged,
-    username: state.username
+    isLogged: state.appState.isLogged,
+    username: state.domainData.username
   };
 };
 
