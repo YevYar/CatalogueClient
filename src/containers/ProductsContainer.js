@@ -8,15 +8,16 @@
 import { connect } from "react-redux";
 
 import ProductsScreen from "../components/screens/ProductsScreen";
-import { fetchProducts } from "../middlewares/CatalogueMiddleware";
-import { openProductInfo } from "../actionCreators/CatalogueActions";
+import { fetchProducts } from "../middlewares/catalogueMiddleware";
+import { openProductInfo } from "../actionCreators/catalogueActions";
 
 const mapStateToProps = (state, ownProps) => {
   return {
     goTo: () => ownProps.navigation.navigate("About"),
-    isProductsLoadingFinished: state.appState.isProductsLoadingFinished,
+    isProductsLoadingFinished:
+      state.catalogueState.appState.isProductsLoadingFinished,
     // products don't mutate in the presentation component, so I can get they by reference
-    products: state.domainData.products
+    products: state.catalogueState.domainData.products
   };
 };
 

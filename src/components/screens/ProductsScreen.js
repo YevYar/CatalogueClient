@@ -6,10 +6,11 @@
  */
 
 import React, { Component } from "react";
-import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 
 import ProductRow from "../components/ProductRow";
-import { mainDark, screenBackground } from "../../constants/colors";
+import ScreenActivityIndicator from "../components/ScreenActivityIndicator";
+import { screenBackground } from "../../constants/colors";
 
 type Props = {
   fetchProducts: Function,
@@ -20,6 +21,7 @@ type Props = {
   products: Array<Object>
 };
 type States = {};
+
 export default class ProductsScreen extends Component<Props, States> {
   render() {
     const { products } = this.props;
@@ -42,11 +44,7 @@ export default class ProductsScreen extends Component<Props, States> {
         style={styles.list}
       />
     ) : (
-      <ActivityIndicator
-        size={55}
-        color={mainDark}
-        style={styles.activityIndicator}
-      />
+      <ScreenActivityIndicator />
     );
     return <View style={styles.page}>{content}</View>;
   }
@@ -64,12 +62,5 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "center"
-  },
-
-  /******************
-   * element styles *
-   ******************/
-  activityIndicator: {
-    alignSelf: "center"
   }
 });

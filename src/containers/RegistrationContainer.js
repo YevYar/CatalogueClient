@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import * as yup from "yup";
 
 import RegistrationScreen from "../components/screens/RegistrationScreen";
-import { register } from "../middlewares/UserAccountMiddleware/RegistrationMiddleware";
+import { register } from "../middlewares/UserAccountMiddleware/registrationMiddleware";
 
 function equalTo(ref, msg) {
   return this.test({
@@ -52,7 +52,7 @@ const validationSchema = yup.object().shape({
 
 const mapStateToProps = (state, ownProps) => {
   /*********************************************************************************************************************
-   * validationSchema isn't data from the state, but it is dispatched to the screen in this way.                       *
+   * validationSchema isn't data from the state or ownProps, but it is dispatched to the screen in this way.           *
    * It has been done in this way, because creating a class, which can be used in the 'connect' method,                *
    * for only return                                                                                                   *
    * <RegistrationScreen register={register} navigation={this.props.navigation} validationScheme={validationScheme} /> *

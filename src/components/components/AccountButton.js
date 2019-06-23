@@ -31,6 +31,7 @@ type Props = {
   onPress: Function,
   username: string
 };
+
 export default function AccountButton(props: Props) {
   const element = props.isLogged ? (
     <Menu

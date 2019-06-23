@@ -13,6 +13,7 @@ import { errorTextColor } from "../../../constants/colors";
 type Props = {
   errorMessage: string
 };
+
 export default function LRErrorMessage(props: Props) {
   return (
     <View style={styles.errorTextWrapper}>

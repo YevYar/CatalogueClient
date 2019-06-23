@@ -21,6 +21,7 @@ type Props = {
   rating: string,
   text: string
 };
+
 export default function Comment(props: Props) {
   let date = new Date(props.dateTime);
   const options = {

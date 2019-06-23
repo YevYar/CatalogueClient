@@ -9,7 +9,7 @@ import ServerApiService from "../services/ServerApiService";
 import {
   fetchProductsFail,
   fetchProductsSuccess
-} from "../actionCreators/CatalogueActions";
+} from "../actionCreators/catalogueActions";
 import showErrorMessage from "./showErrorMessage";
 
 const FETCH_CATALOGUE_FAIL_MESSAGE =

@@ -8,19 +8,23 @@
 import { connect } from "react-redux";
 
 import CommentsScreen from "../components/screens/CommentsScreen";
-import { changeCommentInputVisibility } from "../actionCreators/CommentActions";
-import { postComment } from "../middlewares/CommentMiddleware";
+import { changeCommentInputVisibility } from "../actionCreators/commentActions";
+import { postComment } from "../middlewares/commentMiddleware";
 
 const mapStateToProps = state => {
   return {
     comments:
       // comments don't mutate in the presentation component, so I can get they by reference
-      state.domainData.comments[`product_${state.appState.selectedProduct}`],
-    isCommentInputVisible: state.uiState.isCommentInputVisible,
-    isCommentsLoadedWithoutErrors: state.appState.isCommentsLoadedWithoutErrors,
-    isCommentsLoadingFinished: state.appState.isCommentsLoadingFinished,
-    isLogged: state.appState.isLogged,
-    productId: state.appState.selectedProduct
+      state.commentsState.domainData.comments[
+        `product_${state.catalogueState.appState.selectedProduct}`
+      ],
+    isCommentInputVisible: state.commentsState.uiState.isCommentInputVisible,
+    isCommentsLoadedWithoutErrors:
+      state.commentsState.appState.isCommentsLoadedWithoutErrors,
+    isCommentsLoadingFinished:
+      state.commentsState.appState.isCommentsLoadingFinished,
+    isLogged: state.userState.appState.isLogged,
+    productId: state.catalogueState.appState.selectedProduct
   };
 };
 

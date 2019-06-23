@@ -12,7 +12,7 @@ import {
   postCommentFail,
   postCommentSuccess,
   setCommentsLoadedToFalse
-} from "../actionCreators/CommentActions";
+} from "../actionCreators/commentActions";
 import showErrorMessage from "./showErrorMessage";
 
 const FETCH_COMMENTS_FAIL_MESSAGE =

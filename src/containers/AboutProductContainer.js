@@ -8,15 +8,15 @@
 import { connect } from "react-redux";
 
 import AboutProductScreen from "../components/screens/AboutProductScreen";
-import { fetchProductComments } from "../middlewares/CommentMiddleware";
+import { fetchProductComments } from "../middlewares/commentMiddleware";
 
 const mapStateToProps = (state, ownProps) => {
-  const data = state.domainData.products.find(
-    x => x.id === state.appState.selectedProduct
+  const data = state.catalogueState.domainData.products.find(
+    x => x.id === state.catalogueState.appState.selectedProduct
   );
   return {
     goTo: () => ownProps.navigation.navigate("Comments"),
-    id: state.appState.selectedProduct,
+    id: state.catalogueState.appState.selectedProduct,
     product: data //not { ...data }, because data doesn't mutate in the presentation component
   };
 };

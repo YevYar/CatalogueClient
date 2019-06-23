@@ -22,6 +22,7 @@ type Props = {
   validationSchema?: yup.Schema
 };
 type States = {};
+
 export default class LoginScreen extends Component<Props, States> {
   render() {
     return (

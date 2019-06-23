@@ -14,7 +14,7 @@ import RNSecureKeyStore from "react-native-secure-key-store";
 import {
   restoreSessionFail,
   restoreSessionSuccess
-} from "../../actionCreators/SessionStoreActions/RestoreSessionActions";
+} from "../../actionCreators/SessionStoreActions/restoreSessionActions";
 import ServerApiService from "../../services/ServerApiService";
 
 const updateHeaders = ServerApiService.updateHeaders;

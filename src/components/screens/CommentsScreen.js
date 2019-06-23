@@ -7,7 +7,6 @@
 
 import React, { Component } from "react";
 import {
-  ActivityIndicator,
   Alert,
   FlatList,
   Image,
@@ -20,7 +19,8 @@ import Modal from "react-native-modal";
 import { ADD_COMMENT } from "../../constants/images";
 import Comment from "../components/Comment";
 import CommentInput from "../components/CommentInput";
-import { mainDark, mainLight, screenBackground } from "../../constants/colors";
+import ScreenActivityIndicator from "../components/ScreenActivityIndicator";
+import { mainLight, screenBackground } from "../../constants/colors";
 
 type Props = {
   changeCommentInputVisibility: Function,
@@ -33,6 +33,7 @@ type Props = {
   productId: number
 };
 type States = { isCommentInputVisible: boolean };
+
 export default class CommentsScreen extends Component<Props, States> {
   state = {
     isCommentInputVisible: false
@@ -98,11 +99,7 @@ export default class CommentsScreen extends Component<Props, States> {
     } else {
       return (
         <View style={styles.page}>
-          <ActivityIndicator
-            size={55}
-            color={mainDark}
-            style={styles.activityIndicator}
-          />
+          <ScreenActivityIndicator />
         </View>
       );
     }
@@ -135,9 +132,6 @@ const styles = StyleSheet.create({
   /******************
    * element styles *
    ******************/
-  activityIndicator: {
-    alignSelf: "center"
-  },
   addButton: {
     height: 75,
     width: 75

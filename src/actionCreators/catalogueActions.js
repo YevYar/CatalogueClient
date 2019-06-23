@@ -1,5 +1,5 @@
 /**
- * This module contains actions related to product list
+ * This module contains actions related to the product list
  *
  * @format
  * @flow

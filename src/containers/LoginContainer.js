@@ -8,7 +8,7 @@
 import { connect } from "react-redux";
 
 import LoginScreen from "../components/screens/LoginScreen";
-import { login } from "../middlewares/UserAccountMiddleware/AuthorizationMiddleware";
+import { login } from "../middlewares/UserAccountMiddleware/authorizationMiddleware";
 
 const mapStateToProps = (state, ownProps) => {
   return {

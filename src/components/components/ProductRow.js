@@ -27,6 +27,7 @@ import {
 
 type Props = { image: string, onPress: Function, text: string, title: String };
 type States = { loadError: boolean };
+
 export default class ProductRow extends Component<Props, States> {
   state = {
     loadError: false

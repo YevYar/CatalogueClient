@@ -8,16 +8,16 @@
 import {
   loginFail,
   loginSuccess
-} from "../../actionCreators/UserAccountActions/AuthorizationActions";
+} from "../../actionCreators/UserAccountActions/authorizationActions";
 import NavigationService from "../../services/NavigationService";
-import { saveUserAccountData } from "../SessionStoreMiddleware/AccountStoreMiddleware";
+import { saveUserAccountData } from "../SessionStoreMiddleware/accountStoreMiddleware";
 import showErrorMessage from "../showErrorMessage";
 import ServerApiService from "../../services/ServerApiService";
 
-const apiClient = ServerApiService.getApiService();
-const updateHeaders = ServerApiService.updateHeaders;
 const INVALID_DATA_MESSAGE = "Invalid entered data.";
 const LOGIN_FAIL_MESSAGE = "Something has gone wrong. We can't login.";
+const apiClient = ServerApiService.getApiService();
+const updateHeaders = ServerApiService.updateHeaders;
 
 export function login(username: string, password: string) {
   return (dispatch: Function) => {

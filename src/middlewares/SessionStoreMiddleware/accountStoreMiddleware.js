@@ -1,6 +1,6 @@
 /**
  * This module contains middleware that executes all functions
- * related to the storing access token and username.
+ * related to the storing some user (account) data.
  *
  * All functions related to storing or removing
  * some data in local storage can be located here.
@@ -15,7 +15,7 @@ import ServerApiService from "../../services/ServerApiService";
 import {
   logoutFail,
   logoutSuccess
-} from "../../actionCreators/SessionStoreActions/AccountStoreActions";
+} from "../../actionCreators/UserAccountActions/logoutActions";
 import showErrorMessage from "../showErrorMessage";
 
 const LOGOUT_ERROR_MESSAGE = "We can't log out.";
@@ -23,11 +23,15 @@ const SAVE_ACCOUNT_DATA_ERROR_MESSAGE =
   "We can't save account data for session recovery.";
 const updateHeaders = ServerApiService.updateHeaders;
 
-export function logout() {
+export function removeUserAccountData(
+  key: string,
+  onSuccess: Function,
+  onFail: Function
+) {
   /**********************************************************************************
    * RNSecureKeyStore.remove(key) removes an account data from an encrypted storage *
    **********************************************************************************/
-  return (dispatch: Function) => {
+  /*return (dispatch: Function) => {
     return RNSecureKeyStore.remove("Token").then(
       () => {
         return RNSecureKeyStore.remove("Username").then(
@@ -48,20 +52,9 @@ export function logout() {
         dispatch(logoutFail());
       }
     );
-  };
-  //return (dispatch: Function) => dispatch(logoutAction());
+  };*/
 
-  /*RNSecureKeyStore.remove("Token").then(
-    res => console.log(res),
-    err => console.log(err)
-  );
-  RNSecureKeyStore.remove("Username").then(
-    res => console.log(res),
-    err => console.log(err)
-  );
-  updateHeaders("");
-
-  return (dispatch: Function) => dispatch(logoutAction());*/
+  RNSecureKeyStore.remove(key).then(() => onSuccess(), err => onFail(err));
 }
 
 export function saveUserAccountData(token: String, username: string) {
@@ -88,14 +81,4 @@ export function saveUserAccountData(token: String, username: string) {
       showErrorMessage(SAVE_ACCOUNT_DATA_ERROR_MESSAGE);
     }
   );
-
-  /*
-  RNSecureKeyStore.set("Token", token, {
-    accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY
-  }).then(res => console.log(res), err => console.log(err));
-
-  RNSecureKeyStore.set("Username", username, {
-    accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY
-  }).then(res => console.log(res), err => console.log(err));
-  */
 }

@@ -25,6 +25,7 @@ import {
 
 type Props = { onClosePress: Function, onSend: Function };
 type States = { comment: string, rating: number };
+
 export default class CommentInput extends Component<Props, States> {
   static defaultProps = {
     onClosePress: () => {},

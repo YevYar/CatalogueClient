@@ -32,6 +32,7 @@ type Props = {
   validationSchema?: yup.Schema
 };
 type States = {};
+
 export default class LRForm extends Component<Props, States> {
   static defaultProps = {
     confirmPassword: false,

@@ -8,17 +8,17 @@
 import {
   registerFail,
   registerSuccess
-} from "../../actionCreators/UserAccountActions/RegistrationActions";
+} from "../../actionCreators/UserAccountActions/registrationActions";
 import NavigationService from "../../services/NavigationService";
-import { saveUserAccountData } from "../SessionStoreMiddleware/AccountStoreMiddleware";
+import { saveUserAccountData } from "../SessionStoreMiddleware/accountStoreMiddleware";
 import showErrorMessage from "../showErrorMessage";
 import ServerApiService from "../../services/ServerApiService";
 
-const apiClient = ServerApiService.getApiService();
-const updateHeaders = ServerApiService.updateHeaders;
 const USERNAME_EXISTED_MESSAGE = "User with this username has already existed.";
 const REGISTER_FAIL_MESSAGE =
   "Something has gone wrong. We can't register you.";
+const apiClient = ServerApiService.getApiService();
+const updateHeaders = ServerApiService.updateHeaders;
 
 export function register(username: string, password: string) {
   return (dispatch: Function) => {

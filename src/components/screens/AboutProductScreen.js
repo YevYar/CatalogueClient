@@ -35,6 +35,7 @@ type Props = {
   product: Object
 };
 type States = { height: number, loadError: boolean, width: number };
+
 export default class AboutProductScreen extends Component<Props, States> {
   state = {
     height: 100,

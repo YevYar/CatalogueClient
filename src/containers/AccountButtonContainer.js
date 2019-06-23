@@ -8,13 +8,13 @@
 import { connect } from "react-redux";
 
 import AccountButton from "../components/components/AccountButton";
-import { logout } from "../middlewares/SessionStoreMiddleware/AccountStoreMiddleware";
+import { logout } from "../middlewares/UserAccountMiddleware/logoutMiddleware";
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    isLogged: state.appState.isLogged,
+    isLogged: state.userState.appState.isLogged,
     onPress: ownProps.onPress,
-    username: state.domainData.username
+    username: state.userState.domainData.username
   };
 };
 

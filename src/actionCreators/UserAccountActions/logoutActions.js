@@ -1,5 +1,5 @@
 /**
- * This module contains actions related to storing account data on client side.
+ * This module contains actions related to logout.
  *
  * @format
  * @flow
