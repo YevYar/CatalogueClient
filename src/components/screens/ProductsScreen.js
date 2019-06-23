@@ -16,7 +16,6 @@ type Props = {
   fetchProducts: Function,
   goTo: Function,
   isProductsLoadingFinished: boolean,
-  //navigation: Object,
   openProductInfo: Function,
   products: Array<Object>
 };
@@ -35,7 +34,6 @@ export default class ProductsScreen extends Component<Props, States> {
             onPress={() => {
               this.props.openProductInfo(item.id);
               this.props.goTo();
-              //this.props.navigation.navigate("About");
             }}
             text={item.brief}
             title={item.title}

@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
     color: errorTextColor,
     flexWrap: "wrap",
     fontSize: 14,
-    //marginBottom: 12,
     marginTop: -30,
     minHeight: 10,
     textAlign: "center"

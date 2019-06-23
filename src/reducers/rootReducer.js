@@ -55,18 +55,7 @@ export default function rootReducer(
       action.selectedProduct = state.catalogueState.appState.selectedProduct;
       return createNewState(state, action);
 
-    /*return {
-        ...state,
-        uiState: { ...state.uiState, isCommentInputVisible: action.isVisible }
-      };*/
-
     default:
       return createNewState(state, action);
-    /*return {
-        catalogueState: catalogueReducer(state.catalogueState, action),
-        commentsState: commentReducer(state.commentsState, action),
-        userState: userReducer(state.userState, action)
-      };*/
-    //return state;
   }
 }

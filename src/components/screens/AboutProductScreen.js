@@ -31,7 +31,6 @@ type Props = {
   fetchProductComments: Function,
   goTo: Function,
   id: number,
-  //navigation: Object,
   product: Object
 };
 type States = { height: number, loadError: boolean, width: number };
@@ -104,7 +103,6 @@ export default class AboutProductScreen extends Component<Props, States> {
             onPress={() => {
               this.props.fetchProductComments(this.props.id);
               this.props.goTo();
-              //this.props.navigation.navigate("Comments");
             }}
             style={styles.commentsButton}
             underlayColor={mainDark}

@@ -16,7 +16,6 @@ import {
 } from "../../constants/colors";
 
 type Props = {
-  //navigation: Object,
   goTo: Function,
   register: Function,
   validationSchema?: yup.Schema
@@ -34,10 +33,7 @@ export default class RegistrationScreen extends Component<Props, States> {
           validationSchema={this.props.validationSchema}
         >
           <TouchableHighlight
-            onPress={
-              () => this.props.goTo()
-              //() => this.props.navigation.navigate("Login")
-            }
+            onPress={() => this.props.goTo()}
             style={styles.buttonContainerWithoutDecor}
             underlayColor="transparent"
           >

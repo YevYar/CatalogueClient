@@ -56,10 +56,6 @@ export default function commentReducer(state: Object, action: Object) {
       };
 
     case POST_COMMENT_SUCCESS:
-      /*action.newComment.created_by = { username: state.domainData.username };
-      action.newComment.id = state.appState.tempCommentId - 1;
-      action.newComment.product = state.appState.selectedProduct;*/
-
       console.log(action.newComment);
 
       return {

@@ -23,9 +23,7 @@ type Props = {
   value: string
 };
 
-export default function LRInput(
-  /*{ secureTextEntry = false, ...props }: Props*/ props: Props
-) {
+export default function LRInput(props: Props) {
   props = { secureTextEntry: false, ...props };
 
   return (

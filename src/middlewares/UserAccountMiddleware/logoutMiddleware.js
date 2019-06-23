@@ -40,26 +40,5 @@ export function logout() {
         dispatch(logoutFail());
       }
     );
-    /*
-    return RNSecureKeyStore.remove("Token").then(
-      () => {
-        return RNSecureKeyStore.remove("Username").then(
-          () => {
-            updateHeaders("");
-            dispatch(logoutSuccess());
-          },
-          err => {
-            console.log(err);
-            showErrorMessage(LOGOUT_ERROR_MESSAGE);
-            dispatch(logoutFail());
-          }
-        );
-      },
-      err => {
-        console.log(err);
-        showErrorMessage(LOGOUT_ERROR_MESSAGE);
-        dispatch(logoutFail());
-      }
-    );*/
   };
 }

@@ -18,7 +18,6 @@ import {
 type Props = {
   goTo: Function,
   login: Function,
-  //navigation: Object,
   validationSchema?: yup.Schema
 };
 type States = {};
@@ -33,10 +32,7 @@ export default class LoginScreen extends Component<Props, States> {
           validationSchema={this.props.validationSchema}
         >
           <TouchableHighlight
-            onPress={
-              () => this.props.goTo()
-              //() => this.props.navigation.navigate("Registration")
-            }
+            onPress={() => this.props.goTo()}
             style={styles.buttonContainerWithoutDecor}
             underlayColor="transparent"
           >

@@ -62,8 +62,6 @@ export default class LRForm extends Component<Props, States> {
     super(props, defaultProps);
     console.log("console.log(props.validationSchema)");
     console.log(props.validationSchema);
-    /*if (props.validationSchema === undefined)
-      this.props.validationSchema = defaultProps.validationSchema;*/
   }
 
   render() {

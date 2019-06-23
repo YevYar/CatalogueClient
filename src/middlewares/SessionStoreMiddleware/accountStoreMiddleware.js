@@ -11,49 +11,16 @@
 
 import RNSecureKeyStore, { ACCESSIBLE } from "react-native-secure-key-store";
 
-import ServerApiService from "../../services/ServerApiService";
-import {
-  logoutFail,
-  logoutSuccess
-} from "../../actionCreators/UserAccountActions/logoutActions";
 import showErrorMessage from "../showErrorMessage";
 
-const LOGOUT_ERROR_MESSAGE = "We can't log out.";
 const SAVE_ACCOUNT_DATA_ERROR_MESSAGE =
   "We can't save account data for session recovery.";
-const updateHeaders = ServerApiService.updateHeaders;
 
 export function removeUserAccountData(
   key: string,
   onSuccess: Function,
   onFail: Function
 ) {
-  /**********************************************************************************
-   * RNSecureKeyStore.remove(key) removes an account data from an encrypted storage *
-   **********************************************************************************/
-  /*return (dispatch: Function) => {
-    return RNSecureKeyStore.remove("Token").then(
-      () => {
-        return RNSecureKeyStore.remove("Username").then(
-          () => {
-            updateHeaders("");
-            dispatch(logoutSuccess());
-          },
-          err => {
-            console.log(err);
-            showErrorMessage(LOGOUT_ERROR_MESSAGE);
-            dispatch(logoutFail());
-          }
-        );
-      },
-      err => {
-        console.log(err);
-        showErrorMessage(LOGOUT_ERROR_MESSAGE);
-        dispatch(logoutFail());
-      }
-    );
-  };*/
-
   RNSecureKeyStore.remove(key).then(() => onSuccess(), err => onFail(err));
 }
 
