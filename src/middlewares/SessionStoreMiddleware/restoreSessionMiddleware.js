@@ -11,15 +11,15 @@
 
 import RNSecureKeyStore from "react-native-secure-key-store";
 
+import ServerApiService from "../../services/ServerApiService";
 import {
   restoreSessionFail,
   restoreSessionSuccess
 } from "../../actionCreators/SessionStoreActions/restoreSessionActions";
-import ServerApiService from "../../services/ServerApiService";
 
 const updateHeaders = ServerApiService.updateHeaders;
 
-export function restoreSession() {
+export function restoreSession(...callbacks: Array<Function>) {
   /****************************************************************************
    * RNSecureKeyStore.get(key) gets an account data from an encrypted storage *
    ****************************************************************************/
@@ -39,12 +39,14 @@ export function restoreSession() {
               console.log("restoreSessionSuccess username: " + res);
               updateHeaders(token);
               dispatch(restoreSessionSuccess(token, res));
+              callbacks.forEach(item => dispatch(item())); // dispatch(callback());
             } else dispatch(restoreSessionFail());
           },
           err => {
             console.log("get username err: ");
             console.log(err);
             dispatch(restoreSessionFail());
+            callbacks.forEach(item => dispatch(item())); // dispatch(callback());
           }
         );
       },
@@ -52,6 +54,7 @@ export function restoreSession() {
         console.log("get token err: ");
         console.log(err);
         dispatch(restoreSessionFail());
+        callbacks.forEach(item => dispatch(item())); // dispatch(callback());
       }
     );
   };

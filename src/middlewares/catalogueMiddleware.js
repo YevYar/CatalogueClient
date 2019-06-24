@@ -19,7 +19,12 @@ const apiClient = ServerApiService.getApiService();
 const imgUrl = "http://smktesting.herokuapp.com/static/";
 
 export function fetchProducts() {
+  console.log("Header");
+  console.log(
+    ServerApiService.instance.defaults.headers.Authorization.toString()
+  );
   return (dispatch: Function) => {
+    console.log(apiClient.defaults.headers.Authorization);
     return apiClient
       .get("products/")
       .then(response => {

@@ -23,8 +23,13 @@ type Props = { fetchProducts: Function, restoreSession: Function };
 type States = {};
 class App extends Component<Props, States> {
   componentDidMount() {
-    this.props.restoreSession();
-    this.props.fetchProducts();
+    /**************************************************************************************
+     * Api requests have to contain token header if an user logged in in the last session. *
+     * So app have to fetch products only after restoreSession will be executed.          *
+     **************************************************************************************/
+    this.props.restoreSession(() => fetchProducts());
+
+    //this.props.fetchProducts();
     //setTimeout(() => this.props.fetchProducts(), 5000);
   }
 
@@ -45,7 +50,7 @@ const mapStateToProps = () => {
   return {};
 };
 
-const mapDispatchToProps = { fetchProducts, restoreSession };
+const mapDispatchToProps = { /*fetchProducts,*/ restoreSession };
 
 const ConnectedApp = connect(
   mapStateToProps,

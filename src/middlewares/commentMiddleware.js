@@ -22,6 +22,8 @@ const POST_COMMENT_FAIL_MESSAGE =
 const apiClient = ServerApiService.getApiService();
 
 export function fetchProductComments(id: number) {
+  console.log("Header");
+  console.log(apiClient.defaults.headers.Authorization);
   return (dispatch: Function) => {
     dispatch(setCommentsLoadedToFalse());
     return apiClient
