@@ -7,12 +7,6 @@
  */
 
 function restoreSessionSuccess(state: Object, action: Object) {
-  console.log("\n\n");
-  console.log("====================== STATE in RESTORE_SESSION_REDUCER");
-  console.log(action.type);
-  console.log(state);
-  console.log("token: " + action.token);
-  console.log("username: " + action.username);
   return {
     ...state,
     appState: { ...state.appState, isLogged: true },

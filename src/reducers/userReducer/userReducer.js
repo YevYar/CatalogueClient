@@ -18,12 +18,6 @@ const reducerFunctions = {
 };
 
 export default function userReducer(state: Object, action: Object) {
-  console.log("\n\n");
-  console.log("====================== STATE in USER_REDUCER");
-  console.log(action.type);
-  console.log(state);
-
-  console.log(reducerFunctions);
   if (reducerFunctions.hasOwnProperty(action.type))
     return reducerFunctions[action.type](state, action);
   else return state;

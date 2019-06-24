@@ -7,10 +7,6 @@
  */
 
 function logoutSuccess(state: Object, action: Object) {
-  console.log("\n\n");
-  console.log("====================== STATE in LOGOUT_REDUCER");
-  console.log(action.type);
-  console.log(state);
   return {
     ...state,
     appState: { ...state.appState, isLogged: false },

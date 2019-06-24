@@ -1,6 +1,9 @@
 /**
  * This module contains actions related to login.
  *
+ * All actions related to login can be located here.
+ * For example, there is can be located 'restore password' actions.
+ *
  * @format
  * @flow
  */

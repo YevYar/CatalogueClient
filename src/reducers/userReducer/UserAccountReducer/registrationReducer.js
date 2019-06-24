@@ -7,11 +7,6 @@
  */
 
 function registerSuccess(state: Object, action: Object) {
-  console.log("\n\n");
-  console.log("====================== STATE in REGISTRATION_REDUCER");
-  console.log(action.type);
-  console.log(state);
-  console.log("token: " + action.token);
   return {
     ...state,
     appState: { ...state.appState, isLogged: true },

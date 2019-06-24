@@ -1,6 +1,9 @@
 /**
  * This module contains middleware that executes all functions related to the authorization.
  *
+ * All functions related to login can be located here.
+ * For example, there is can be located 'restore password' function.
+ *
  * @format
  * @flow
  */
@@ -24,8 +27,6 @@ export function login(username: string, password: string) {
     return apiClient
       .post("login/", { username: username, password: password })
       .then(response => {
-        console.log("login");
-
         if (response.data.success === true) {
           //NavigationService.navigate("Home");
           NavigationService.goBack();

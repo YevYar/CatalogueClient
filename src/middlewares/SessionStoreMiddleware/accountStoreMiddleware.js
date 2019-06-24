@@ -32,19 +32,19 @@ export function saveUserAccountData(token: String, username: string) {
     accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY
   }).then(
     res => {
-      console.log(res);
+      console.log("saveUserAccountData: " + res);
       RNSecureKeyStore.set("Username", username, {
         accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY
       }).then(
-        res => console.log(res),
+        res => console.log("saveUserAccountData: " + res),
         err => {
-          console.log(err);
+          console.log("saveUserAccountData error: " + err);
           showErrorMessage(SAVE_ACCOUNT_DATA_ERROR_MESSAGE);
         }
       );
     },
     err => {
-      console.log(err);
+      console.log("saveUserAccountData error: " + err);
       showErrorMessage(SAVE_ACCOUNT_DATA_ERROR_MESSAGE);
     }
   );

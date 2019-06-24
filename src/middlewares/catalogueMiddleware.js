@@ -19,16 +19,10 @@ const apiClient = ServerApiService.getApiService();
 const imgUrl = "http://smktesting.herokuapp.com/static/";
 
 export function fetchProducts() {
-  console.log("Header");
-  console.log(
-    ServerApiService.instance.defaults.headers.Authorization.toString()
-  );
   return (dispatch: Function) => {
-    console.log(apiClient.defaults.headers.Authorization);
     return apiClient
       .get("products/")
       .then(response => {
-        console.log("fetchProducts");
         response.data.forEach(element => {
           /*****************************
            * get full path to an image *
@@ -47,7 +41,7 @@ export function fetchProducts() {
         dispatch(fetchProductsSuccess(response.data));
       })
       .catch(error => {
-        console.log("fetchProducts: " + error);
+        console.log("fetchProducts error: " + error);
         showErrorMessage(FETCH_CATALOGUE_FAIL_MESSAGE);
         dispatch(fetchProductsFail());
         //throw error;

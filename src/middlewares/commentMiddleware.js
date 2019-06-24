@@ -22,16 +22,11 @@ const POST_COMMENT_FAIL_MESSAGE =
 const apiClient = ServerApiService.getApiService();
 
 export function fetchProductComments(id: number) {
-  console.log("Header");
-  console.log(apiClient.defaults.headers.Authorization);
   return (dispatch: Function) => {
     dispatch(setCommentsLoadedToFalse());
     return apiClient
       .get(`reviews/${id}`)
       .then(response => {
-        console.log("fetchProductComments");
-        console.log(response.data);
-
         /*********************************************************
          * sort product comments by date (the newest in the top) *
          *********************************************************/
@@ -46,7 +41,7 @@ export function fetchProductComments(id: number) {
         dispatch(fetchProductCommentsSuccess(id, response.data));
       })
       .catch(error => {
-        console.log("fetchProductComments: " + error);
+        console.log("fetchProductComments error: " + error);
         showErrorMessage(FETCH_COMMENTS_FAIL_MESSAGE);
         dispatch(fetchProductCommentsFail());
         //throw error;
@@ -63,8 +58,6 @@ export function postComment(
     return apiClient
       .post(`reviews/${productId}`, { rate: rating, text: comment })
       .then(response => {
-        console.log("postComment");
-
         if (response.data.success === true) {
           const newComment = {
             created_at: new Date().toString(),
@@ -79,7 +72,7 @@ export function postComment(
         }
       })
       .catch(error => {
-        console.log("postComment: " + error);
+        console.log("postComment error: " + error);
         showErrorMessage(POST_COMMENT_FAIL_MESSAGE);
         dispatch(postCommentFail());
         //throw error;

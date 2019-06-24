@@ -40,11 +40,6 @@ export default function rootReducer(
   },
   action: Object
 ) {
-  console.log("\n\n");
-  console.log("====================== STATE ROOT_REDUCER");
-  console.log(action.type);
-  console.log(state);
-
   switch (action.type) {
     case POST_COMMENT_SUCCESS:
       action.newComment.created_by = {

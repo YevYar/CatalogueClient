@@ -1,6 +1,9 @@
 /**
  * This module contains middleware that executes all functions related to the registration.
  *
+ * All functions related to registration can be located here.
+ * For example, there is can be located 'confirm by email' function and so on.
+ *
  * @format
  * @flow
  */
@@ -25,7 +28,6 @@ export function register(username: string, password: string) {
     return apiClient
       .post("register/", { username: username, password: password })
       .then(response => {
-        console.log("register");
         if (response.data.success === true) {
           //NavigationService.navigate("Home");
           NavigationService.goBack();

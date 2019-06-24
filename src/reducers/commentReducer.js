@@ -15,11 +15,6 @@ import {
 } from "../actionCreators/types";
 
 export default function commentReducer(state: Object, action: Object) {
-  console.log("\n\n");
-  console.log("====================== STATE in COMMENT_REDUCER");
-  console.log(action.type);
-  console.log(state);
-
   switch (action.type) {
     case CHANGE_COMMENT_INPUT_VISIBILITY:
       return {
@@ -56,8 +51,6 @@ export default function commentReducer(state: Object, action: Object) {
       };
 
     case POST_COMMENT_SUCCESS:
-      console.log(action.newComment);
-
       return {
         ...state,
         appState: {

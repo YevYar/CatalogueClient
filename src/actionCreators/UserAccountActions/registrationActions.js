@@ -1,6 +1,9 @@
 /**
  * This module contains actions related to registration.
  *
+ * All actions related to registration can be located here.
+ * For example, there is can be located 'confirm by email' actions and so on.
+ *
  * @format
  * @flow
  */

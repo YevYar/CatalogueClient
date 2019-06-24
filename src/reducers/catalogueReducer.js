@@ -13,11 +13,6 @@ import {
 } from "../actionCreators/types";
 
 export default function catalogueReducer(state: Object, action: Object) {
-  console.log("\n\n");
-  console.log("====================== STATE in CATALOGUE_REDUCER");
-  console.log(action.type);
-  console.log(state);
-
   switch (action.type) {
     case FETCH_PRODUCTS_FAIL:
       return {

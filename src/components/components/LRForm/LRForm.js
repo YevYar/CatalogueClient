@@ -60,8 +60,6 @@ export default class LRForm extends Component<Props, States> {
 
   constructor(props: Props, defaultProps: Object) {
     super(props, defaultProps);
-    console.log("console.log(props.validationSchema)");
-    console.log(props.validationSchema);
   }
 
   render() {

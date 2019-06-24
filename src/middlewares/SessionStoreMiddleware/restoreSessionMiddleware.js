@@ -26,17 +26,11 @@ export function restoreSession(...callbacks: Array<Function>) {
   return (dispatch: Function) => {
     return RNSecureKeyStore.get("Token").then(
       res => {
-        console.log("get token res: ");
-        console.log(res);
         const token = res;
 
         return RNSecureKeyStore.get("Username").then(
           res => {
-            console.log("get username res: ");
-            console.log(res);
             if (token.length !== 0 && res.length !== 0) {
-              console.log("restoreSessionSuccess token: " + token);
-              console.log("restoreSessionSuccess username: " + res);
               updateHeaders(token);
               dispatch(restoreSessionSuccess(token, res));
               callbacks.forEach(item => dispatch(item())); // dispatch(callback());
